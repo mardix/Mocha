@@ -1,0 +1,47 @@
+- import "contrib/components/html.html" as html with context
+- import "contrib/components/widget.html" as widget with context
+
+
+!!! 5
+html(lang="en")
+    head
+        meta(charset="utf-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        + html.page_title("Site Maintenance")
+        + html.include_bootstrap()
+        + html.include_fontawesome()
+        + html.include_css_file('http//fonts.googleapis.com/css?family=Raleway:400,300,600')
+
+        style.
+            body {
+                font: 20px "Raleway", Helvetica, sans-serif;
+                color: #666;
+                text-align: center;
+                padding-top: 100px;
+            }
+            h1 {
+                font-size: 3em
+            }
+            .fa-6x { font-size: 10em;
+                margin: 20px;
+            }
+            .alert-danger,
+            .alert-warning,
+            .alert-success,
+            .alert-info {
+                background-color: transparent !important;
+                border-color: transparent !important;
+            }
+
+    body
+        .container
+            .row
+                .col-md-12.maintenance
+                    + widget.alert("info")
+                        h1 We'll be back soon!
+                        i.fa.fa-cogs.fa-6x
+                        h4
+                            | Sorry for the inconvenience but we're performing some maintenance at the moment. <br>
+                            | We'll be back online shortly. <br>
+                            | Thanks!
+

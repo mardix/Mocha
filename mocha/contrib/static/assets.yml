@@ -1,0 +1,145 @@
+
+# Error Page
+contrib.error_page.css:
+  output: gen/contrib.error_page.css
+  contents:
+      - contrib/error_page/css/error_page.css
+
+## Contact Page
+#contrib.contact_page.css:
+#  output:
+#  contents:
+#    -
+#
+#mocha.lib.js:
+#  output: gen/mocha.lib.js
+#  contents:
+#    -
+#
+#mocha.lib.css:
+#  output:
+#  contents:
+#    -
+#
+## Maintenance Page
+#contrib.maintenance_page.css:
+#  output:
+#  contents:
+#    -
+
+# Admin
+
+
+contrib.imagepreview.js:
+  output: gen/contrib.imagepreview.js
+  contents:
+      - contrib/vendor/js/imagepreview.js
+
+contrib.formvalidator.js:
+  output: gen/contrib.formvalidator.js
+  contents:
+     - node_modules/jquery-form-validator/form-validator/jquery.form-validator.min.js
+     - contrib/init-form-validator.js
+
+
+contrib.auth.js:
+  output: gen/contrib.auth.js
+  contents:
+    - contrib/vendor/js/imagepreview.js
+    - contrib/auth/app.js
+
+contrib.auth.css:
+  output: gen/contrib.auth.css
+  contents:
+      - contrib/auth/style.css
+
+contrib.admin.css:
+  output: gen/contrib.admin.css
+  contents:
+      - contrib/admin/style.css
+
+
+contrib.commons.css:
+  output: gen/contrib.commons.css
+  contents:
+      - contrib/css/commons.css
+
+contrib.admin.js:
+  output: gen/contrib.admin.js
+  contents:
+      - contrib/admin/js/admin.js
+
+contrib.admin.css:
+  output: gen/contrib.admin.css
+  contents:
+      - contrib/admin/css/admin.css
+
+
+contrib.auth-admin.js:
+  output: gen/contrib.auth-admin.js
+  contents:
+      - contrib/auth/admin.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+#-----
+
+mocha-commons.js:
+  output: gen/mocha-commons.js
+  contents:
+    - Mocha/vendor/jquery-lazy/jquery.lazy.min.js
+    - Mocha/jquery-oembed/jquery.oembed.js
+    - Mocha/lib/js/mocha.js
+
+
+
+jquery.js:
+  output: gen/jquery.js
+  contents:
+      - Mocha/vendor/jquery/jquery.min.js
+
+bootstrap.js:
+  output: gen/bootstrap.js
+  contents:
+    - Mocha/vendor/bootstrap/js/bootstrap.min.js
+
+bootstrap.css:
+  output: gen/bootstrap.css
+  contents:
+    - Mocha/vendor/bootstrap/js/bootstrap.min.js
+
+global.js:
+  output: gen/global.js
+  contents:
+      - Mocha/vendor/bootstrap/js/bootstrap.min.js
+      #- Mocha/authomatic/authomatic.js
+      - Mocha/vendor/moment/moment.js
+      - Mocha/vendor/moment-timezone/moment-timezone.js
+
+      - Mocha/vendor/jssocials/jssocials.js
+      - Mocha/vendor/js-cookie/js.cookie.js
+      - Mocha/vendor/jquery-form-validator/jquery.form-validator.min.js
+      - Mocha/vendor/eonasdan-bootstrap-datetimepicker/bootstrap-datetimepicker.min.js
+
+
+global.css:
+  output: gen/global.css
+  contents:
+      - Mocha/vendor/bootstrap/css/bootstrap.min.css
+      - Mocha/vendor/bootstrap-social/bootstrap-social.css
+      - Mocha/jquery-oembed/jquery.oembed.css
+      - Mocha/vendor/jssocials/jssocials.css
+      - Mocha/vendor/jssocials/jssocials-theme-flat.css
+      - Mocha/vendor/eonasdan-bootstrap-datetimepicker/bootstrap-datetimepicker.min.css
+      - Mocha/lib/css/mocha.css
+

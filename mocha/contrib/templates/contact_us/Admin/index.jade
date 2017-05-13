@@ -1,0 +1,16 @@
++ html.include_js_file('contrib.formvalidator.js')
+
+.row
+    .col-md-12.mb20
+        h3.text-center= _("Contact Us Settings")
+
+
+.row
+    .col-md-12
+        + widget.panel("Contact Us Settings")
+            + widget.panel_body()
+                + forms.post('contact_us.Admin:post')
+                    + forms.input('recipients', label=_('Recipients'), value=recipients, data={"validation": "required"})
+                    + forms.input('success_message', label=_('Success Message'), value=success_message, data={"validation": "required"})
+                    + forms.button(_("Save Settings"), type='submit', class='btn btn-primary')
+

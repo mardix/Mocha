@@ -1,0 +1,63 @@
+
+
+.row
+    .col-md-6.col-md-offset-3
+        .row
+            .col-md-12.text-center.pb20.mb20
+                h3= _("Account Settings")
+
+        .row
+            .col-md-3.mb20
+                if current_user.profile_image.url
+                    img(src=current_user.profile_image.url, class="img-thumbnail", height=120, width=120)
+
+            .col-md-9
+                table.table
+                    tbody
+                        if current_user.login_method == "username"
+                            tr
+                                td= _("Username")
+                                td= current_user.username
+                            tr
+                                td= _("Email")
+                                td= current_user.email
+
+                        elif current_user.login_method == "email"
+                                tr
+                                    td= _("Login Email")
+                                    td= current_user.username
+                        tr
+                            td Name
+                            td= current_user.full_name
+
+
+        .row
+            .col-md-12
+                + widget.accordion(id='edit-account')
+
+                    + widget.collapse()
+                        + widget.collapse_header(accordion_id="edit-account", body_id="edit-account-name")
+                            = _("Edit Info")
+                        + widget.collapse_body(id="edit-account-name")
+                            - include 'contrib/auth/Account/forms/info.jade' with context
+
+
+                    + widget.collapse()
+                        + widget.collapse_header(accordion_id="edit-account", body_id="edit-account-login")
+                            = _("Edit Login")
+                        + widget.collapse_body(id="edit-account-login")
+                            - include 'contrib/auth/Account/forms/login.jade' with context
+
+                    if current_user.login_method == "username"
+                        + widget.collapse()
+                            + widget.collapse_header(accordion_id="edit-account", body_id="edit-account-email")
+                                = _("Edit Email")
+                            + widget.collapse_body(id="edit-account-email")
+                                - include 'contrib/auth/Account/forms/email.jade' with context
+
+
+                    + widget.collapse()
+                        + widget.collapse_header(accordion_id="edit-account", body_id="edit-account-password")
+                            = _("Edit Password")
+                        + widget.collapse_body(id="edit-account-password")
+                            - include 'contrib/auth/Account/forms/password.jade' with context

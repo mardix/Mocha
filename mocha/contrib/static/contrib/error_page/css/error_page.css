@@ -1,0 +1,42 @@
+.error-page .fa-6x {
+  font-size: 10em; }
+.error-page .alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6; }
+.error-page .alert-success hr {
+  border-top-color: #c9e2b3; }
+.error-page .alert-success .alert-link {
+  color: #2b542c; }
+.error-page .alert-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1; }
+.error-page .alert-info hr {
+  border-top-color: #a6e1ec; }
+.error-page .alert-info .alert-link {
+  color: #245269; }
+.error-page .alert-warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc; }
+.error-page .alert-warning hr {
+  border-top-color: #f7e1b5; }
+.error-page .alert-warning .alert-link {
+  color: #66512c; }
+.error-page .alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1; }
+.error-page .alert-danger hr {
+  border-top-color: #e4b9c0; }
+.error-page .alert-danger .alert-link {
+  color: #843534; }
+.error-page .alert-danger,
+.error-page .alert-warning,
+.error-page .alert-success,
+.error-page .alert-info {
+  background-color: transparent !important;
+  border-color: transparent !important; }
+
+/*# sourceMappingURL=error_page.css.map */

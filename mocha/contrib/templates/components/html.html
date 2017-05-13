@@ -1,0 +1,170 @@
+{#
+HTML Macros
+
+#}
+
+
+{#  META  #}
+
+{#: The basic meta tag :#}
+{% macro meta_tag(name, value) %}
+    <meta name="{{ name }}" content="{{ value | safe }}">
+{% endmacro %}
+
+{#: Custom meta tag :#}
+{% macro meta_custom(namespace, name, value) %}
+    <meta {{ namespace }}="{{ name }}" content="{{ value | safe }}">
+{% endmacro %}
+
+{#: opengraph property :#}
+{% macro meta_property(namespace, name, value) %}
+    <meta property="{{ namespace }}:{{ name }}" content="{{ value | safe }}">
+{% endmacro %}
+
+{#: opengraph tag :#}
+{%- macro meta_opengraph(name, value) -%}
+    {% if value %}
+        <meta property="og:{{ name }}" content="{{ value | safe }}">
+    {% endif %}
+{%- endmacro %}
+
+{#: Custom meta tag :#}
+{%- macro meta_googleplus(name, value) -%}
+    {% if value %}
+        <meta itemprop="{{ name }}" content="{{ value | safe }}">
+    {% endif %}
+{%- endmacro -%}
+
+{#: Custom meta tag :#}
+{%- macro meta_twitter(name, value) -%}
+    {% if value %}
+        <meta name="twitter:{{ name }}" content="{{ value | safe }}">
+    {% endif %}
+{%- endmacro -%}
+
+{#: SOCIAL_GRAPH() ---------------------------------------------------------- #}
+{%- macro opengraph(use_opengraph=True, use_googleplus=True, use_twitter=True) -%}
+
+    {% set url = g.__META__["url"] or request.base_url %}
+    {% set image =  g.__META__["image"] %}
+
+    {% if g.__META__["use_opengraph"] and use_opengraph %}
+        {{ meta_opengraph("title", g.__META__["title"]) | safe }}
+        {{ meta_opengraph("description", g.__META__["description"]) | safe  }}
+        {{ meta_opengraph("url", url) }}
+        {{ meta_opengraph("site_name", g.__META__["site_name"])  | safe }}
+        {%  set object_type = g.__META__["object_type"] %}
+            {{- meta_opengraph("type", g.__META__["object_type"])  | safe -}}
+        {% if image %}
+            {{ meta_opengraph("image", image)  | safe }}
+        {% endif %}
+    {% endif %}
+
+    {% if g.__META__["use_googleplus"] and use_googleplus %}
+        {{ meta_googleplus("description", g.__META__["description"])  | safe  }}
+        {{ meta_googleplus("name", g.__META__["title"]) | safe  }}
+        {{ meta_googleplus("url", url)  | safe }}
+        {% if image %}
+            {{ meta_googleplus("image", image)  | safe }}
+        {% endif %}
+    {% endif %}
+
+    {% if g.__META__["use_twitter"] and use_twitter -%}
+        {{ meta_twitter("title", g.__META__["title"]) | safe  }}
+        {{ meta_twitter("description", g.__META__["description"])  | safe }}
+        {{ meta_twitter("url", url ) | safe  }}
+        {% if image %}
+            {{ meta_twitter("image", image) | safe  }}
+            {{ meta_twitter("card", "summary_large_image")  | safe  }}
+        {% else %}
+            {{ meta_twitter("card", "summary")  | safe }}
+        {% endif %}
+    {% endif %}
+
+    {% if g.__META__.properties %}
+        {%  for k, v in g.__META__.properties.items() %}
+            {{ meta_custom("property", k, v)  | safe }}
+        {% endfor %}
+    {% endif %}
+
+{% endmacro %}
+
+{#: Favicon :#}
+{% macro favicon(path) %}
+    <link rel="shortcut icon" href="{{- static_file(path) -}}">
+{% endmacro %}
+
+
+{% macro include_bootstrap() %}
+    {{ include_css_file('node_modules/bootstrap/dist/css/bootstrap.min.css') | safe }}
+    {{ include_js_file('node_modules/bootstrap/dist/js/bootstrap.min.js') | safe }}
+{% endmacro %}
+
+{%- macro include_jquery() -%}
+    {{ include_js_file("node_modules/jquery/dist/jquery.min.js") | safe }}
+{%- endmacro -%}
+
+{%- macro include_fontawesome() -%}
+    {{ include_css_file("node_modules/font-awesome/css/font-awesome.min.css") | safe }}
+{%- endmacro -%}
+
+{% macro include_bootswatch_theme(name="yeti") %}
+    {% set file = 'node_modules/bootswatch/%s/bootstrap.min.css' % name %}
+    {{ include_css_file(file) | safe }}
+{% endmacro %}
+
+{% macro page_title(title) %}
+    <title>{{ title | replace("%title%", g.__META__.title) }}</title>
+    {{ meta_tag("description", g.__META__.description)  | safe }}
+{% endmacro %}
+
+{% macro page_description() %}
+    {{ meta_tag("description", g.__META__.description)  | safe }}
+{% endmacro %}
+
+
+{#: CSS ------------------------------------------------------------- #}
+{%- macro include_css_file(file) %}
+    {%- assets file %}
+    <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" >
+    {% endassets -%}
+{% endmacro -%}
+
+
+{#: JS--------------------------------------------------------------- #}
+{%- macro include_js_file(file) %}
+    {%- assets file %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets -%}
+{% endmacro -%}
+
+
+{#:: static_file(url) ::#}
+{#:: Include static assets ::#}
+{%- macro static_file(url) -%}
+    {%- if not url.startswith('http') and not url.startswith('//')  -%}
+        {%- set url = url_for('static', filename=url) -%}
+    {%- endif -%}
+    {{ url | safe }}
+{%- endmacro -%}
+
+
+
+{#: GOOGLE_ANALYTICS() ------------------------------------------------------ #}
+{% macro google_analytics(code=None) %}
+    {% if not code %}
+        {% set code = config.GOOGLE_ANALYTICS_ID %}
+    {% endif %}
+    {% if code %}
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', '{{ code }}', 'auto');
+          ga('send', 'pageview');
+        </script>
+    {% endif %}
+{% endmacro %}
+

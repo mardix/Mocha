@@ -1,0 +1,603 @@
+{% import "contrib/components/html.html" as html with context %}
+
+
+{%-  macro _format_key(val, def) -%}
+    {{- val | default(def, true) | slug -}}
+{%-  endmacro -%}
+
+{#
+
+ Widget
+
+ A collection of some of Bootstrap components
+
+ Most of the macros must be called in your template around the content to be wrapped in
+
+ {% call collapse('My Title') %}
+    This is the body
+ {% endcall %}
+
+
+#}
+
+#---- ALERT --------------------------------------------------------------------
+{#
+
+widget.alert(): display alert message
+
+widget.alert(message, category, dismissible)
+    - message: The message to display
+    - category: the category (info, success, danger, warning)
+    - Dismissible: When True it will show a close button
+#}
+
+{% macro alert(category="info", dismissible=False) %}
+    <div class="alert
+        alert-{{ category|replace('error', 'danger') }}
+        {% if dismissible %}alert-dismissible{%endif%}
+        " role="alert">
+        {% if dismissible %}
+         <button type="button" class="close" data-dismiss="alert">
+             <span aria-hidden="true">&times;</span>
+             <span class="sr-only">Close</span>
+         </button>
+        {% endif %}
+        {{ caller() | safe }}
+    </div>
+{% endmacro %}
+
+
+#---- FLASHED_MESSAGES ---------------------------------------------------------
+
+{#
+ widget.flashed_messages(): display message by flask's flash()
+
+ widget.flashed_messages(dismissible)
+    - dimissible: Boolean When True it will show a close button
+
+#}
+
+{% macro flashed_messages(dismissible=True) %}
+    {% for category, message in get_flashed_messages(with_categories=True) %}
+        {%  call alert(category=category, dismissible=dismissible) %}
+            {{ message | safe }}
+        {% endcall %}
+    {%endfor%}
+{% endmacro %}
+
+
+
+#---- COLLAPSE -----------------------------------------------------------------
+
+{#
+
+collapse()
+
+    {%  call collapse('title', key, collapse, parent) %}
+        content
+    {%  endcall %}
+
+    params:
+        - title: The title of the collapse
+        - key: a unique to identify this collapse
+        - collapse: (bool) to collapse or expend the component
+        - parent: when using 'accordion', pass the parent id
+#}
+
+
+{% macro collapse(class="panel-default") %}
+    <div class="panel {{ class }}">
+        {{ caller() | safe }}
+    </div>
+{% endmacro %}
+
+
+{% macro collapse_header(body_id, accordion_id="") %}
+    <div class="panel-heading" role="tab" id="heading{{ body_id }}">
+      <span class="panel-title">
+        <a class="accordion-toggle"
+           role="button"
+           data-toggle="collapse"
+           data-parent="#{{ accordion_id }}"
+           href="#collapse{{ body_id }}"
+           aria-expanded="true"
+           aria-controls="collapse{{ id }}">
+          {{ caller() | safe }}
+        </a>
+      </span>
+    </div>
+{% endmacro %}
+
+
+{% macro collapse_content(id, open=false) %}
+    <div id="collapse{{ id }}"
+         class="panel-collapse collapse {% if open == true %}in{%  endif %}"
+         role="tabpanel"
+         aria-labelledby="heading{{ id }}">
+
+        {{ caller() | safe }}
+
+    </div>
+{% endmacro %}
+
+
+{% macro collapse_body(id, open=false) %}
+
+    <div id="collapse{{ id }}"
+         class="panel-collapse collapse {% if open == true %}in{%  endif %}"
+         role="tabpanel"
+         aria-labelledby="heading{{ id }}">
+          <div class="panel-body">
+            {{ caller() | safe }}
+          </div>
+    </div>
+{% endmacro %}
+
+
+#---- ACCORDION ----------------------------------------------------------------
+
+{#
+accordion()
+
+     Requires the use of collapse
+
+
+     {%  call accordion() %}
+        {%  call collapse('My Acc Name') %}
+            ... content
+        {%  endcall %}
+
+     {%  endcall %}
+
+     params:
+        - id: a unique identifier
+ #}
+{%  macro accordion(id="accordion") %}
+        <div class="panel-group" id="{{ id }}" role="tablist" aria-multiselectable="true">
+            {{ caller() | safe }}
+        </div>
+{%  endmacro %}
+
+
+{% macro accordion_style() %}
+<style>
+
+.accordion-toggle {
+  position: relative;
+}
+.accordion-toggle::before,
+.accordion-toggle::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: -22px;
+  width: 14px;
+  height: 4px;
+  margin-top: -2px;
+  background-color: #000;
+  -webkit-transform-origin: 50% 50%;
+  -ms-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s;
+}
+.accordion-toggle::before {
+  -webkit-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  opacity: 0;
+}
+.accordion-toggle.collapsed::before {
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
+  opacity: 1;
+}
+
+</style>
+
+{% endmacro %}
+
+#---- PANEL --------------------------------------------------------------------
+{#
+widget.panel(title, class, type)
+        - title: The title
+        - class: the class to apply on the panel
+        - type: string:
+            - table: it will make the table responsive
+#}
+{%  macro panel(title=None, class="panel-default") %}
+    <div class="panel {{ class }}">
+        {% if title %}
+            {% call panel_header() %}
+                <h4 class="panel-title">{{ title | safe }}</h4>
+            {% endcall %}
+        {% endif %}
+
+        {{ caller() | safe }}
+
+    </div>
+{%  endmacro %}
+
+
+{% macro panel_header() %}
+    <div class="panel-heading">
+        {{ caller() | safe }}
+    </div>
+{%  endmacro %}
+
+{% macro panel_body() %}
+    <div class="panel-body">
+        {{ caller() | safe }}
+    </div>
+{%  endmacro %}
+
+{% macro panel_footer() %}
+    <div class="panel-footer">
+        {{ caller() | safe }}
+    </div>
+{%  endmacro %}
+
+{% macro panel_table() %}
+    <div class="table-responsive">
+        {{ caller() | safe }}
+    </div>
+{%  endmacro %}
+
+{% macro panel_header_title_link(href="#", class="", id="") %}
+    <div class="panel-heading {{ class }}" role="tab" id="{{ id }}">
+      <span class="panel-title">
+        <a  href="{{ href | safe}}">
+          {{ caller() | safe }}
+        </a>
+      </span>
+    </div>
+{% endmacro %}
+#---- MODAL --------------------------------------------------------------------
+{#
+
+ widget.modal(id, title="", class="")
+    - id: the id of the modal, required
+    - title: of the modal
+    - class: of the modal
+
+    You will need to include
+
+    {% call modal_header() %}
+        <h4>This is my header</h4>
+    {% endcall %}
+
+    {% call modal_body() %}
+        body
+    {% endcall %}
+
+    {% call modal_footer() %}
+        footer
+    {% endcall %}
+
+
+ #}
+
+{% macro modal(id, title=None, class="") %}
+    <div class="modal fade {{ class }}" id="{{ id }}" tabindex="-1" role="dialog" aria-labelledby="modal-label-{{ id }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {% if title %}
+                    {{ modal_header(title=title) }}
+                {% endif %}
+
+                {{ caller() | safe }}
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+
+{% macro modal_header(title=None, tag="h4", close_button=true) %}
+    <div class="modal-header">
+        {% if close_button %}
+          <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i><span class="sr-only">Close</span></button>
+        {% endif %}
+        {% if caller %}
+            {{ caller() | safe }}
+        {% else %}
+            <{{ tag }} class="modal-title">{{ title | safe }}</{{ tag }}>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro modal_body() %}
+    <div class="modal-body">
+        {{ caller() | safe }}
+    </div>
+{% endmacro %}
+
+{% macro modal_footer() %}
+    <div class="modal-footer">
+        {{ caller() | safe }}
+    </div>
+{% endmacro %}
+
+{% macro modal_link(modal_id, title, href="#", class="", id="", data={} ) %}
+    <a href="{{ href | safe }}" class="{{ class }}" id="{{ id }}" data-toggle="modal" data-target="#{{ modal_id }}" {% for key in _data %} data-{{ key }}="{{ _data[key] | safe }}"{% endfor %}>{{ title | safe }}</a>
+{% endmacro %}
+
+#---- PAGINATE ---------------------------------------------------------------
+
+{#
+paginate
+     :paginator: iterator
+     :endpoint:
+     :prev: Text for previous button
+     :next: Text for Next button
+     :class: A class name for pagination if customed. If you are extending the class
+             best to add the original class and your custom class
+             ie: 'pagination my_custom_pagination' or 'pager my_custom_page'
+     :pager: If true it will show a pager instead of numbered pagination
+     :mobile: if True, if will show the pagination into a 'pager'
+
+#}
+{% macro paginate(paginator, endpoint=None, prev="Prev", next="Next", class=None, pager=False, mobile=True) %}
+    {% if mobile %}
+        <div class="hidden-lg hidden-md hidden-sm">
+            {{ _pagination(paginator, endpoint, prev, next, class, pager=true, **kwargs) }}
+        </div>
+        <div class="hidden-xs">
+            {{ _pagination(paginator, endpoint, prev, next, class, pager=false, **kwargs) }}
+        </div>
+    {% else %}
+        {{ _pagination(paginator, endpoint, prev, next, class, pager, **kwargs) }}
+    {% endif %}
+
+{% endmacro %}
+
+{% macro _pagination(paginator, endpoint=None, prev="", next="", class=None, pager=False) %}
+    {% if not endpoint %}
+        {% set endpoint = request.endpoint %}
+    {% endif %}
+    {% if "page" in kwargs %}
+        {% set _ = kwargs.pop("page") %}
+    {% endif %}
+
+    {%  if not class %}
+        {% set class = "pagination" %}
+        {% if pager %}
+            {% set class = "pager" %}
+        {% endif %}
+    {% endif %}
+
+    {% set _prev_btn = "<span aria-hidden='true'>&larr;</span> %s" % prev %}
+    {% set _next_btn = "%s <span aria-hidden='true'>&rarr;</span>" % next %}
+
+    <nav>
+      <ul class="{{ class }}">
+
+          {%- if paginator.has_prev %}
+            <li class="previous">
+                <a href="{{ url_for(endpoint, page=paginator.prev_page_number, **kwargs) }}">
+                     {{ _prev_btn | safe }}</a>
+            </li>
+          {% else %}
+            <li class="disabled previous">
+                <a href="#">{{ _prev_btn | safe }}</a>
+            </li>
+          {%- endif %}
+
+
+            {% if not pager %}
+
+                  {%- for page in paginator.iter_pages() %}
+                    {% if page %}
+                      {% if page != paginator.page %}
+                        <li><a href="{{ url_for(endpoint, page=page, **kwargs) }}"
+                         rel="me">{{ page }}</a></li>
+                      {% else %}
+                        <li class="active"><span>{{ page }}</span></li>
+                      {% endif %}
+                    {% else %}
+                      <li><span class=ellipsis>…</span></li>
+                    {% endif %}
+                  {%- endfor %}
+
+            {% endif %}
+
+
+          {%- if paginator.has_next %}
+            <li class="next">
+                <a href="{{ url_for(endpoint, page=paginator.next_page_number, **kwargs) }}">
+                    {{ _next_btn | safe }}</a>
+            </li>
+          {% else %}
+            <li class="disabled next">
+                <a href="#">{{ _next_btn | safe }}</a>
+            </li>
+          {%- endif %}
+      </ul>
+    </nav>
+
+{% endmacro %}
+
+#--- DROPDOWN ------------------------------------------------------------------
+
+
+{% macro dropdown(title="", id="dropdown1", class="btn btn-default", dropup=false, group=false) %}
+    <div class="{% if group %}btn-group{% endif %} {% if dropup %}dropup{% else %}dropdown{% endif %}">
+      <button class="dropdown-toggle {{ class }}" type="button" id="dropdownMenu{{ id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        {{ title | safe }}
+        <span class="caret"></span>
+      </button>
+
+        <ul class="dropdown-menu"  aria-labelledby="dropdownMenu{{ id }}">
+            {{ caller() | safe }}
+        </ul>
+    </div>
+
+{% endmacro %}
+
+
+#--- GROUP ---------------------------------------------------------------------
+
+{% macro group(class='btn-group') %}
+    <div class="{{ class }}" role="group">
+        {{ caller() | safe }}
+    </div>
+{% endmacro %}
+
+
+
+#---- NAVBAR -------------------------------------------------------------------
+
+{#
+Create Navbar. This is the parent element. Include all the sub elements in there
+
+:params
+    - fluid: container fluid
+    - static_top: Create a full-width navbar that scrolls away
+    - fixed_top: stick the nav to the top
+    - fixed_bottom: stick the nav to the bottom
+    - fixed_padding: the padding that will be added
+
+ #}
+{% macro navbar(fluid=true, static_top=true, fixed_top=false, fixed_bottom=false,  fixed_padding="70px") %}
+    {% if fixed_top or fixed_bottom %}
+        <style>
+            body {
+               padding-{% if fixed_bottom %}bottom{% else %}top{% endif %}: {{ fixed_padding }};
+            }
+        </style>
+    {% endif %}
+    <nav class="navbar navbar-default
+        {% if static_top %}navbar-static-top{% endif %}
+        {% if fixed_top %}navbar-fixed-top{% elif fixed_bottom %}navbar-fixed-bottom{% endif %}"
+    >
+        <div class="container{% if fluid %}-fluid{% endif %}">
+            {{ caller() | safe }}
+        </div>
+    </nav>
+{% endmacro %}
+
+{#
+ Create a header that contains the brand and the hamburger
+ #}
+{% macro navbar_header(href="#", class="", id="1", style_toggle=true) %}
+
+    {% if style_toggle %}
+        {{ navbar_style_toggle() }}
+    {% endif %}
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-{{ id }}" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar top-bar"></span>
+        <span class="icon-bar middle-bar"></span>
+        <span class="icon-bar bottom-bar"></span>
+      </button>
+
+      {% if caller %}
+        <a class="navbar-brand {{ class }}" href="{{ href | safe }}">{{ caller() | safe }}</a>
+      {% endif %}
+
+    </div>
+{% endmacro %}
+
+
+{% macro navbar_body(id="1") %}
+    <div class="collapse navbar-collapse" id="navbar-collapse-{{ id }}">
+        {{ caller() | safe }}
+    </div>
+{% endmacro %}
+
+
+{% macro navbar_nav(position="left") %}
+    <ul class="nav navbar-nav navbar-{{ position }}">
+        {{ caller() | safe }}
+    </ul>
+{% endmacro %}
+
+{% macro navbar_dropdown(title="", href="#", id="dropdown1", class="btn btn-default") %}
+    <li class="dropdown">
+        <a href="{{ href | safe }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ title | safe }} <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            {{ caller() | safe }}
+        </ul>
+    </li>
+{% endmacro %}
+
+{% macro navbar_form(action="", method="GET", id="", class="", position="") %}
+    <form action="{{ action }}" method="{{ method }}" id="{{ id }}" class="navbar-form navbar-{{ position }} {{ class }}">
+        <div class="form-group">
+            {{ caller() | safe }}
+        </div>
+    </form>
+{% endmacro %}
+
+{#
+ Create a button in the navbar that's not in a FORM
+ params:
+    class: class name
+    id: id
+    data_toggle: the type of toggle, ie: modal, dropdown
+    data_target: the toggle target, ie: the #id of the modal
+ #}
+
+{% macro navbar_button(class="btn-default", id="", data_toggle="", data_target="") %}
+    <button type="button" class="btn navbar-btn {{ class }}" id="{{ id }}" data-toggle="{{ data_toggle }}" data-target="{{ data_target }}">{{ caller() | safe }}</button>
+{% endmacro %}
+
+
+{% macro navbar_text(class="", id="", position="") %}
+    <p class="navbar-text navbar-{{ position }} {{ class }}" id="{{ id }}">{{ caller() | safe }}</p>
+{% endmacro %}
+
+
+{% macro navbar_link(href="#", class="", id="", data_toggle="", data_target="" ) %}
+    <a href="{{ href | safe }}" class="navbar-link {{ class }}" id="{{ id }}">{{ caller() | safe }}</a>
+{% endmacro %}
+
+{% macro navbar_style_toggle() %}
+    <style>
+        .navbar-toggle {
+          border: none;
+          background: transparent !important; }
+          .navbar-toggle:hover {
+            background: transparent !important; }
+          .navbar-toggle .icon-bar {
+            width: 22px;
+            transition: all 0.2s; }
+          .navbar-toggle .top-bar {
+            transform: rotate(45deg);
+            transform-origin: 10% 10%; }
+          .navbar-toggle .middle-bar {
+            opacity: 0; }
+          .navbar-toggle .bottom-bar {
+            transform: rotate(-45deg);
+            transform-origin: 10% 90%; }
+          .navbar-toggle.collapsed .top-bar {
+            transform: rotate(0); }
+          .navbar-toggle.collapsed .middle-bar {
+            opacity: 1; }
+          .navbar-toggle.collapsed .bottom-bar {
+            transform: rotate(0); }
+    </style>
+{% endmacro %}
+
+
+
+
+
+
+
+#-------------------------------------------------------------------------------
+
+{% macro share_buttons(text=None, url=None, show_count=False, show_label=True, buttons=["facebook", "twitter", "googleplus"]) %}
+    <div class="share-buttons"
+         data-buttons='{{ buttons | tojson }}'
+         {% if url %}data-url="{{ url }}"{% endif %}
+         {% if text %}data-text="{{ text }}"{% endif %}
+         data-show-count="{{ show_count }}"
+         data-show-label="{{ show_label }}"
+    ></div>
+
+{% endmacro %}
+

@@ -1,0 +1,43 @@
+- import "contrib/components/html.html" as html with context
+- import "contrib/components/nav.jade" as nav with context
+- import "contrib/components/forms.html" as forms with context
+- import "contrib/components/widget.html" as widget with context
+
+
+!!! 5
+html(lang="en")
+    head
+        meta(charset="utf-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        + html.page_title("%title% | " + config.APPLICATION_NAME)
+        + html.page_description()
+        + html.opengraph()
+        + html.favicon("favicon.ico")
+        + html.include_jquery()
+        + html.include_bootstrap()
+        + html.include_fontawesome()
+        + html.include_bootswatch_theme('yeti')
+        + html.include_css_file("commons.css")
+        + html.include_css_file("styles.css")
+        + html.include_js_file("commons.js")
+        + html.include_js_file("app.js")
+        + html.google_analytics()
+
+    body
+        header
+
+
+        .container
+            .row
+                .col-md-12
+                    = widget.flashed_messages()
+
+            - include __template__
+
+        footer
+            .container-fluid
+                .row
+                    .col-md-12
+                        .text-center.
+                            &copy; {{ g.__YEAR__}} {{ config.APPLICATION_NAME }} {{ config.APPLICATION_VERSION }}
+

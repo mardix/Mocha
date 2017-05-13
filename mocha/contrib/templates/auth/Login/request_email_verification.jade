@@ -1,0 +1,11 @@
+.row
+    .col-md-12
+        + forms.post()
+            + widget.panel(login_title or 'Request Email Verification')
+
+                + widget.panel_body()
+                        + forms.hidden("next", value=login_url_next)
+                        + forms.input('email', label='Email', value=email or "", data={"validation": "email"})
+
+                + widget.panel_footer()
+                    + forms.button('Send Verfication Link', type='submit', class="btn-primary btn-block")

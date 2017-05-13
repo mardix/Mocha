@@ -1,0 +1,198 @@
++ html.include_js_file('contrib.auth-admin.js')
+
+.row
+    .col-md-12.mb20
+        h3.text-center= _("User Info")
+
+.row
+    .col-md-12
+        if user.is_deleted
+            + widget.alert('danger')
+                | This account is DELETED
+        elif not user.active
+            + widget.alert('warning')
+                | This account is not ACTIVE
+
+.row
+    .col-md-12
+        + widget.panel(_("User"))
+
+            + widget.panel_table()
+
+                table.table.table-bordered.table-hover
+                    tbody
+
+                        if user.profile_image.url
+                            tr
+                                td(colspan=2)
+                                    img(src=user.profile_image.url, class="img-thumbnail", height=120, width=120)
+                                    button.btn.btn-xs.btn-default#delete-profile-image Delete
+
+                        tr
+                            td= _('ID')
+                            td= user.id
+                        tr
+                            td= _('First Name')
+                            td= user.first_name
+                        tr
+                            td= _('Last Name')
+                            td= user.last_name
+                        tr
+                            td= _('Login Method')
+                            td= user.login_method
+                        if user.login_method == "email"
+                            tr
+                                td= _('Login Email')
+                                td= user.username
+
+                        elif user.login_method == "username"
+                            tr
+                                td= _('Username')
+                                td= user.username
+                        tr
+                            td= _('Email')
+                            td= user.email
+                        tr
+                            td= _('Email Verified')
+                            td= user.email_verified | bool_yes
+                        tr
+                            td= _('Role')
+                            td= user.role.name | capitalize
+                        tr
+                            td= _('Status')
+                            td= user.status | capitalize
+                        tr
+                            td= _('Last Login')
+                            td= user.last_login_at | local_datetime(false)
+                        tr
+                            td= _('Signup Date')
+                            td= user.created_at | local_datetime(false)
+
+            + widget.panel_footer()
+                .text-center
+                    button.btn.btn-default(data-toggle="modal", data-target="#modal-edit-user")
+                        i.fa.fa-pencil &nbsp;
+                        = _("Edit Info")
+
+                    if not user.is_deleted and user.active
+                        if user.login_method == "email"
+                            button.btn.btn-default(data-toggle="modal", data-target="#modal-change-username")
+                                i.fa.fa-user &nbsp;
+                                = _("Change Email")
+
+                        elif user.login_method == "username"
+                            button.btn.btn-default(data-toggle="modal", data-target="#modal-change-username")
+                                i.fa.fa-user &nbsp;
+                                = _("Change Username")
+                            button.btn.btn-default(data-toggle="modal", data-target="#modal-change-email")
+                                i.fa.fa-user &nbsp;
+                                = _("Change Email")
+
+                        button.btn.btn-default(data-toggle="modal", data-target="#modal-change-password")
+                            i.fa.fa-key &nbsp;
+                            = _("Change Password")
+                        button.btn.btn-default#email-password-reset
+                            i.fa.fa-user-secret &nbsp;
+                            = _("Send Password Reset")
+                        button.btn.btn-default#email-account-verification
+                            i.fa.fa-mail-reply &nbsp;
+                            = _("Send Email Verification")
+                        button.btn.btn-default#reset-secret-key
+                            i.fa.fa-key &nbsp;
+                            = _("Reset Secret Key")
+
+
++ widget.modal(id='modal-edit-user', title="Edit User Info")
+    + forms.post("auth.Admin:action")
+        + forms.hidden(name="id", value=user.id)
+        + forms.hidden(name="action", value="info")
+
+        + widget.modal_body()
+            + forms.input(label="First Name", name="first_name", value=user.first_name or "", data={"validation": "required"})
+            + forms.input(label="Last Name", name="last_name", value=user.last_name or "")
+            if current_user.id != user.id
+                + forms.radio('user_role', label="User Role", options=user_roles_options, value=[user.role.id])
+
+        + widget.modal_footer()
+            .pull-left
+                if current_user.id != user.id
+                    if not user.is_deleted
+                        if not user.active
+                            button.btn.btn-info.activate-btn(data-dismiss="modal")
+                                i.fa.fa-check &nbsp;
+                                = _("RE-ACTIVE Account")
+                        else
+                            button.btn.btn-warning.deactivate-btn(data-dismiss="modal")
+                                i.fa.fa-times &nbsp;
+                                = _("SUSPEND Account")
+
+                        button.btn.btn-danger.delete-btn(data-dismiss="modal")
+                            i.fa.fa-trash &nbsp;
+                            = _("DELETE Account")
+                    else
+                        button.btn.btn-info.undelete-btn(data-dismiss="modal")
+                            i.fa.fa-check &nbsp;
+                            = _("RESTORE Account")
+
+            .pull-right
+
+                button.btn.btn-default(data-dismiss="modal")
+                    i.fa.fa-times &nbsp;
+                    = _("Cancel")
+                if not user.is_deleted and user.active
+                    button.btn.btn-success
+                        i.fa.fa-check &nbsp;
+                        = _("Save")
+            .clearfix
+
+
+
++ widget.modal(id='modal-change-username', title="Change Username")
+    + forms.post("auth.Admin:action")
+        + widget.modal_body()
+            + forms.hidden("id", value=user.id)
+            + forms.hidden("action", value="change-username")
+            + forms.input("username", label=_("Username"), value=user.username or "", data={"validation": "required"})
+        + widget.modal_footer()
+            button.btn.btn-default(data-dismiss="modal")
+                i.fa.fa-times &nbsp;
+                = _("Cancel")
+
+            button.btn.btn-success(type="submit")
+                i.fa.fa-check &nbsp;
+                = _("Save")
+
+
++ widget.modal(id='modal-change-email', title="Change Email")
+    + forms.post("auth.Admin:action")
+        + widget.modal_body()
+            + forms.hidden("id", value=user.id)
+            + forms.hidden("action", value="change-email")
+            + forms.input("email", label=_("Email"), value=user.email or "", data={"validation": "email"})
+        + widget.modal_footer()
+            button.btn.btn-default(data-dismiss="modal")
+                i.fa.fa-times &nbsp;
+                = _("Cancel")
+
+            button.btn.btn-success(type="submit")
+                i.fa.fa-check &nbsp;
+                = _("Save")
+
+
+
++ widget.modal(id='modal-change-password', title="Change User Password")
+    + forms.post("auth.Admin:action")
+        + widget.modal_body()
+            + forms.hidden("id", value=user.id)
+            + forms.hidden("action", value="change-password")
+            + forms.input('password', label=_('New Password'), type='password', data={"validation": "email"})
+            + forms.input('password_confirm', label=_('Confirm New Password'),  type='password', data={"validation": "email"})
+        + widget.modal_footer()
+            button.btn.btn-default(data-dismiss="modal")
+                i.fa.fa-times &nbsp;
+                = _("Cancel")
+
+            button.btn.btn-success(type="submit")
+                i.fa.fa-check &nbsp;
+                = _("Save")
+

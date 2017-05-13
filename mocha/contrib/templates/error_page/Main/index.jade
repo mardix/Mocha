@@ -1,0 +1,17 @@
+
+- import "contrib/components/html.html" as html with context
+- import "contrib/components/widget.html" as widget with context
+
++ html.include_css_file('contrib.error_page.css')
+
+.row
+    .col-md-12.text-center.error-page
+        + widget.alert("danger" if error.code in [404, 500, 503] else "warning")
+
+            i.fa.fa-6x.fa-warning
+
+            h2 Error {{ error }}
+
+            h3 {{ error.description }}
+
+

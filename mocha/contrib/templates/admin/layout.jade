@@ -1,0 +1,56 @@
+- import "contrib/components/html.html" as html with context
+- import "contrib/components/nav.jade" as nav with context
+- import "contrib/components/forms.html" as forms with context
+- import "contrib/components/widget.html" as widget with context
+
+
+!!! 5
+html(lang="en")
+    head
+        meta(charset="utf-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        + html.page_title("%title% | " + config.ADMIN_BRAND_NAME)
+        + html.favicon("favicon.ico")
+        + html.include_jquery()
+        + html.include_bootstrap()
+        + html.include_fontawesome()
+        + html.include_bootswatch_theme('yeti')
+
+
+    body
+        header
+            + nav.top_nav(brand=config.ADMIN_BRAND_NAME, href=config.ADMIN_BRAND_URL or "/", tag="ADMIN")
+
+        .container-fluid
+            .row
+                .col-md-12
+                    + widget.flashed_messages()
+
+
+
+            if request and  "auth.Login:" in request.endpoint
+                .row
+                    .col-md-6.col-md-offset-3
+                        - include __template__
+            else
+                .row
+                    .col-md-2.hidden-sm.hidden-xs
+                        + nav.panel(active_only=true)
+
+                    .col-md-10.col-sm-12
+                        h3
+                            small
+                                strong= nav.title()
+                                    | &nbsp; / &nbsp;
+                                 = nav.sub_title()
+                         hr
+
+                        - include __template__
+
+        footer
+            .container-fluid
+                .row
+                    .col-md-12
+                        .text-center.
+                            &copy; {{ g.__YEAR__}} {{ config.ADMIN_BRAND_NAME }}
+

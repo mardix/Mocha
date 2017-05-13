@@ -1,0 +1,8 @@
+# Install this requirements for dev environment
+pytest
+mkdocs
+
+# comes with material
+mkdocs-material
+pygments
+pymdown-extensions

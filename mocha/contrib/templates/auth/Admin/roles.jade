@@ -1,0 +1,48 @@
+
++ html.include_js_file('contrib.auth-admin.js')
+
+.row
+    .col-md-12.mb20
+        h3.text-center= _("Users Roles")
+
+.row
+    .col-md-12.mb20
+        .pull-right.mb20
+            a(href='javascript://', class="btn btn-primary", data-toggle="modal", data-target="#modal-edit-user-roles", data-id="", data-name="", data-level="")= _("Add New Role")
+    .clearfix
+
+
+.row
+    .col-md-12
+        + widget.panel(_("Roles"))
+            + widget.panel_table()
+                table.table.table-bordered.table-hover
+                    thead
+                        th= _("ID")
+                        td= _("Name")
+                        td= _("Level")
+
+                    tbody
+                    for role in roles
+                        tr
+                            td= role.id
+                            td: a(href='javascript://', data-toggle="modal", data-target="#modal-edit-user-roles", data-id="{{ role.id }}", data-name="{{ role.name | upper }}", data-level="{{ role.level }}")= role.name | upper
+                            td= role.level
+
+
++ widget.modal(id='modal-edit-user-roles', title="Edit User Role")
+    + forms.post()
+        + widget.modal_body()
+            + forms.hidden("id", value="")
+            + forms.hidden("action", value="")
+            + forms.input("name", label="Name", data={"validation": "required"})
+            + forms.select("level", label="Level",  options=levels_options)
+
+
+        + widget.modal_footer()
+            button.btn.btn-danger.delete-btn(data-dismiss="modal")
+                = _("Delete")
+            button.btn.btn-default(data-dismiss="modal")
+                = _("Cancel")
+            button.btn.btn-success(type="submit")
+                = _("Save")

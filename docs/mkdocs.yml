@@ -1,0 +1,53 @@
+
+site_name: Mocha
+site_description: ""
+site_url: "https://mardix.github.com/mocha"
+copyright: 'Copyright &copy; 2016 - 2017++ Mardix'
+
+repo_url: https://github.com/mardix/mocha
+repo_name: "Mocha"
+theme: "material" # readthedocs
+
+markdown_extensions:
+  - admonition
+  - codehilite
+
+extra:
+  palette:
+    primary: 'Brown'
+    accent: 'Amber'
+
+pages:
+
+  - Home: index.md
+  - Quickstart: quickstart.md
+  - Config: config.md
+
+  - Views:
+    - Views: views.md
+    - Decorators: decorators.md
+    - Helpers: views-helpers.md
+
+  - Templates:
+    - Jinja2: templates-jinja2.md
+    - Jade Markup: templates-jade.md
+    - Filters: templates-filters.md
+    - Macros: templates-macros.md
+    - Widgets: templates-widgets.md
+
+  - Models: models.md
+  - Pagination: pagination.md
+  - Signals: signals.md
+  - Logging: logging.md
+  - Extensions: ext.md
+  - Contrib: contrib/index.md
+  - Auth: contrib/auth.md
+  - Admin: contrib/admin.md
+  - Contact Page: contrib/contact_page.md
+  - Exceptions: exceptions.md
+  - Command Line: cli.md
+  - Deployment: deploy.md
+#  - Snippets:
+#    - Home: snippets/index.md
+
+

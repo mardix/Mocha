@@ -1,0 +1,8 @@
+body {
+  background: lightslategray; }
+  body h1, body h2, body h3, body h4, body h5, body h6 {
+    color: #fff; }
+    body h1 small, body h2 small, body h3 small, body h4 small, body h5 small, body h6 small {
+      color: #fff; }
+
+/*# sourceMappingURL=style.css.map */

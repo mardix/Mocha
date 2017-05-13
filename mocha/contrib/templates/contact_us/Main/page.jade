@@ -1,0 +1,45 @@
++ html.include_js_file('contrib.formvalidator.js')
+
+.row
+    .col-sm-10.col-md-offset-1
+
+        if email_sent
+            + widget.alert("success")
+                .text-center
+                    h2
+                        i.fa.fa-check.fa-3x
+                    h3
+                        = _(success_message)
+
+                    script.
+                        setTimeout(function(){ window.location.href="{{ return_to }}";}, 5000);
+
+        else
+            h2= _(title or 'Contact Us')
+            hr
+
+            + forms.post()
+
+                .row
+                    .col-md-6
+                        + forms.input('name', label=_('Name'), data={"validation": "required"})
+                    .col-md-6
+                        + forms.input('email', label=_('Email'), data={"validation": "email"})
+
+                .row
+                    .col-md-12
+                        + forms.input('subject', label=_('Subject'), data={"validation": "required"})
+
+                .row
+                    .col-md-12
+                        + forms.textarea('message', label=_('Message'), rows=8, data={"validation": "required"})
+
+                .row
+                    .col-md-12
+                        + forms.recaptcha()
+
+                .row
+                    .col-md-12.text-center
+                        + forms.button(_("Send Message"), type="submit", class="btn btn-primary btn-lg")
+
+

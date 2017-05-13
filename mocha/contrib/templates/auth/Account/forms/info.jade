@@ -1,0 +1,23 @@
++ html.include_js_file('contrib.formvalidator.js')
++ html.include_js_file('contrib.auth.js')
++ html.include_css_file('contrib.auth.css')
++ html.include_css_file('contrib.commons.css')
+
++ forms.upload("auth.Account:update_info")
+    if redirect_url
+        + forms.hidden(name='redirect', value=redirect_url)
+    + forms.input(label=_("First Name"), name="first_name", value=current_user.first_name, data={"validation": "required"})
+    + forms.input(label=_("Last Name"), name="last_name", value=current_user.last_name, data={"validation": "required"})
+    + forms.hidden(name='delete_photo', value="", id="input-delete-photo")
+    .row
+        .col-sm-4.text-center
+            #profile-photo-preview.img-thumbnail.mb10
+                img(src=current_user.profile_image.url, height=120, width=120)
+            if current_user.profile_image
+                small
+                    .text-center
+                        button#btn-delete-profile-photo.btn.btn-xs.btn-danger(type='button')= _('Delete')
+
+        .col-sm-8
+            + forms.input(label=_("Select Image to upload"), id="profile-photo-input", type='file', name='file')
+    + forms.button(_("Save Info"), type='submit', class='btn-primary')

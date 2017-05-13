@@ -1,0 +1,11 @@
++ html.include_js_file('contrib.formvalidator.js')
++ html.include_js_file('contrib.auth.js')
++ html.include_css_file('contrib.auth.css')
+
+if current_user.login_method == "username"
+    + forms.post("auth.Account:change_email")
+        if redirect_url
+            + forms.hidden(name='redirect', value=redirect_url)
+        + forms.input('email', label=_('Email'), value=current_user.email, type='email', data={"validation": "email"})
+        + forms.input('current_password', label="*" + _('Confirm your changes by entering  your current password'), type='password', data={"validation": "required"})
+        + forms.button(_("Change Email"), type='submit', class='btn btn-primary')

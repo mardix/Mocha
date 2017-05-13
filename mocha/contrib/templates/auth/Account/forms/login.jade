@@ -1,0 +1,19 @@
++ html.include_js_file('contrib.formvalidator.js')
++ html.include_js_file('contrib.auth.js')
++ html.include_css_file('contrib.auth.css')
+
+if current_user.login_method == "email"
+   + forms.post("auth.Account:change_username")
+        if redirect_url
+            + forms.hidden(name='redirect', value=redirect_url)
+        + forms.input('username', label=_('Login Email'), value=current_user.username, type='email', data={"validation": "email"})
+        + forms.input('current_password', label="*" + _('Confirm your changes by entering  your current password'), type='password', data={"validation": "required"})
+        + forms.button(_("Save Login"), type='submit', class='btn btn-primary')
+
+elif current_user.login_method == "username"
+    + forms.post("auth.Account:change_username")
+        if redirect_url
+            + forms.hidden(name='redirect', value=redirect_url)
+        + forms.input('username', label=_('Username'), value=current_user.username, data={"validation": "required"})
+        + forms.input('current_password', label="*" + _('Confirm your changes by entering  your current password'), type='password', data={"validation": "required"})
+        + forms.button(_("Save Login"), type='submit', class='btn btn-primary')

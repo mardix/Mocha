@@ -1,0 +1,19 @@
+
+.row
+    .col-md-12
+        + forms.post()
+            + widget.panel(_("Setup Login"))
+
+                + widget.panel_body()
+                    + widget.alert('warning', false)
+                        = _('Continue by setting up your email and password')
+
+                    + forms.input('email', label=_('Email'), data={"validation": "email"})
+                    + forms.input('password', label=_('Password'), type='password', data={"validation": "required"})
+                    + forms.input('password_confirm', label=_('Confirm Password'), type='password', data={"validation": "required"})
+
+                + widget.panel_footer()
+                    + forms.button(_('Finish Account Creation'), type='submit', class="btn-primary btn-block")
+
+
+

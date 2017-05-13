@@ -1,0 +1,56 @@
+
+
+.row
+    .col-md-12
+        + forms.post()
+            + widget.panel(login_title or 'Register')
+
+                + widget.panel_body()
+                    + forms.hidden("next", value=login_url_next)
+
+                    if with_oauth
+                        + forms.hidden("with_oauth", value=with_oauth | bool_int)
+                        + forms.hidden("oauth_provider", value=oauth_provider)
+                        + forms.hidden("oauth_user_id", value=oauth_user_id)
+
+
+                    if reg_username or reg_email
+
+                        if reg_username
+                            + forms.input('username', label=_("Username"), data={"validation": "required"})
+                            + forms.input('email', label=_("Email"), value=email, data={"validation": "email"})
+                        elif reg_email
+                            + forms.input('username', label=_("Email"), value=email, data={"validation": "email"})
+
+                        .row
+                            .col-sm-6
+                                + forms.input('password', label=_("Password"), type='password', data={"validation": "required"})
+                            .col-sm-6
+                                + forms.input('password_confirm', label=_("Confirm Password"), type='password', data={"validation": "required"})
+
+                        if reg_full_name
+                            .row
+                                .col-sm-6
+                                    + forms.input('first_name', label=_("First Name"), value=name, data={"validation": "required"})
+
+                                .col-sm-6
+                                    + forms.input('last_name', label=_("Last Name"), data={"validation": "required"})
+                        else
+                            + forms.input('first_name', label=_("Name"), value=name, data={"validation": "required"})
+
+                        + forms.recaptcha()
+
+                if reg_username or reg_email
+                    + widget.panel_footer()
+                        + forms.button('Register', type='submit', class="btn-primary btn-block")
+
+
+
+
+
+
+
+
+
+
+

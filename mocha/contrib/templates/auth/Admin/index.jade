@@ -1,0 +1,90 @@
+
+.row
+    .col-md-12.mb20
+        h3.text-center= _("Users Admin")
+
+
+.row
+    .col-md-12
+        + widget.collapse()
+
+            + widget.collapse_header(body_id="col1")
+                .pull-left
+                    = _('Search Users')
+                .pull-right
+                    + widget.modal_link('modal1', _('Add New User'))
+                .clearfix
+
+            + widget.collapse_body(id="col1")
+                + forms.get(inline=true)
+                    + forms.input('name', label=_('Name'), value=search_query["name"])
+                    + forms.input('username', label=_('Username'), value=search_query["username"])
+                    + forms.input('email', label=_('Email'), value=search_query["email"])
+                    + forms.select('role', label="Roles",  options=user_roles_options, value=search_query["role"] )
+                    + forms.select('sorting', label="Sort By", options=sorting_options, value=search_query["sorting"] )
+                    + forms.select('include-deleted', label="", options=[('y', 'Include Deleted')], value=search_query["include-deleted"])
+                    + forms.button('Search', type='submit', class='btn-primary')
+
+.row
+    .col-md-12
+        + widget.panel(_("Users"))
+            + widget.panel_table()
+                if users
+                    table.table.table-bordered.table-hover
+                        thead
+                            th= _("ID")
+                            th= _("Name")
+                            th= _("Username")
+                            th= _("Email")
+                            th= _("Method")
+                            th= _("Role")
+                            th= _("Status")
+                            th= _("Last Login")
+                            th= _("Signup Date")
+
+                        tbody
+                        for user in users
+                            tr
+                                td= user.id
+                                td: a(href=url_for('auth.Admin:info', id=user.id))= user.full_name
+                                td= user.username
+                                td= user.email
+                                td= user.login_method
+                                td= user.role.name | capitalize
+                                td= user.status | capitalize
+                                td= user.last_login_at | local_datetime
+                                td= user.created_at | local_datetime
+                else
+                    + widget.panel_body()
+                        + widget.alert("warning", true)
+                            | No Users Found
+
+.row
+    .col-md-12
+        + widget.paginate(users)
+
+
+
++ widget.modal(id='modal1', title="Add New User")
+    + forms.post("auth.Admin:create")
+        + widget.modal_body()
+            + forms.input('email', label='Email', data={"validation": "email"})
+            + forms.input('password', label='Password', type='password', data={"validation": "required"})
+            + forms.input('password_confirm', label='Confirm Password', type='password', data={"validation": "required"})
+            + forms.input('first_name', label='First Name', data={"validation": "required"})
+            + forms.input('last_name', label='Last Name', data={"validation": "required"})
+            + forms.radio('user_role', label='User Role', options=user_roles_options, value=[], data={"validation": "required"})
+
+        + widget.modal_footer()
+            button.btn.btn-default(data-dismiss="modal")
+                i.fa.fa-times &nbsp;
+                = _("Cancel")
+
+            button.btn.btn-success(type="submit")
+                i.fa.fa-check &nbsp;
+                = _("Save")
+           
+
+
+
+

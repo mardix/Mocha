@@ -1,0 +1,113 @@
+//-
+    This component contains multiple macros to create menu
+    It uses the @nav_title from your views to build the navs
+
+- import "contrib/components/widget.html" as widget with context
+
+
+//-
+    TOP_NAV
+    Create a top nav menu
+    @brand: A name or image to display as the brand name
+    @href: the url for the brand name
+    @id: a unique id
+    @tag: To only show menu with the specified tag
+    @fluid: container fluid
+    @static: Create a full-width navbar that scrolls away
+    @top: stick the nav to the top
+    @bottom: stick the nav to the bottom
+    @padding: the padding that will be added
+
+- macro top_nav(brand="", href="/", id="topnav", tag="default", top=true, bottom=false, static=true, fluid=true, padding="70px")
+
+    + widget.navbar(fixed_top=top, fixed_bottom=bottom, static_top=static, fluid=fluid, fixed_padding=padding)
+        + widget.navbar_header(id=id, href=href)
+            = brand
+
+        + widget.navbar_body(id=id)
+            each item in g.__SITENAV__
+                - set position = item.get("position") or none
+                + widget.navbar_nav(position=position)
+                    if item.visible
+                        if tag
+                            if item.tags and tag in item.tags
+                                + _top_nav(item)
+                        else
+                            + _top_nav(item)
+
+- macro _top_nav(item)
+    if item.has_subnav
+        + widget.navbar_dropdown(item.title)
+            each item2 in item.subnav
+                if item2.visible
+                    li: a(href="{{url_for(item2['endpoint'], **item2['endpoint_kwargs']) }}")= item2["title"]
+    else
+        li: a(href="{{url_for(item['endpoint'], **item['endpoint_kwargs']) }}")= item["title"]
+
+
+
+//-
+    PANEL
+    To display nav menu inside of panel.
+    @id: A unique id for the panel
+    @panel_class: add a panel class, along with others
+    @open: If true, it will open the active menu
+    @active_only: if true, it will only display the active menu
+
+
+- macro panel(id="nav-panel", panel_class="panel-primary", open=true, active_only=false, show_single=True)
+    + widget.accordion(id=id)
+        each item in g.__SITENAV__
+            if item.visible
+                if show_single
+                    if item.has_subnav
+                        if active_only
+                            if item.active
+                                + _panel(id, item, panel_class=panel_class, open=True)
+                        else
+                            + _panel(id, item, panel_class=panel_class, open=open)
+
+
+- macro _panel(id, item, panel_class, open)
+    if item.has_subnav
+        + widget.collapse(class=panel_class)
+            + widget.collapse_header(body_id=id+item["_id"], accordion_id=id)
+               | + {{ item["title"] }}
+
+            + widget.collapse_content(id=id+item["_id"], open=open and item.active)
+                .list-group
+                    each item2 in item.subnav
+                        if item2["visible"]
+                            a(href="{{url_for(item2['endpoint'], **item2['endpoint_kwargs']) }}", class="list-group-item")= item2["title"]
+    else
+        + widget.panel(class=panel_class)
+            + widget.panel_header_title_link(url_for(item['endpoint'], **item['endpoint_kwargs']))
+                = item["title"]
+
+
+//-
+    TITLE
+    Show the current nav title for the active menu
+
+- macro title()
+    - set _tmp = []
+    each item in g.__SITENAV__
+        if item.visible and item.active
+            if not _tmp
+                = _tmp.append(1) or ""
+                = item.title
+
+//-
+    SUB_TITLE
+    Show the current sub nav title (inner item) for the active menu
+
+- macro sub_title()
+    - set _tmp = []
+    each item in g.__SITENAV__
+        if item.visible and item.active and item.has_subnav
+            each i2 in item.subnav
+                if i2.endpoint == request.endpoint
+                    if not _tmp
+                        = _tmp.append(1) or ""
+                        = i2.title
+
