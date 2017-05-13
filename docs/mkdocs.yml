@@ -23,10 +23,9 @@ pages:
   - Quickstart: quickstart.md
   - Config: config.md
 
-  - Views:
-    - Views: views.md
-    - Decorators: decorators.md
-    - Helpers: views-helpers.md
+  - Views: views/index.md
+  - "Views: Decorators": views/decorators.md
+  - "Views: Helpers": views/helpers.md
 
   - Templates:
     - Jinja2: templates-jinja2.md
@@ -36,14 +35,17 @@ pages:
     - Widgets: templates-widgets.md
 
   - Models: models.md
+  - Extensions: ext.md
+  - Utils: utils.md
   - Pagination: pagination.md
   - Signals: signals.md
   - Logging: logging.md
-  - Extensions: ext.md
+
   - Contrib: contrib/index.md
   - Auth: contrib/auth.md
   - Admin: contrib/admin.md
   - Contact Page: contrib/contact_page.md
+  - Error Page: contrib/error_page.md
   - Exceptions: exceptions.md
   - Command Line: cli.md
   - Deployment: deploy.md

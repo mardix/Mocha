@@ -11,6 +11,12 @@ For example, when a user register using the built-in AUTH, you may want to do
 something with that new user. So the create_user emit a signal containing
 the new user data, and each function observing the create_user, will be executed
 
+
+** Import **
+
+    from mocha.decorators import emit_signal
+
+
 ## Emit Signal
 
 

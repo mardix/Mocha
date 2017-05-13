@@ -1,17 +1,20 @@
 
 
-# Exceptions
+Mocha exposes some ex
 
-Mocha exposes some Error
 
-## MochaError
+    from mocha import exceptions
+
+---
+
+### MochaError
 
 **MochaError** is raised when there is an error in the core of Mocha
 
 
-## AppError
+---
 
-**AppError** is an exception that is recommended to be used in your application. 
+### AppError
 
 
     class Index(Mocha):
@@ -19,12 +22,14 @@ Mocha exposes some Error
         def error(self):
             try:
                 # blah blah code
-                raise AppError('Something bad happened..')
-            except AppError as ae:
+                raise exceptions.AppError('Something bad happened..')
+            except exceptions.MochaError as ae:
                 flash_error(ae.message)
 
+---
 
-## ModelError
+### ModelError
+
 
 
 
