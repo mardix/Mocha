@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/quickstart/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/config/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/views/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/views/decorators/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/views/helpers/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+        
+    <url>
+     <loc>https://mardix.github.com/mocha/templates-jinja2/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>https://mardix.github.com/mocha/templates-jade/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>https://mardix.github.com/mocha/templates-filters/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>https://mardix.github.com/mocha/templates-macros/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>https://mardix.github.com/mocha/templates-widgets/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/models/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/ext/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/utils/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/pagination/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/signals/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/logging/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/contrib/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/contrib/auth/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/contrib/admin/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/contrib/contact_page/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/contrib/error_page/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/exceptions/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/cli/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/deploy/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+</urlset>

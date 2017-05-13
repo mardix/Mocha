@@ -1,0 +1,1265 @@
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <link rel="canonical" href="https://mardix.github.com/mocha/">
+      
+      
+      
+        <link rel="shortcut icon" href="./assets/images/favicon.png">
+      
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
+    
+    
+      
+        <title>Mocha</title>
+      
+    
+    
+      <script src="./assets/javascripts/modernizr-56ade86843.js"></script>
+    
+    
+      <link rel="stylesheet" href="./assets/stylesheets/application-4d0d3f2fbf.css">
+      
+        <link rel="stylesheet" href="./assets/stylesheets/application-f78e5cb881.palette.css">
+      
+    
+    
+      
+        
+        
+        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+    
+  </head>
+  
+  
+  
+  
+    <body data-md-color-primary="brown" data-md-color-accent="amber">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <a href="https://mardix.github.com/mocha" title="Mocha" class="md-icon md-icon--home md-header-nav__button">
+          </a>
+        
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <span class="md-flex__ellipsis md-header-nav__title">
+          
+            
+              
+            
+            Home
+          
+        </span>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+          
+<div class="md-search" data-md-component="search">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" required placeholder="Search" accesskey="s" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">close</button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta" data-md-lang-result-none="No matching documents" data-md-lang-result-one="1 matching document" data-md-lang-result-other="# matching documents">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <div class="md-header-nav__source">
+          
+            
+
+
+  
+
+
+  <a href="https://github.com/mardix/mocha" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Mocha
+    </div>
+  </a>
+
+          
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    
+      <i class="md-icon md-icon--home md-nav__button"></i>
+    
+    Mocha
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/mardix/mocha" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Mocha
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Home
+      </label>
+    
+    <a href="." title="Home" class="md-nav__link md-nav__link--active">
+      Home
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" title="Installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-your-first-application" title="Create Your First Application" class="md-nav__link">
+    Create Your First Application
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#your-first-launch-on-local-dev" title="Your First Launch on Local Dev" class="md-nav__link">
+    Your First Launch on Local Dev
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#your-first-view" title="Your First View" class="md-nav__link">
+    Your First View
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automatic-routes" title="Automatic routes" class="md-nav__link">
+    Automatic routes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instant-navigation-menu-creation" title="Instant navigation menu creation" class="md-nav__link">
+    Instant navigation menu creation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smart-templates-mapping" title="Smart templates mapping" class="md-nav__link">
+    Smart templates mapping
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#your-first-template" title="Your First Template" class="md-nav__link">
+    Your First Template
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dude-wheres-my-layout" title="Dude where's my layout?" class="md-nav__link">
+    Dude where's my layout?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#your-first-static" title="Your First Static" class="md-nav__link">
+    Your First Static
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-to-production" title="Deploy to Production" class="md-nav__link">
+    Deploy to Production
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="quickstart/" title="Quickstart" class="md-nav__link">
+      Quickstart
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="config/" title="Config" class="md-nav__link">
+      Config
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="views/" title="Views" class="md-nav__link">
+      Views
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="views/decorators/" title="Views: Decorators" class="md-nav__link">
+      Views: Decorators
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="views/helpers/" title="Views: Helpers" class="md-nav__link">
+      Views: Helpers
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Templates
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Templates
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="templates-jinja2/" title="Jinja2" class="md-nav__link">
+      Jinja2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="templates-jade/" title="Jade Markup" class="md-nav__link">
+      Jade Markup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="templates-filters/" title="Filters" class="md-nav__link">
+      Filters
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="templates-macros/" title="Macros" class="md-nav__link">
+      Macros
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="templates-widgets/" title="Widgets" class="md-nav__link">
+      Widgets
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="models/" title="Models" class="md-nav__link">
+      Models
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="ext/" title="Extensions" class="md-nav__link">
+      Extensions
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="utils/" title="Utils" class="md-nav__link">
+      Utils
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="pagination/" title="Pagination" class="md-nav__link">
+      Pagination
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="signals/" title="Signals" class="md-nav__link">
+      Signals
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="logging/" title="Logging" class="md-nav__link">
+      Logging
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="contrib/" title="Contrib" class="md-nav__link">
+      Contrib
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="contrib/auth/" title="Auth" class="md-nav__link">
+      Auth
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="contrib/admin/" title="Admin" class="md-nav__link">
+      Admin
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="contrib/contact_page/" title="Contact Page" class="md-nav__link">
+      Contact Page
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="contrib/error_page/" title="Error Page" class="md-nav__link">
+      Error Page
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="exceptions/" title="Exceptions" class="md-nav__link">
+      Exceptions
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="cli/" title="Command Line" class="md-nav__link">
+      Command Line
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="deploy/" title="Deployment" class="md-nav__link">
+      Deployment
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" title="Installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-your-first-application" title="Create Your First Application" class="md-nav__link">
+    Create Your First Application
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#your-first-launch-on-local-dev" title="Your First Launch on Local Dev" class="md-nav__link">
+    Your First Launch on Local Dev
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#your-first-view" title="Your First View" class="md-nav__link">
+    Your First View
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automatic-routes" title="Automatic routes" class="md-nav__link">
+    Automatic routes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instant-navigation-menu-creation" title="Instant navigation menu creation" class="md-nav__link">
+    Instant navigation menu creation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smart-templates-mapping" title="Smart templates mapping" class="md-nav__link">
+    Smart templates mapping
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#your-first-template" title="Your First Template" class="md-nav__link">
+    Your First Template
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dude-wheres-my-layout" title="Dude where's my layout?" class="md-nav__link">
+    Dude where's my layout?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#your-first-static" title="Your First Static" class="md-nav__link">
+    Your First Static
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-to-production" title="Deploy to Production" class="md-nav__link">
+    Deploy to Production
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="mocha">Mocha</h1>
+<p><img alt="Mocha" src="./img/mocha.jpg" /></p>
+<p><strong>Mocha</strong> put structure in your Flask application by grouping your methods together
+under classes, and your templates relative to the path</p>
+<p>One of the strength of <strong>Mocha</strong> is it automatically creates the route endpoint
+from the class and methods.</p>
+<p>It also quickly allows you to create Navigation menu on the methods you are writing.</p>
+<p><strong>Mocha</strong> is really convenient and will help create web applications, REST API, Admin section faster.</p>
+<p><strong>Mocha</strong> is a web/restful framework based on Flask with some of the most common Flask extensions
+to rapidly build Website, admin section, RESTful API and more. </p>
+<p>Mocha aims to make it super easy to develop Python web application.</p>
+<p>It's a mix of convention and configuration.</p>
+<p>Convention on where to place files, and configuration on data to set.</p>
+<hr />
+<p>[to place somewhere]</p>
+<p>Some convention</p>
+<div class="codehilite"><pre><span></span>/ root
+    |
+    -- serve.py
+    |
+    -- propel.yml
+    |
+    -- requirements.txt
+    |
+    -- application/
+        |
+        -- config.py
+        |
+        -- models.py
+        |
+        -- __init__.py
+        |
+        -- www/
+            |
+            -- views.py
+            |
+            -- __init__.py
+            |
+            -- static/
+                |   
+                -- css/
+                |
+                -- images/
+                |
+                -- js/
+                |
+                -- assets.yml
+            |
+            -- templates/
+                |
+                -- Index/
+                    |   
+                    -- index.html
+        |
+        -- _data/
+            |
+            -- mail-templates/
+            |
+            -- uploads/
+</pre></div>
+
+
+<hr />
+<h2 id="installation">Installation</h2>
+<p>The best way to install <strong>Mocha</strong> is to do it with pip.</p>
+<div class="codehilite"><pre><span></span>pip install mocha
+</pre></div>
+
+
+<p>As a good practice, it is best to install it into its own virtual environment.</p>
+<p>The installation will get all the necessary packages to get you going.</p>
+<p>After the installation is complete, <strong>mocha</strong> can be used in the
+ command line to conveniently create projects, build assets, 
+push assets to S3, deploy application to production server and more.</p>
+<p><a href="cli/">Read more about Mocha command line</a></p>
+<p>On the command line run the <strong>mocha</strong> like below</p>
+<div class="codehilite"><pre><span></span>mocha
+</pre></div>
+
+
+<hr />
+<h2 id="create-your-first-application">Create Your First Application</h2>
+<p>To create your application, we'll use the <strong>mocha</strong> command. It will create
+all the necessary files to get you going.</p>
+<p>First, <code>cd</code> into the directory that will contain your application, 
+then type the command below:</p>
+<div class="codehilite"><pre><span></span>mocha new-project www
+</pre></div>
+
+
+<p>Upon creation, you should see the structure below,
+where <code>www</code> name is the default name for web project, 
+but can be anything and will follow the structure below.</p>
+<p>Please notice the file <code>app_www.py</code> and the directory <code>/application/www</code>.</p>
+<div class="codehilite"><pre><span></span>/
+- app_www.py
+|
+- manage.py
+|
+- propel.yml
+|
+- requirements.txt
+|
+- application/
+    |
+    - www/
+        |
+        - static/
+            |   
+            - css/
+            |
+            - images/
+            |
+            - js/
+            |
+            - assets.yml
+        |
+        - templates/
+            |
+            - Index/
+                |   
+                - index.html
+        |
+        - __init__.py
+        |
+        - views.py
+    |
+    - _data/
+        |
+        - mail-templates/
+        |
+        - uploads/
+</pre></div>
+
+
+<ul>
+<li>
+<p><code>app_www.py</code>: This is the project's entry point. It is used to launch the application. </p>
+</li>
+<li>
+<p><code>mocha.py</code>: A command line that append your commands to the MAGIC cli</p>
+</li>
+<li>
+<p><code>requirements.txt</code>: This file should contain all your application's dependencies to be installed</p>
+</li>
+<li>
+<p><code>propel.yml</code>: A deployment configuration file. </p>
+</li>
+<li>
+<p><code>/application</code>: contains all the applications </p>
+</li>
+<li>
+<p><code>/application/www</code>: In this case <code>www</code> is the application name and was set when doing <code>mocha new-project www</code>.
+This directory contains your application's static files, templates files, views, etc.</p>
+</li>
+<li>
+<p><code>/application/www/static</code>: This directory contains the application's static files for the <code>www</code> application</p>
+</li>
+<li>
+<p><code>/application/www/templates</code>: This directory contains the template files for the <code>www</code> application</p>
+</li>
+<li>
+<p><code>/application/www/views.py</code>: That file conatains the application's View classes</p>
+</li>
+<li>
+<p><code>/application/_data</code>: This directory contains application data such uploads etc.</p>
+</li>
+</ul>
+<h2 id="your-first-launch-on-local-dev">Your First Launch on Local Dev</h2>
+<p>Now the application is setup we can launch the local dev server to see the site.</p>
+<p>To run the server, type the command below:</p>
+<div class="codehilite"><pre><span></span>mocha serve hello
+</pre></div>
+
+
+<p>Automatically it will launch the site and you can navigate to see the site at:</p>
+<div class="codehilite"><pre><span></span>http://127.0.0.1:5000
+</pre></div>
+
+
+<hr />
+<h2 id="your-first-view">Your First View</h2>
+<p>By default, your views file is at <code>/application/www/views.py</code></p>
+<p>You views consist of classes extended by <code>mocha.Mocha</code>. One view file can
+have multiple View classes in it.</p>
+<p>Each method in the class is automatically an action, unless it is a <code>@classsmethod</code>
+or starts with <code>_</code> underscore. And <code>action</code> is an endpoint to be accessed.</p>
+<p>By default, each endpoint is built on the class and the method being called. 
+It will be in lower case and dasherized.</p>
+<p>Here's a sample of a <code>views.py</code>, which contains two View classes</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">mocha</span> <span class="kn">import</span> <span class="n">View</span>
+<span class="kn">from</span> <span class="nn">mocha.decorators</span> <span class="kn">import</span> <span class="p">(</span><span class="n">menu</span><span class="p">,</span> <span class="n">methods</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+
+    <span class="nd">@menu</span><span class="p">(</span><span class="s2">&quot;Home&quot;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="nd">@menu</span><span class="p">(</span><span class="s2">&quot;About Us&quot;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">about_us</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+<span class="nd">@menu</span><span class="p">(</span><span class="s2">&quot;Music&quot;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Music</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+
+    <span class="nd">@menu</span><span class="p">(</span><span class="s2">&quot;Browse All&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;album_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Mocha&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;artist_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Mardix&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;genre&quot;</span><span class="p">:</span> <span class="s2">&quot;Hip-Hop&quot;</span> 
+        <span class="p">}</span>
+
+    <span class="nd">@menu</span><span class="p">(</span><span class="s2">&quot;Search&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="nd">@methods</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">submit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{}</span>
+</pre></div>
+
+
+<h4 id="automatic-routes">Automatic routes</h4>
+<p>Using the above example the following endpoints are available automatically. 
+No need to create a route for each one of them.</p>
+<ul>
+<li>
+<p><code>Index.index</code> -&gt; <strong>http://domain/</strong></p>
+</li>
+<li>
+<p><code>Index.about_us</code> -&gt; <strong>http://domain/about-us</strong></p>
+</li>
+<li>
+<p><code>Music.index</code> -&gt; <strong>http://domain/music</strong></p>
+</li>
+<li>
+<p><code>Music.search</code> -&gt; <strong>http://domain/music/search</strong></p>
+</li>
+<li>
+<p><code>Music.get</code> -&gt; <strong>http://domain/music/12345</strong></p>
+</li>
+</ul>
+<h4 id="instant-navigation-menu-creation">Instant navigation menu creation</h4>
+<p><code>@menu</code> allow us to create a navigation menu directly in the Class and methods. 
+This help with Rapid Application Development, and it uses the endpoint of the current 
+Class and method. Below is how it will look like using the views above. </p>
+<p><img alt="Nav Menu" src="./img/index.md-menu1.png" /></p>
+<h4 id="smart-templates-mapping">Smart templates mapping</h4>
+<p>And lastly, notice that the methods return a <code>dict</code> of the data to pass to the template. 
+<strong>Mocha</strong> will map the class name and the method used to the templates.</p>
+<ul>
+<li>
+<p><code>Index.about_us</code> -&gt; <strong>/templates/Index/about_us.html</strong></p>
+</li>
+<li>
+<p><code>Music.search</code> -&gt; <strong>/templates/Music/search.html</strong></p>
+</li>
+</ul>
+<p>Learn more about <a href="application/views.md">VIEWS</a></p>
+<hr />
+<h2 id="your-first-template">Your First Template</h2>
+<p>Templates are normal JINJA <code>.html</code> pages placed at <code>application/www/templates</code></p>
+<p>Each directory match a View class name in the <code>views.py</code>, and inside of the directory,
+ contains <code>.html</code> files matching the methods name. </p>
+<ul>
+<li>
+<p><code>Index.index</code> -&gt; <strong>/templates/Index/index.html</strong></p>
+</li>
+<li>
+<p><code>Index.about_us</code> -&gt; <strong>/templates/Index/about_us.html</strong></p>
+</li>
+<li>
+<p><code>Music.index</code> -&gt; <strong>/templates/Music/index.html</strong></p>
+</li>
+<li>
+<p><code>Music.get</code> -&gt; <strong>/templates/Music/get.html</strong></p>
+</li>
+<li>
+<p><code>Music.search</code> -&gt; <strong>/templates/Music/search.html</strong></p>
+</li>
+</ul>
+<p>With <code>views.py</code> above, <code>/templates/Music/get.html</code> </p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;h2&gt;</span>Music Info<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;h3&gt;</span><span class="cp">{{</span> <span class="nv">artist_name</span> <span class="cp">}}</span><span class="nt">&lt;/h3&gt;</span>
+
+<span class="nt">&lt;h4&gt;</span>Album name: <span class="cp">{{</span> <span class="nv">album_name</span><span class="cp">}}</span> <span class="nt">&lt;/h4&gt;</span>
+
+<span class="nt">&lt;h4&gt;</span>Genre: <span class="cp">{{</span> <span class="nv">genre</span> <span class="cp">}}</span> <span class="nt">&lt;/h4&gt;</span>
+</pre></div>
+
+
+<h4 id="dude-wheres-my-layout">Dude where's my layout?</h4>
+<p><code>application/www/templates/layout.html</code> is the main layout of the site, 
+all pages are automatically included upon rendering.</p>
+<p>You would not need to use <code>{% extends %}</code> to place a layout around the <code>Music/get.html</code> page.</p>
+<p>Upon rendering, you will see a site looking like this:</p>
+<p><img alt="Nav Menu" src="./img/index.md-render.png" /></p>
+<p>Learn more about <a href="application/templates.md">TEMPLATES</a></p>
+<hr />
+<h2 id="your-first-static">Your First Static</h2>
+<p><code>application/www/static</code> contains all the static files: images, css, javascript etc.</p>
+<p>Learn more about <a href="application/static.md">STATIC</a></p>
+<hr />
+<h2 id="deploy-to-production">Deploy to Production</h2>
+<p>Now your application is ready, it is time to deploy in production.</p>
+<p>While there many other options, I'm more familiar with <a href="deploy/">Propel</a> and Gunicorn.</p>
+<ul>
+<li>
+<p>With <a href="deploy/">Propel</a></p>
+<div class="codehilite"><pre><span></span>propel -w
+</pre></div>
+
+
+</li>
+<li>
+<p>On Gunicorn</p>
+<div class="codehilite"><pre><span></span>gunicorn app_www:app
+</pre></div>
+
+
+</li>
+</ul>
+<p>Learn more about <a href="deploy/">DEPLOYMENT</a></p>
+<hr />
+<p>That's it!</p>
+<p>Wasn't it easy?</p>
+<hr />
+<h1 id="decision-made-for-you">Decision Made for You</h1>
+<ul>
+<li>
+<p>Smart routing: automatically generates routes based on the classes and methods in your views</p>
+</li>
+<li>
+<p>Class name as the base url, ie: class UserAccount will be accessed at '/user-account'</p>
+</li>
+<li>
+<p>Class methods (action) could be accessed: hello_world(self) becomes 'hello-world'</p>
+</li>
+<li>
+<p>Easy rending and render decorator</p>
+</li>
+<li>
+<p>Auto route can be edited with @route()</p>
+</li>
+<li>
+<p>Restful: GET, POST, PUT, DELETE</p>
+</li>
+<li>
+<p>REST API Ready</p>
+</li>
+<li>
+<p>bcrypt is chosen as the password hasher</p>
+</li>
+<li>
+<p>Session: Redis, AWS S3, Google Storage, SQLite, MySQL, PostgreSQL</p>
+</li>
+<li>
+<p>ORM: <a href="https://github.com/mardix/active-alchemy">Active-Alchemy</a> (SQLALchemy wrapper)</p>
+</li>
+<li>
+<p>ReCaptcha: <a href="https://github.com/mardix/flask-recaptcha">Flask-Recaptcha</a></p>
+</li>
+<li>
+<p>CSRF on all POST</p>
+</li>
+<li>
+<p>Storage: Local, S3, Google Storage <a href="https://github.com/mardix/flask-cloudy">Flask-Cloudy</a></p>
+</li>
+<li>
+<p>Mailer (SES or SMTP)</p>
+</li>
+<li>
+<p>Caching</p>
+</li>
+<li>
+<p>Propel for deployment</p>
+</li>
+</ul>
+<hr />
+<h1 id="built-in-packages">Built-in Packages</h1>
+<p><strong>Mocha</strong> comes with built-in packages to help you run from the get go.</p>
+<ul>
+<li>
+<p>Basic Layout</p>
+</li>
+<li>
+<p>Admin Layout</p>
+</li>
+<li>
+<p>Index page</p>
+</li>
+<li>
+<p>User Auth : It allows to authenticate users into the application. Contains the following pages: </p>
+<ul>
+<li>login</li>
+<li>signup</li>
+<li>lost-password</li>
+<li>account-settings</li>
+</ul>
+</li>
+<li>
+<p>User Admin</p>
+</li>
+<li>
+<p>Publisher a CMS lite to manage posts (article, blog, dynamic pages, etc)</p>
+<ul>
+<li>With Admin</li>
+<li>With Front end view</li>
+</ul>
+</li>
+<li>
+<p>Contact Page</p>
+</li>
+<li>
+<p>Error Page (Custom error page)</p>
+</li>
+<li>
+<p>Social Signin (in experiment)</p>
+</li>
+<li>
+<p>Social Share</p>
+</li>
+<li>
+<p>Bootswatch</p>
+</li>
+<li>
+<p>Font-Awesome</p>
+</li>
+<li>
+<p>Markdown</p>
+</li>
+</ul>
+<h2 id="front-end-components">Front End Components</h2>
+<ul>
+<li>Lazy load images</li>
+<li>Social Share Buttons</li>
+<li>JQuery</li>
+<li>Bootstrap</li>
+<li>Bootswatch</li>
+<li>Js-Cookie</li>
+<li>JQuery Lazy</li>
+<li>JQuery Oembed</li>
+<li>(auth)</li>
+</ul>
+                
+                  
+                
+              
+              
+                
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+        
+          <a href="quickstart/" title="Quickstart" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Quickstart
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2016 - 2017++ Mardix
+          </div>
+        
+        powered by
+        <a href="http://www.mkdocs.org" title="MkDocs">MkDocs</a>
+        and
+        <a href="http://squidfunk.github.io/mkdocs-material/" title="Material for MkDocs">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="./assets/javascripts/application-6b599127bc.js"></script>
+      <script>app.initialize({url:{base:"."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

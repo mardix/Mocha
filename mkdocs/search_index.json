@@ -1,0 +1,1134 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "Mocha\n\n\n\n\nMocha\n put structure in your Flask application by grouping your methods together\nunder classes, and your templates relative to the path\n\n\nOne of the strength of \nMocha\n is it automatically creates the route endpoint\nfrom the class and methods.\n\n\nIt also quickly allows you to create Navigation menu on the methods you are writing.\n\n\nMocha\n is really convenient and will help create web applications, REST API, Admin section faster.\n\n\nMocha\n is a web/restful framework based on Flask with some of the most common Flask extensions\nto rapidly build Website, admin section, RESTful API and more. \n\n\nMocha aims to make it super easy to develop Python web application.\n\n\nIt's a mix of convention and configuration.\n\n\nConvention on where to place files, and configuration on data to set.\n\n\n\n\n[to place somewhere]\n\n\nSome convention\n\n\n/ root\n    |\n    -- serve.py\n    |\n    -- propel.yml\n    |\n    -- requirements.txt\n    |\n    -- application/\n        |\n        -- config.py\n        |\n        -- models.py\n        |\n        -- __init__.py\n        |\n        -- www/\n            |\n            -- views.py\n            |\n            -- __init__.py\n            |\n            -- static/\n                |   \n                -- css/\n                |\n                -- images/\n                |\n                -- js/\n                |\n                -- assets.yml\n            |\n            -- templates/\n                |\n                -- Index/\n                    |   \n                    -- index.html\n        |\n        -- _data/\n            |\n            -- mail-templates/\n            |\n            -- uploads/\n\n\n\n\n\n\n\nInstallation\n\n\nThe best way to install \nMocha\n is to do it with pip.\n\n\npip install mocha\n\n\n\n\n\nAs a good practice, it is best to install it into its own virtual environment.\n\n\nThe installation will get all the necessary packages to get you going.\n\n\nAfter the installation is complete, \nmocha\n can be used in the\n command line to conveniently create projects, build assets, \npush assets to S3, deploy application to production server and more.\n\n\nRead more about Mocha command line\n\n\nOn the command line run the \nmocha\n like below\n\n\nmocha\n\n\n\n\n\n\n\nCreate Your First Application\n\n\nTo create your application, we'll use the \nmocha\n command. It will create\nall the necessary files to get you going.\n\n\nFirst, \ncd\n into the directory that will contain your application, \nthen type the command below:\n\n\nmocha new-project www\n\n\n\n\n\nUpon creation, you should see the structure below,\nwhere \nwww\n name is the default name for web project, \nbut can be anything and will follow the structure below.\n\n\nPlease notice the file \napp_www.py\n and the directory \n/application/www\n.\n\n\n/\n- app_www.py\n|\n- manage.py\n|\n- propel.yml\n|\n- requirements.txt\n|\n- application/\n    |\n    - www/\n        |\n        - static/\n            |   \n            - css/\n            |\n            - images/\n            |\n            - js/\n            |\n            - assets.yml\n        |\n        - templates/\n            |\n            - Index/\n                |   \n                - index.html\n        |\n        - __init__.py\n        |\n        - views.py\n    |\n    - _data/\n        |\n        - mail-templates/\n        |\n        - uploads/\n\n\n\n\n\n\n\n\n\napp_www.py\n: This is the project's entry point. It is used to launch the application. \n\n\n\n\n\n\nmocha.py\n: A command line that append your commands to the MAGIC cli\n\n\n\n\n\n\nrequirements.txt\n: This file should contain all your application's dependencies to be installed\n\n\n\n\n\n\npropel.yml\n: A deployment configuration file. \n\n\n\n\n\n\n/application\n: contains all the applications \n\n\n\n\n\n\n/application/www\n: In this case \nwww\n is the application name and was set when doing \nmocha new-project www\n.\nThis directory contains your application's static files, templates files, views, etc.\n\n\n\n\n\n\n/application/www/static\n: This directory contains the application's static files for the \nwww\n application\n\n\n\n\n\n\n/application/www/templates\n: This directory contains the template files for the \nwww\n application\n\n\n\n\n\n\n/application/www/views.py\n: That file conatains the application's View classes\n\n\n\n\n\n\n/application/_data\n: This directory contains application data such uploads etc.\n\n\n\n\n\n\nYour First Launch on Local Dev\n\n\nNow the application is setup we can launch the local dev server to see the site.\n\n\nTo run the server, type the command below:\n\n\nmocha serve hello\n\n\n\n\n\nAutomatically it will launch the site and you can navigate to see the site at:\n\n\nhttp://127.0.0.1:5000\n\n\n\n\n\n\n\nYour First View\n\n\nBy default, your views file is at \n/application/www/views.py\n\n\nYou views consist of classes extended by \nmocha.Mocha\n. One view file can\nhave multiple View classes in it.\n\n\nEach method in the class is automatically an action, unless it is a \n@classsmethod\n\nor starts with \n_\n underscore. And \naction\n is an endpoint to be accessed.\n\n\nBy default, each endpoint is built on the class and the method being called. \nIt will be in lower case and dasherized.\n\n\nHere's a sample of a \nviews.py\n, which contains two View classes\n\n\nfrom\n \nmocha\n \nimport\n \nView\n\n\nfrom\n \nmocha.decorators\n \nimport\n \n(\nmenu\n,\n \nmethods\n)\n\n\n\nclass\n \nIndex\n(\nView\n):\n\n\n    \n@menu\n(\nHome\n,\n \norder\n=\n1\n)\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \nreturn\n \n{}\n\n\n    \n@menu\n(\nAbout Us\n,\n \norder\n=\n3\n)\n\n    \ndef\n \nabout_us\n(\nself\n):\n\n        \nreturn\n \n{}\n\n\n\n@menu\n(\nMusic\n,\n \norder\n=\n2\n)\n\n\nclass\n \nMusic\n(\nView\n):\n\n\n    \n@menu\n(\nBrowse All\n)\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \nreturn\n \n{}\n\n\n    \ndef\n \nget\n(\nself\n,\n \nid\n):\n\n        \nreturn\n \n{\n\n            \nalbum_name\n:\n \nMocha\n,\n\n            \nartist_name\n:\n \nMardix\n,\n\n            \ngenre\n:\n \nHip-Hop\n \n        \n}\n\n\n    \n@menu\n(\nSearch\n)\n\n    \ndef\n \nsearch\n(\nself\n):\n\n        \nreturn\n \n{}\n\n\n    \n@methods\n(\nPOST\n)\n\n    \ndef\n \nsubmit\n(\nself\n):\n\n        \nreturn\n \n{}\n\n\n\n\n\n\nAutomatic routes\n\n\nUsing the above example the following endpoints are available automatically. \nNo need to create a route for each one of them.\n\n\n\n\n\n\nIndex.index\n -\n \nhttp://domain/\n\n\n\n\n\n\nIndex.about_us\n -\n \nhttp://domain/about-us\n\n\n\n\n\n\nMusic.index\n -\n \nhttp://domain/music\n\n\n\n\n\n\nMusic.search\n -\n \nhttp://domain/music/search\n\n\n\n\n\n\nMusic.get\n -\n \nhttp://domain/music/12345\n\n\n\n\n\n\nInstant navigation menu creation\n\n\n@menu\n allow us to create a navigation menu directly in the Class and methods. \nThis help with Rapid Application Development, and it uses the endpoint of the current \nClass and method. Below is how it will look like using the views above. \n\n\n\n\nSmart templates mapping\n\n\nAnd lastly, notice that the methods return a \ndict\n of the data to pass to the template. \n\nMocha\n will map the class name and the method used to the templates.\n\n\n\n\n\n\nIndex.about_us\n -\n \n/templates/Index/about_us.html\n\n\n\n\n\n\nMusic.search\n -\n \n/templates/Music/search.html\n\n\n\n\n\n\nLearn more about \nVIEWS\n\n\n\n\nYour First Template\n\n\nTemplates are normal JINJA \n.html\n pages placed at \napplication/www/templates\n\n\nEach directory match a View class name in the \nviews.py\n, and inside of the directory,\n contains \n.html\n files matching the methods name. \n\n\n\n\n\n\nIndex.index\n -\n \n/templates/Index/index.html\n\n\n\n\n\n\nIndex.about_us\n -\n \n/templates/Index/about_us.html\n\n\n\n\n\n\nMusic.index\n -\n \n/templates/Music/index.html\n\n\n\n\n\n\nMusic.get\n -\n \n/templates/Music/get.html\n\n\n\n\n\n\nMusic.search\n -\n \n/templates/Music/search.html\n\n\n\n\n\n\nWith \nviews.py\n above, \n/templates/Music/get.html\n \n\n\nh2\nMusic Info\n/h2\n\n\n\nh3\n{{\n \nartist_name\n \n}}\n/h3\n\n\n\nh4\nAlbum name: \n{{\n \nalbum_name\n}}\n \n/h4\n\n\n\nh4\nGenre: \n{{\n \ngenre\n \n}}\n \n/h4\n\n\n\n\n\n\nDude where's my layout?\n\n\napplication/www/templates/layout.html\n is the main layout of the site, \nall pages are automatically included upon rendering.\n\n\nYou would not need to use \n{% extends %}\n to place a layout around the \nMusic/get.html\n page.\n\n\nUpon rendering, you will see a site looking like this:\n\n\n\n\nLearn more about \nTEMPLATES\n\n\n\n\nYour First Static\n\n\napplication/www/static\n contains all the static files: images, css, javascript etc.\n\n\nLearn more about \nSTATIC\n\n\n\n\nDeploy to Production\n\n\nNow your application is ready, it is time to deploy in production.\n\n\nWhile there many other options, I'm more familiar with \nPropel\n and Gunicorn.\n\n\n\n\n\n\nWith \nPropel\n\n\npropel -w\n\n\n\n\n\n\n\n\n\nOn Gunicorn\n\n\ngunicorn app_www:app\n\n\n\n\n\n\n\n\n\nLearn more about \nDEPLOYMENT\n\n\n\n\nThat's it!\n\n\nWasn't it easy?\n\n\n\n\nDecision Made for You\n\n\n\n\n\n\nSmart routing: automatically generates routes based on the classes and methods in your views\n\n\n\n\n\n\nClass name as the base url, ie: class UserAccount will be accessed at '/user-account'\n\n\n\n\n\n\nClass methods (action) could be accessed: hello_world(self) becomes 'hello-world'\n\n\n\n\n\n\nEasy rending and render decorator\n\n\n\n\n\n\nAuto route can be edited with @route()\n\n\n\n\n\n\nRestful: GET, POST, PUT, DELETE\n\n\n\n\n\n\nREST API Ready\n\n\n\n\n\n\nbcrypt is chosen as the password hasher\n\n\n\n\n\n\nSession: Redis, AWS S3, Google Storage, SQLite, MySQL, PostgreSQL\n\n\n\n\n\n\nORM: \nActive-Alchemy\n (SQLALchemy wrapper)\n\n\n\n\n\n\nReCaptcha: \nFlask-Recaptcha\n\n\n\n\n\n\nCSRF on all POST\n\n\n\n\n\n\nStorage: Local, S3, Google Storage \nFlask-Cloudy\n\n\n\n\n\n\nMailer (SES or SMTP)\n\n\n\n\n\n\nCaching\n\n\n\n\n\n\nPropel for deployment\n\n\n\n\n\n\n\n\nBuilt-in Packages\n\n\nMocha\n comes with built-in packages to help you run from the get go.\n\n\n\n\n\n\nBasic Layout\n\n\n\n\n\n\nAdmin Layout\n\n\n\n\n\n\nIndex page\n\n\n\n\n\n\nUser Auth : It allows to authenticate users into the application. Contains the following pages: \n\n\n\n\nlogin\n\n\nsignup\n\n\nlost-password\n\n\naccount-settings\n\n\n\n\n\n\n\n\nUser Admin\n\n\n\n\n\n\nPublisher a CMS lite to manage posts (article, blog, dynamic pages, etc)\n\n\n\n\nWith Admin\n\n\nWith Front end view\n\n\n\n\n\n\n\n\nContact Page\n\n\n\n\n\n\nError Page (Custom error page)\n\n\n\n\n\n\nSocial Signin (in experiment)\n\n\n\n\n\n\nSocial Share\n\n\n\n\n\n\nBootswatch\n\n\n\n\n\n\nFont-Awesome\n\n\n\n\n\n\nMarkdown\n\n\n\n\n\n\nFront End Components\n\n\n\n\nLazy load images\n\n\nSocial Share Buttons\n\n\nJQuery\n\n\nBootstrap\n\n\nBootswatch\n\n\nJs-Cookie\n\n\nJQuery Lazy\n\n\nJQuery Oembed\n\n\n(auth)", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#mocha", 
+            "text": "Mocha  put structure in your Flask application by grouping your methods together\nunder classes, and your templates relative to the path  One of the strength of  Mocha  is it automatically creates the route endpoint\nfrom the class and methods.  It also quickly allows you to create Navigation menu on the methods you are writing.  Mocha  is really convenient and will help create web applications, REST API, Admin section faster.  Mocha  is a web/restful framework based on Flask with some of the most common Flask extensions\nto rapidly build Website, admin section, RESTful API and more.   Mocha aims to make it super easy to develop Python web application.  It's a mix of convention and configuration.  Convention on where to place files, and configuration on data to set.   [to place somewhere]  Some convention  / root\n    |\n    -- serve.py\n    |\n    -- propel.yml\n    |\n    -- requirements.txt\n    |\n    -- application/\n        |\n        -- config.py\n        |\n        -- models.py\n        |\n        -- __init__.py\n        |\n        -- www/\n            |\n            -- views.py\n            |\n            -- __init__.py\n            |\n            -- static/\n                |   \n                -- css/\n                |\n                -- images/\n                |\n                -- js/\n                |\n                -- assets.yml\n            |\n            -- templates/\n                |\n                -- Index/\n                    |   \n                    -- index.html\n        |\n        -- _data/\n            |\n            -- mail-templates/\n            |\n            -- uploads/", 
+            "title": "Mocha"
+        }, 
+        {
+            "location": "/#installation", 
+            "text": "The best way to install  Mocha  is to do it with pip.  pip install mocha  As a good practice, it is best to install it into its own virtual environment.  The installation will get all the necessary packages to get you going.  After the installation is complete,  mocha  can be used in the\n command line to conveniently create projects, build assets, \npush assets to S3, deploy application to production server and more.  Read more about Mocha command line  On the command line run the  mocha  like below  mocha", 
+            "title": "Installation"
+        }, 
+        {
+            "location": "/#create-your-first-application", 
+            "text": "To create your application, we'll use the  mocha  command. It will create\nall the necessary files to get you going.  First,  cd  into the directory that will contain your application, \nthen type the command below:  mocha new-project www  Upon creation, you should see the structure below,\nwhere  www  name is the default name for web project, \nbut can be anything and will follow the structure below.  Please notice the file  app_www.py  and the directory  /application/www .  /\n- app_www.py\n|\n- manage.py\n|\n- propel.yml\n|\n- requirements.txt\n|\n- application/\n    |\n    - www/\n        |\n        - static/\n            |   \n            - css/\n            |\n            - images/\n            |\n            - js/\n            |\n            - assets.yml\n        |\n        - templates/\n            |\n            - Index/\n                |   \n                - index.html\n        |\n        - __init__.py\n        |\n        - views.py\n    |\n    - _data/\n        |\n        - mail-templates/\n        |\n        - uploads/    app_www.py : This is the project's entry point. It is used to launch the application.     mocha.py : A command line that append your commands to the MAGIC cli    requirements.txt : This file should contain all your application's dependencies to be installed    propel.yml : A deployment configuration file.     /application : contains all the applications     /application/www : In this case  www  is the application name and was set when doing  mocha new-project www .\nThis directory contains your application's static files, templates files, views, etc.    /application/www/static : This directory contains the application's static files for the  www  application    /application/www/templates : This directory contains the template files for the  www  application    /application/www/views.py : That file conatains the application's View classes    /application/_data : This directory contains application data such uploads etc.", 
+            "title": "Create Your First Application"
+        }, 
+        {
+            "location": "/#your-first-launch-on-local-dev", 
+            "text": "Now the application is setup we can launch the local dev server to see the site.  To run the server, type the command below:  mocha serve hello  Automatically it will launch the site and you can navigate to see the site at:  http://127.0.0.1:5000", 
+            "title": "Your First Launch on Local Dev"
+        }, 
+        {
+            "location": "/#your-first-view", 
+            "text": "By default, your views file is at  /application/www/views.py  You views consist of classes extended by  mocha.Mocha . One view file can\nhave multiple View classes in it.  Each method in the class is automatically an action, unless it is a  @classsmethod \nor starts with  _  underscore. And  action  is an endpoint to be accessed.  By default, each endpoint is built on the class and the method being called. \nIt will be in lower case and dasherized.  Here's a sample of a  views.py , which contains two View classes  from   mocha   import   View  from   mocha.decorators   import   ( menu ,   methods )  class   Index ( View ): \n\n     @menu ( Home ,   order = 1 ) \n     def   index ( self ): \n         return   {} \n\n     @menu ( About Us ,   order = 3 ) \n     def   about_us ( self ): \n         return   {}  @menu ( Music ,   order = 2 )  class   Music ( View ): \n\n     @menu ( Browse All ) \n     def   index ( self ): \n         return   {} \n\n     def   get ( self ,   id ): \n         return   { \n             album_name :   Mocha , \n             artist_name :   Mardix , \n             genre :   Hip-Hop  \n         } \n\n     @menu ( Search ) \n     def   search ( self ): \n         return   {} \n\n     @methods ( POST ) \n     def   submit ( self ): \n         return   {}", 
+            "title": "Your First View"
+        }, 
+        {
+            "location": "/#automatic-routes", 
+            "text": "Using the above example the following endpoints are available automatically. \nNo need to create a route for each one of them.    Index.index  -   http://domain/    Index.about_us  -   http://domain/about-us    Music.index  -   http://domain/music    Music.search  -   http://domain/music/search    Music.get  -   http://domain/music/12345", 
+            "title": "Automatic routes"
+        }, 
+        {
+            "location": "/#instant-navigation-menu-creation", 
+            "text": "@menu  allow us to create a navigation menu directly in the Class and methods. \nThis help with Rapid Application Development, and it uses the endpoint of the current \nClass and method. Below is how it will look like using the views above.", 
+            "title": "Instant navigation menu creation"
+        }, 
+        {
+            "location": "/#smart-templates-mapping", 
+            "text": "And lastly, notice that the methods return a  dict  of the data to pass to the template.  Mocha  will map the class name and the method used to the templates.    Index.about_us  -   /templates/Index/about_us.html    Music.search  -   /templates/Music/search.html    Learn more about  VIEWS", 
+            "title": "Smart templates mapping"
+        }, 
+        {
+            "location": "/#your-first-template", 
+            "text": "Templates are normal JINJA  .html  pages placed at  application/www/templates  Each directory match a View class name in the  views.py , and inside of the directory,\n contains  .html  files matching the methods name.     Index.index  -   /templates/Index/index.html    Index.about_us  -   /templates/Index/about_us.html    Music.index  -   /templates/Music/index.html    Music.get  -   /templates/Music/get.html    Music.search  -   /templates/Music/search.html    With  views.py  above,  /templates/Music/get.html    h2 Music Info /h2  h3 {{   artist_name   }} /h3  h4 Album name:  {{   album_name }}   /h4  h4 Genre:  {{   genre   }}   /h4", 
+            "title": "Your First Template"
+        }, 
+        {
+            "location": "/#dude-wheres-my-layout", 
+            "text": "application/www/templates/layout.html  is the main layout of the site, \nall pages are automatically included upon rendering.  You would not need to use  {% extends %}  to place a layout around the  Music/get.html  page.  Upon rendering, you will see a site looking like this:   Learn more about  TEMPLATES", 
+            "title": "Dude where's my layout?"
+        }, 
+        {
+            "location": "/#your-first-static", 
+            "text": "application/www/static  contains all the static files: images, css, javascript etc.  Learn more about  STATIC", 
+            "title": "Your First Static"
+        }, 
+        {
+            "location": "/#deploy-to-production", 
+            "text": "Now your application is ready, it is time to deploy in production.  While there many other options, I'm more familiar with  Propel  and Gunicorn.    With  Propel  propel -w    On Gunicorn  gunicorn app_www:app    Learn more about  DEPLOYMENT   That's it!  Wasn't it easy?", 
+            "title": "Deploy to Production"
+        }, 
+        {
+            "location": "/#decision-made-for-you", 
+            "text": "Smart routing: automatically generates routes based on the classes and methods in your views    Class name as the base url, ie: class UserAccount will be accessed at '/user-account'    Class methods (action) could be accessed: hello_world(self) becomes 'hello-world'    Easy rending and render decorator    Auto route can be edited with @route()    Restful: GET, POST, PUT, DELETE    REST API Ready    bcrypt is chosen as the password hasher    Session: Redis, AWS S3, Google Storage, SQLite, MySQL, PostgreSQL    ORM:  Active-Alchemy  (SQLALchemy wrapper)    ReCaptcha:  Flask-Recaptcha    CSRF on all POST    Storage: Local, S3, Google Storage  Flask-Cloudy    Mailer (SES or SMTP)    Caching    Propel for deployment", 
+            "title": "Decision Made for You"
+        }, 
+        {
+            "location": "/#built-in-packages", 
+            "text": "Mocha  comes with built-in packages to help you run from the get go.    Basic Layout    Admin Layout    Index page    User Auth : It allows to authenticate users into the application. Contains the following pages:    login  signup  lost-password  account-settings     User Admin    Publisher a CMS lite to manage posts (article, blog, dynamic pages, etc)   With Admin  With Front end view     Contact Page    Error Page (Custom error page)    Social Signin (in experiment)    Social Share    Bootswatch    Font-Awesome    Markdown", 
+            "title": "Built-in Packages"
+        }, 
+        {
+            "location": "/#front-end-components", 
+            "text": "Lazy load images  Social Share Buttons  JQuery  Bootstrap  Bootswatch  Js-Cookie  JQuery Lazy  JQuery Oembed  (auth)", 
+            "title": "Front End Components"
+        }, 
+        {
+            "location": "/quickstart/", 
+            "text": "", 
+            "title": "Quickstart"
+        }, 
+        {
+            "location": "/config/", 
+            "text": "At root of \n/app\n directory contains \nconfig.py\n. This is where most of the\nconfiguration reside\n\n\nMocha uses class-based configuration\n\n\nBy default it is expecting a config class \nDev\n, but can be change by setting\na environment variable: \nenv=prod\n or \nenv=stage", 
+            "title": "Config"
+        }, 
+        {
+            "location": "/views/", 
+            "text": "Views\n\n\nExamples\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \nreturn", 
+            "title": "Views"
+        }, 
+        {
+            "location": "/views/#views", 
+            "text": "Examples  from   mocha   import   Mocha  class   Index ( Mocha ): \n     def   index ( self ): \n         return", 
+            "title": "Views"
+        }, 
+        {
+            "location": "/views/decorators/", 
+            "text": "Decorators\n\n\nMocha exposes decorators to simplify your app development\n\n\nFor convenience, we are going to use the same decora\n\n\nImport\n\n\nfrom\n \nmocha\n \nimport\n \ndecorators\n \nas\n \ndeco\n\n\n\n\n\n\nThis will allow you to explicitely call the decorators in a similar as:\n\n\n@deco.route\n\n\n\n\n\n\n\nRoute\n\n\nAllows you to apply a route on a view class or a single method\n\n\nClass based route\n\n\nWhen applied to a view class, all methods will be prefixed with the toute\n\n\nThe following code will use the \n/account/\n route, and \n/account/hello\n\n\n@deco\n.\nroute\n(\n/account/\n)\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \npass\n\n\n    \ndef\n \nhello\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\nMethod based route\n\n\nMethod based route only applies the route to the method.\n\n\nThe code below will expose \n/hello-world\n. By default \nIndex\n and \nindex\n will\nreference to the root, unless a route is applied\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \npass\n\n\n    \n@deco\n.\nroute\n(\nhello-world\n)\n\n    \ndef\n \nhello\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\nCombined Class and Method Based\n\n\nYou can combine both class and method based.\n\n\nThe code below will now be accessed at: \n/account/\n, \n/account/hello-world\n\n\n@deco\n.\nroute\n(\n/account/\n)\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \npass\n\n\n    \n@deco\n.\nroute\n(\n/hello-world\n)\n\n    \ndef\n \nhello\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\n\n\nMethods\n\n\nThe method decorators help specify what methods the views will accept.\nMultiple methods can be applied.\n\n\nSince Mocha allows you to write API endpoints\n(thanks mainly to Flask), the methods below can make your endpoints RESTful.\n\n\naccept_get\n\n\nAccepts GET method. By default, all endpoints are GET.\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@deco\n.\naccept_get\n\n    \ndef\n \nhello\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\naccept_post\n\n\nAccepts POST method.\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@deco\n.\naccept_post\n\n    \ndef\n \nsave_data\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\naccept_post_get\n\n\nAccepts POST \n GET method.\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@deco\n.\naccept_post_get\n\n    \ndef\n \nmy_thing\n(\nself\n)\n:\n\n        \nif\n \nrequest\n.\nmethod\n \n==\n \nPOST\n:\n\n            \n#\n \ndo\n \nsome\n \npost\n \nstuff\n \nin\n \nhere\n\n            \n#\n \nreturn\n \na\n \nredirect\n \nor\n \nsomething\n \nelse\n\n            \npass\n\n\n        \n#\n \nbelow\n \nwill\n \nproceed\n \nfor\n \nGET\n,\n \nsince\n \nthe\n \nPOST\n \nreturn\n \nsomething\n\n        \nname\n \n=\n \nMocha\n\n        \nreturn\n \n{\nname\n:\n \nname\n}\n\n\n\n\n\n\naccept_delete\n\n\nAccepts DELETE method.\n\n\naccept_put\n\n\nAccepts PUT method.\n\n\naccept_options\n\n\nAccepts OPTIONS method.\n\n\nCombining methods\n\n\nYou can combine multiple methods\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@deco\n.\naccept_post\n\n    \n@deco\n.\naccept_put\n\n    \n@deco\n.\naccept_delete\n\n    \ndef\n \nsave_data\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\n\n\nRender Format\n\n\nBy default, the responses will render normal HTML. But if you want to return\nJSON, or XML data, the methods below will conveniently help you do that.\n\n\nN.B.: The methods must return DICT for them to benefit from multiple response format\n\n\nrender_json\n\n\nIt return a dict into JSON. Good for API endpoint.\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@deco\n.\nrender_json\n\n    \ndef\n \nmy_data\n(\nself\n)\n:\n\n        \nreturn\n \n{\n\n            \nname\n:\n \nMocha\n,\n\n            \nversion\n:\n \nxxx\n\n        \n}\n\n\n\n\n\n\nrender_jsonp\n\n\nIt return a dict into JSON for JSONP.\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@deco\n.\nrender_jsonp\n\n    \ndef\n \nmy_data\n(\nself\n)\n:\n\n        \nreturn\n \n{\n\n            \nname\n:\n \nMocha\n,\n\n            \nversion\n:\n \nxxx\n\n        \n}\n\n\n\n\n\n\nrender_xml\n\n\nIt return a dict into XML.\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@deco\n.\nrender_xml\n\n    \ndef\n \nmy_data\n(\nself\n)\n:\n\n        \nreturn\n \n{\n\n            \nname\n:\n \nMocha\n,\n\n            \nversion\n:\n \nxxx\n\n        \n}\n\n\n\n\n\n\nhtml\n\n\nThere is no decorator for HTML, as it will fall back to it if a view is not decorated\nwith \nrender_json\n or \nrender_xml\n\n\n\n\nTemplate\n\n\nThis decorator allows you to change the view template or layout\n\n\nIt can be applied on both class based or method based\n\n\nParams:\n\n\ntemplate(page, markup=\"jade\")\n\n\n\n\npage: the path of the new layout or template\n\n\nmarkup: the markup to use for all pages: \njade\n or \nhtml\n\n\n\n\nClass based\n\n\nThis will change the default layout to another one.\n\n\n@deco\n.\ntemplate\n(\n/layouts/my-new-layouts.jade\n)\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \nreturn\n\n\n    \ndef\n \nhello\n(\nself\n)\n:\n\n        \nreturn\n\n\n\n\n\n\nMethod based\n\n\nBy default the template for method is based on its name, to use a different\ntemplate, specify the full path\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \nreturn\n\n\n    \n@deco\n.\ntemplate\n(\n/my-path/new-world.html\n,\n \nmarkup\n=\nhtml\n)\n\n    \ndef\n \nhello\n(\nself\n)\n:\n\n        \nreturn\n\n\n\n\n\n\n\n\nCache\n\n\nFlask-Caching is used for caching\n\n\ncache\n\n\nfrom\n \nmocha.ext\n \nimport\n \ncache\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \n@cache.cached\n(\n500\n)\n\n    \ndef\n \nmy_cache_view\n(\nself\n):\n\n        \nreturn\n\n\n\n\n\n\nmemoize\n\n\n\n\nCSRF\n\n\nAll POST methods are required to receive \n_csrf_token\n from the application.\n\n\nIt it fails, the user will not be able to use it.\n\n\nexempt_csrf\n\n\nIn some cases you will want to bypass a POST method CSRF check, to do, we\nhave to exempt that method\n\n\nfrom\n \nmocha.ext\n \nimport\n \ncsrf\n\n\nimport\n \nmocha.decorators\n \nas\n \ndeco\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \n@csrf.exempt\n\n    \n@deco.accept_post\n\n    \ndef\n \nmy_exempted_csrf_post\n(\nself\n):\n\n        \nreturn\n\n\n\n\n\n\n\n\nnav_menu\n\n\n@nav_menu\n creates a \nnavigation menu\n for UI\n\n\nfrom\n \nmocha\n \nimport\n \nnav_menu\n\n\n\n\n\n\nview_parser\n\n\n@view_parser\n\n\nfrom\n \nmocha\n \nimport\n \nview_parser", 
+            "title": "Views: Decorators"
+        }, 
+        {
+            "location": "/views/decorators/#decorators", 
+            "text": "Mocha exposes decorators to simplify your app development  For convenience, we are going to use the same decora", 
+            "title": "Decorators"
+        }, 
+        {
+            "location": "/views/decorators/#import", 
+            "text": "from   mocha   import   decorators   as   deco   This will allow you to explicitely call the decorators in a similar as:  @deco.route", 
+            "title": "Import"
+        }, 
+        {
+            "location": "/views/decorators/#route", 
+            "text": "Allows you to apply a route on a view class or a single method", 
+            "title": "Route"
+        }, 
+        {
+            "location": "/views/decorators/#class-based-route", 
+            "text": "When applied to a view class, all methods will be prefixed with the toute  The following code will use the  /account/  route, and  /account/hello  @deco . route ( /account/ )  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         pass \n\n     def   hello ( self ) : \n         pass", 
+            "title": "Class based route"
+        }, 
+        {
+            "location": "/views/decorators/#method-based-route", 
+            "text": "Method based route only applies the route to the method.  The code below will expose  /hello-world . By default  Index  and  index  will\nreference to the root, unless a route is applied  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         pass \n\n     @deco . route ( hello-world ) \n     def   hello ( self ) : \n         pass", 
+            "title": "Method based route"
+        }, 
+        {
+            "location": "/views/decorators/#combined-class-and-method-based", 
+            "text": "You can combine both class and method based.  The code below will now be accessed at:  /account/ ,  /account/hello-world  @deco . route ( /account/ )  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         pass \n\n     @deco . route ( /hello-world ) \n     def   hello ( self ) : \n         pass", 
+            "title": "Combined Class and Method Based"
+        }, 
+        {
+            "location": "/views/decorators/#methods", 
+            "text": "The method decorators help specify what methods the views will accept.\nMultiple methods can be applied.  Since Mocha allows you to write API endpoints\n(thanks mainly to Flask), the methods below can make your endpoints RESTful.", 
+            "title": "Methods"
+        }, 
+        {
+            "location": "/views/decorators/#accept_get", 
+            "text": "Accepts GET method. By default, all endpoints are GET.  class   Index ( Mocha ) : \n\n     @deco . accept_get \n     def   hello ( self ) : \n         pass", 
+            "title": "accept_get"
+        }, 
+        {
+            "location": "/views/decorators/#accept_post", 
+            "text": "Accepts POST method.  class   Index ( Mocha ) : \n\n     @deco . accept_post \n     def   save_data ( self ) : \n         pass", 
+            "title": "accept_post"
+        }, 
+        {
+            "location": "/views/decorators/#accept_post_get", 
+            "text": "Accepts POST   GET method.  class   Index ( Mocha ) : \n\n     @deco . accept_post_get \n     def   my_thing ( self ) : \n         if   request . method   ==   POST : \n             #   do   some   post   stuff   in   here \n             #   return   a   redirect   or   something   else \n             pass \n\n         #   below   will   proceed   for   GET ,   since   the   POST   return   something \n         name   =   Mocha \n         return   { name :   name }", 
+            "title": "accept_post_get"
+        }, 
+        {
+            "location": "/views/decorators/#accept_delete", 
+            "text": "Accepts DELETE method.", 
+            "title": "accept_delete"
+        }, 
+        {
+            "location": "/views/decorators/#accept_put", 
+            "text": "Accepts PUT method.", 
+            "title": "accept_put"
+        }, 
+        {
+            "location": "/views/decorators/#accept_options", 
+            "text": "Accepts OPTIONS method.", 
+            "title": "accept_options"
+        }, 
+        {
+            "location": "/views/decorators/#combining-methods", 
+            "text": "You can combine multiple methods  class   Index ( Mocha ) : \n\n     @deco . accept_post \n     @deco . accept_put \n     @deco . accept_delete \n     def   save_data ( self ) : \n         pass", 
+            "title": "Combining methods"
+        }, 
+        {
+            "location": "/views/decorators/#render-format", 
+            "text": "By default, the responses will render normal HTML. But if you want to return\nJSON, or XML data, the methods below will conveniently help you do that.  N.B.: The methods must return DICT for them to benefit from multiple response format", 
+            "title": "Render Format"
+        }, 
+        {
+            "location": "/views/decorators/#render_json", 
+            "text": "It return a dict into JSON. Good for API endpoint.  class   Index ( Mocha ) : \n\n     @deco . render_json \n     def   my_data ( self ) : \n         return   { \n             name :   Mocha , \n             version :   xxx \n         }", 
+            "title": "render_json"
+        }, 
+        {
+            "location": "/views/decorators/#render_jsonp", 
+            "text": "It return a dict into JSON for JSONP.  class   Index ( Mocha ) : \n\n     @deco . render_jsonp \n     def   my_data ( self ) : \n         return   { \n             name :   Mocha , \n             version :   xxx \n         }", 
+            "title": "render_jsonp"
+        }, 
+        {
+            "location": "/views/decorators/#render_xml", 
+            "text": "It return a dict into XML.  class   Index ( Mocha ) : \n\n     @deco . render_xml \n     def   my_data ( self ) : \n         return   { \n             name :   Mocha , \n             version :   xxx \n         }", 
+            "title": "render_xml"
+        }, 
+        {
+            "location": "/views/decorators/#html", 
+            "text": "There is no decorator for HTML, as it will fall back to it if a view is not decorated\nwith  render_json  or  render_xml", 
+            "title": "html"
+        }, 
+        {
+            "location": "/views/decorators/#template", 
+            "text": "This decorator allows you to change the view template or layout  It can be applied on both class based or method based  Params:  template(page, markup=\"jade\")   page: the path of the new layout or template  markup: the markup to use for all pages:  jade  or  html", 
+            "title": "Template"
+        }, 
+        {
+            "location": "/views/decorators/#class-based", 
+            "text": "This will change the default layout to another one.  @deco . template ( /layouts/my-new-layouts.jade )  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         return \n\n     def   hello ( self ) : \n         return", 
+            "title": "Class based"
+        }, 
+        {
+            "location": "/views/decorators/#method-based", 
+            "text": "By default the template for method is based on its name, to use a different\ntemplate, specify the full path  class   Index ( Mocha ) : \n\n\n     def   index ( self ) : \n         return \n\n     @deco . template ( /my-path/new-world.html ,   markup = html ) \n     def   hello ( self ) : \n         return", 
+            "title": "Method based"
+        }, 
+        {
+            "location": "/views/decorators/#cache", 
+            "text": "Flask-Caching is used for caching", 
+            "title": "Cache"
+        }, 
+        {
+            "location": "/views/decorators/#cache_1", 
+            "text": "from   mocha.ext   import   cache  class   Index ( Mocha ): \n\n     @cache.cached ( 500 ) \n     def   my_cache_view ( self ): \n         return", 
+            "title": "cache"
+        }, 
+        {
+            "location": "/views/decorators/#memoize", 
+            "text": "", 
+            "title": "memoize"
+        }, 
+        {
+            "location": "/views/decorators/#csrf", 
+            "text": "All POST methods are required to receive  _csrf_token  from the application.  It it fails, the user will not be able to use it.", 
+            "title": "CSRF"
+        }, 
+        {
+            "location": "/views/decorators/#exempt_csrf", 
+            "text": "In some cases you will want to bypass a POST method CSRF check, to do, we\nhave to exempt that method  from   mocha.ext   import   csrf  import   mocha.decorators   as   deco  class   Index ( Mocha ): \n\n     @csrf.exempt \n     @deco.accept_post \n     def   my_exempted_csrf_post ( self ): \n         return", 
+            "title": "exempt_csrf"
+        }, 
+        {
+            "location": "/views/decorators/#nav_menu", 
+            "text": "@nav_menu  creates a  navigation menu  for UI  from   mocha   import   nav_menu", 
+            "title": "nav_menu"
+        }, 
+        {
+            "location": "/views/decorators/#view_parser", 
+            "text": "@view_parser  from   mocha   import   view_parser", 
+            "title": "view_parser"
+        }, 
+        {
+            "location": "/views/helpers/", 
+            "text": "About\n\n\nUtils are functions or objects that are exposed to the applications. They can be shortcuts, \nor from Flask itself. Some of them may extend some functionalities. \n\n\nget_config\n\n\n\n\npage_meta\n\n\n\n\nurl_for\n\n\n\n\nredirect\n\n\nRedirect the request to another url. It adds an extra functionality by passing \nthe a class method\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n,\n \nredirect\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \npass\n\n\n    \ndef\n \nhello\n(\nself\n):\n\n        \nreturn\n \nredirect\n(\nself\n.\nindex\n)\n\n\n\n\n\n\n\n\nrequest\n\n\nThis return the basic \nflask request\n object\n\n\nsession\n\n\nflash_success\n\n\nflash_error\n\n\nflash_info\n\n\nflash_data\n\n\nget_flash_data\n\n\nabort\n\n\nsend_mail\n\n\nget_env\n\n\nset_env\n\n\nget_env_app\n\n\nget_env_config\n\n\nmodels\n\n\nviews\n\n\nregister_package\n\n\ninit_app\n\n\nimport_module\n\n\nregister_models\n\n\nsend_mail\n\n\nupload\n\n\nstorage", 
+            "title": "Views: Helpers"
+        }, 
+        {
+            "location": "/views/helpers/#about", 
+            "text": "Utils are functions or objects that are exposed to the applications. They can be shortcuts, \nor from Flask itself. Some of them may extend some functionalities.", 
+            "title": "About"
+        }, 
+        {
+            "location": "/views/helpers/#get_config", 
+            "text": "", 
+            "title": "get_config"
+        }, 
+        {
+            "location": "/views/helpers/#page_meta", 
+            "text": "", 
+            "title": "page_meta"
+        }, 
+        {
+            "location": "/views/helpers/#url_for", 
+            "text": "", 
+            "title": "url_for"
+        }, 
+        {
+            "location": "/views/helpers/#redirect", 
+            "text": "Redirect the request to another url. It adds an extra functionality by passing \nthe a class method  from   mocha   import   Mocha ,   redirect  class   Index ( Mocha ): \n\n     def   index ( self ): \n         pass \n\n     def   hello ( self ): \n         return   redirect ( self . index )", 
+            "title": "redirect"
+        }, 
+        {
+            "location": "/views/helpers/#request", 
+            "text": "This return the basic  flask request  object", 
+            "title": "request"
+        }, 
+        {
+            "location": "/views/helpers/#session", 
+            "text": "", 
+            "title": "session"
+        }, 
+        {
+            "location": "/views/helpers/#flash_success", 
+            "text": "", 
+            "title": "flash_success"
+        }, 
+        {
+            "location": "/views/helpers/#flash_error", 
+            "text": "", 
+            "title": "flash_error"
+        }, 
+        {
+            "location": "/views/helpers/#flash_info", 
+            "text": "", 
+            "title": "flash_info"
+        }, 
+        {
+            "location": "/views/helpers/#flash_data", 
+            "text": "", 
+            "title": "flash_data"
+        }, 
+        {
+            "location": "/views/helpers/#get_flash_data", 
+            "text": "", 
+            "title": "get_flash_data"
+        }, 
+        {
+            "location": "/views/helpers/#abort", 
+            "text": "", 
+            "title": "abort"
+        }, 
+        {
+            "location": "/views/helpers/#send_mail", 
+            "text": "", 
+            "title": "send_mail"
+        }, 
+        {
+            "location": "/views/helpers/#get_env", 
+            "text": "", 
+            "title": "get_env"
+        }, 
+        {
+            "location": "/views/helpers/#set_env", 
+            "text": "", 
+            "title": "set_env"
+        }, 
+        {
+            "location": "/views/helpers/#get_env_app", 
+            "text": "", 
+            "title": "get_env_app"
+        }, 
+        {
+            "location": "/views/helpers/#get_env_config", 
+            "text": "", 
+            "title": "get_env_config"
+        }, 
+        {
+            "location": "/views/helpers/#models", 
+            "text": "", 
+            "title": "models"
+        }, 
+        {
+            "location": "/views/helpers/#views", 
+            "text": "", 
+            "title": "views"
+        }, 
+        {
+            "location": "/views/helpers/#register_package", 
+            "text": "", 
+            "title": "register_package"
+        }, 
+        {
+            "location": "/views/helpers/#init_app", 
+            "text": "", 
+            "title": "init_app"
+        }, 
+        {
+            "location": "/views/helpers/#import_module", 
+            "text": "", 
+            "title": "import_module"
+        }, 
+        {
+            "location": "/views/helpers/#register_models", 
+            "text": "", 
+            "title": "register_models"
+        }, 
+        {
+            "location": "/views/helpers/#send_mail_1", 
+            "text": "", 
+            "title": "send_mail"
+        }, 
+        {
+            "location": "/views/helpers/#upload", 
+            "text": "", 
+            "title": "upload"
+        }, 
+        {
+            "location": "/views/helpers/#storage", 
+            "text": "", 
+            "title": "storage"
+        }, 
+        {
+            "location": "/templates-jinja2/", 
+            "text": "", 
+            "title": "Jinja2"
+        }, 
+        {
+            "location": "/templates-jade/", 
+            "text": "", 
+            "title": "Jade Markup"
+        }, 
+        {
+            "location": "/templates-filters/", 
+            "text": "Templates.Filters\n\n\nMocha\n also has some convenient filter to use in your template\n\n\nlink_for\n\n\nlink_for\n creates an link tag base on endpoint\n\n\n{{\n \nlink_for\n(\nIndex:about_us\n)\n \n}}\n\n\n\n\n\n\nThe code above would result into a link similar to this \n\n\na\n \nhref=\n/about-us\nAbout Us\n/a\n\n\n\n\n\n\nBased on a view like this\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@nav_menu\n(\nAbout Us\n)\n\n    \ndef\n \nabout_us\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\ndate\n\n\ndate\n : To format a date based on the \nDATE_FORMAT\n in your config file\n\n\n{{\n \nvar_date\n \n|\n \ndate\n \n}}\n\n\n\n\n\n\ndate_time\n\n\ndate_time\n : To format a date based on the \nDATE_TIME_FORMAT\n in your config file\n\n\n{{\n \nvar_date\n \n|\n \ndate_time\n \n}}\n\n\n\n\n\n\nformat_datetime\n\n\nformat_datetime(format)\n : To format a date \n\n\n{{\n \nvar_date\n \n|\n \nformat_datetime\n(\nMM/DD/YYYY\n)\n \n}}\n\n\n\n\n\n\ndate_since\n\n\ndate_since\n :Show the date ago: show Today, Yesterday, July 27 (without year in same year), July 15 2014 \n\n\n{{\n \nvar_date\n \n|\n \ndate_since\n \n}}\n\n\n\n\n\n\ntime_since\n\n\ntime_since\n : To show the time ago: 3 min ago, 2 days ago, 1 year 7 days ago \n\n\n{{\n \nvar_date\n \n|\n \ntime_since\n \n}}\n\n\n\n\n\n\nimg_src\n\n\nimg_src\n: Generate an \n tag\n\n\n{{\n \nimage_url\n \n|\n \nimg_src\n \n}}\n\n\n\n\n\n\noembed\n\n\noembed\n: To generate an oembed tag. Mocha will load the content via JS\n\n\n{{\n \nurl\n \n|\n \noembed\n \n}}\n\n\n\n\n\n\nstatic\n\n\nstatic\n: Generates a a url for static file\n\n\nimg src=\n{{\n \nfile.jpg\n \n|\n \nstatic\n \n}}\n\n\n\n\n\n\nslugify\n\n\nslugify\n : \n\n\n{{\n \nvarname\n \n|\n \nslugify\n \n}}\n\n\n\n\n\n\nmarkdown\n\n\nmarkdown\n Transform a markdown text to safe html\n\n\n{{\n \nvar_markdown_content\n \n|\n \nmarkdown\n \n}}\n\n\n\n\n\n\nmarkdown_toc\n\n\nmarkdown_toc\n From the markdown content, generate the table of content\n\n\n{{\n \nvar_markdown_content\n \n|\n \nmarkdown_toc\n \n}}\n\n\n\n\n\n\n\n\nMacros\n\n\nForms\n\n\nForms expose forms fields.\n\n\n{\n%\n \nimport\n \nMocha/macros/forms.html\n \nas\n \nforms\n \nwith\n \ncontext\n \n%\n}\n\n\n\n\n\n\nforms.get\n\n\nCreate a GET form\n\n\nTo create a get form:\n\n{% call forms.get(request.endpoint) %}\n\n\n{% endcall %}\n\n\n\n\n\nforms.post\n\n\nCreate a POST form\n\n\nTo create a post form, which will automatically include the `csrf_token` to prevent cross-site request forgery.\n\n{% call forms.post(request.endpoint) %}\n\n\n{% endcall %}\n\n\n\n\n\nforms.upload\n\n\nCreate a UPLOAD form\n\n\nTo create a post form but with the ability to upload file, which will automatically include the `csrf_token` to prevent cross-site request forgery.\n\n{% call forms.upload(request.endpoint) %}\n\n\n{% endcall %}\n\n\n\n\n\nforms.input\n\n\n{{\n \nform.input\n(\nlabel\n=\nEnter your name\n,\n \nname\n=\nname\n,\n \nvalue\n=\n,\n \nplaceholder\n=\nEnter Name\n)\n \n}}\n\n\n\n\n\n\nforms.hidden\n\n\nforms.select\n\n\nforms.radio\n\n\nforms.checkbox\n\n\nforms.textarea\n\n\nforms.button\n\n\nforms.recaptcha\n\n\nIt creates the RECAPTCHA input \n\n\n{{\n \nforms.recaptcha\n()\n \n}}\n\n\n\n\n\n\nforms.examples\n\n\n{%\n \ncall\n \nforms.post\n(\nrequest.endpoint\n)\n \n%}\n\n\n\n    \n{{\n \nforms.input\n(\nlabel\n=\nName\n,\n \nname\n=\nname\n)\n \n}}\n\n\n    \n{{\n \nforms.input\n(\nlabel\n=\nCity\n,\n \nname\n=\ncity\n)\n \n}}\n\n\n    \n{{\n \nforms.radio\n(\nlabel\n=\nFavorite Colod\n,\n \nname\n=\nfav_color\n,\n \noptions\n=[(\nblue\n,\n \nBlue\n),\n \n(\nred\n,\n \nRed\n)])\n \n}}\n\n\n\n    \n{{\n \nforms.input\n(\nlabel\n=\nUpload Image\n,\n \nname\n=\nfile\n,\n \ntype\n=\nfile\n)\n \n}}\n\n\n\n    \n{{\n \nform.button\n(\ntype\n=\nsubmit\n)\n \n}}\n\n\n\n{%\n \nendcall\n \n%}\n\n\n\n\n\n\n\n\nWidget\n\n\nWidget exposes some bootstrap widget \n\n\n{\n%\n \nimport\n \nMocha/macros/forms.widget\n \nas\n \nwidget\n \nwith\n \ncontext\n \n%\n}\n\n\n\n\n\n\n\n\nMenu\n\n\n{\n%\n \nimport\n \nMocha/macros/menu.html\n \nas\n \nmenu\n \nwith\n \ncontext\n \n%\n}", 
+            "title": "Filters"
+        }, 
+        {
+            "location": "/templates-filters/#templatesfilters", 
+            "text": "Mocha  also has some convenient filter to use in your template", 
+            "title": "Templates.Filters"
+        }, 
+        {
+            "location": "/templates-filters/#link_for", 
+            "text": "link_for  creates an link tag base on endpoint  {{   link_for ( Index:about_us )   }}   The code above would result into a link similar to this   a   href= /about-us About Us /a   Based on a view like this  class   Index ( Mocha ) : \n\n     @nav_menu ( About Us ) \n     def   about_us ( self ) : \n         pass", 
+            "title": "link_for"
+        }, 
+        {
+            "location": "/templates-filters/#date", 
+            "text": "date  : To format a date based on the  DATE_FORMAT  in your config file  {{   var_date   |   date   }}", 
+            "title": "date"
+        }, 
+        {
+            "location": "/templates-filters/#date_time", 
+            "text": "date_time  : To format a date based on the  DATE_TIME_FORMAT  in your config file  {{   var_date   |   date_time   }}", 
+            "title": "date_time"
+        }, 
+        {
+            "location": "/templates-filters/#format_datetime", 
+            "text": "format_datetime(format)  : To format a date   {{   var_date   |   format_datetime ( MM/DD/YYYY )   }}", 
+            "title": "format_datetime"
+        }, 
+        {
+            "location": "/templates-filters/#date_since", 
+            "text": "date_since  :Show the date ago: show Today, Yesterday, July 27 (without year in same year), July 15 2014   {{   var_date   |   date_since   }}", 
+            "title": "date_since"
+        }, 
+        {
+            "location": "/templates-filters/#time_since", 
+            "text": "time_since  : To show the time ago: 3 min ago, 2 days ago, 1 year 7 days ago   {{   var_date   |   time_since   }}", 
+            "title": "time_since"
+        }, 
+        {
+            "location": "/templates-filters/#img_src", 
+            "text": "img_src : Generate an   tag  {{   image_url   |   img_src   }}", 
+            "title": "img_src"
+        }, 
+        {
+            "location": "/templates-filters/#oembed", 
+            "text": "oembed : To generate an oembed tag. Mocha will load the content via JS  {{   url   |   oembed   }}", 
+            "title": "oembed"
+        }, 
+        {
+            "location": "/templates-filters/#static", 
+            "text": "static : Generates a a url for static file  img src= {{   file.jpg   |   static   }}", 
+            "title": "static"
+        }, 
+        {
+            "location": "/templates-filters/#slugify", 
+            "text": "slugify  :   {{   varname   |   slugify   }}", 
+            "title": "slugify"
+        }, 
+        {
+            "location": "/templates-filters/#markdown", 
+            "text": "markdown  Transform a markdown text to safe html  {{   var_markdown_content   |   markdown   }}", 
+            "title": "markdown"
+        }, 
+        {
+            "location": "/templates-filters/#markdown_toc", 
+            "text": "markdown_toc  From the markdown content, generate the table of content  {{   var_markdown_content   |   markdown_toc   }}", 
+            "title": "markdown_toc"
+        }, 
+        {
+            "location": "/templates-filters/#macros", 
+            "text": "", 
+            "title": "Macros"
+        }, 
+        {
+            "location": "/templates-filters/#forms", 
+            "text": "Forms expose forms fields.  { %   import   Mocha/macros/forms.html   as   forms   with   context   % }", 
+            "title": "Forms"
+        }, 
+        {
+            "location": "/templates-filters/#formsget", 
+            "text": "", 
+            "title": "forms.get"
+        }, 
+        {
+            "location": "/templates-filters/#create-a-get-form", 
+            "text": "To create a get form:\n\n{% call forms.get(request.endpoint) %}\n\n\n{% endcall %}", 
+            "title": "Create a GET form"
+        }, 
+        {
+            "location": "/templates-filters/#formspost", 
+            "text": "", 
+            "title": "forms.post"
+        }, 
+        {
+            "location": "/templates-filters/#create-a-post-form", 
+            "text": "To create a post form, which will automatically include the `csrf_token` to prevent cross-site request forgery.\n\n{% call forms.post(request.endpoint) %}\n\n\n{% endcall %}", 
+            "title": "Create a POST form"
+        }, 
+        {
+            "location": "/templates-filters/#formsupload", 
+            "text": "", 
+            "title": "forms.upload"
+        }, 
+        {
+            "location": "/templates-filters/#create-a-upload-form", 
+            "text": "To create a post form but with the ability to upload file, which will automatically include the `csrf_token` to prevent cross-site request forgery.\n\n{% call forms.upload(request.endpoint) %}\n\n\n{% endcall %}", 
+            "title": "Create a UPLOAD form"
+        }, 
+        {
+            "location": "/templates-filters/#formsinput", 
+            "text": "{{   form.input ( label = Enter your name ,   name = name ,   value = ,   placeholder = Enter Name )   }}", 
+            "title": "forms.input"
+        }, 
+        {
+            "location": "/templates-filters/#formshidden", 
+            "text": "", 
+            "title": "forms.hidden"
+        }, 
+        {
+            "location": "/templates-filters/#formsselect", 
+            "text": "", 
+            "title": "forms.select"
+        }, 
+        {
+            "location": "/templates-filters/#formsradio", 
+            "text": "", 
+            "title": "forms.radio"
+        }, 
+        {
+            "location": "/templates-filters/#formscheckbox", 
+            "text": "", 
+            "title": "forms.checkbox"
+        }, 
+        {
+            "location": "/templates-filters/#formstextarea", 
+            "text": "", 
+            "title": "forms.textarea"
+        }, 
+        {
+            "location": "/templates-filters/#formsbutton", 
+            "text": "", 
+            "title": "forms.button"
+        }, 
+        {
+            "location": "/templates-filters/#formsrecaptcha", 
+            "text": "It creates the RECAPTCHA input   {{   forms.recaptcha ()   }}", 
+            "title": "forms.recaptcha"
+        }, 
+        {
+            "location": "/templates-filters/#formsexamples", 
+            "text": "{%   call   forms.post ( request.endpoint )   %}       {{   forms.input ( label = Name ,   name = name )   }}       {{   forms.input ( label = City ,   name = city )   }}       {{   forms.radio ( label = Favorite Colod ,   name = fav_color ,   options =[( blue ,   Blue ),   ( red ,   Red )])   }}       {{   forms.input ( label = Upload Image ,   name = file ,   type = file )   }}       {{   form.button ( type = submit )   }}  {%   endcall   %}", 
+            "title": "forms.examples"
+        }, 
+        {
+            "location": "/templates-filters/#widget", 
+            "text": "Widget exposes some bootstrap widget   { %   import   Mocha/macros/forms.widget   as   widget   with   context   % }", 
+            "title": "Widget"
+        }, 
+        {
+            "location": "/templates-filters/#menu", 
+            "text": "{ %   import   Mocha/macros/menu.html   as   menu   with   context   % }", 
+            "title": "Menu"
+        }, 
+        {
+            "location": "/templates-macros/", 
+            "text": "Templates Macros\n\n\nForms\n\n\nForms expose forms fields.\n\n\n{\n%\n \nimport\n \nMocha/macros/forms.html\n \nas\n \nforms\n \nwith\n \ncontext\n \n%\n}\n\n\n\n\n\n\nforms.get\n\n\nCreate a GET form\n\n\nTo create a get form:\n\n{% call forms.get(request.endpoint) %}\n\n\n{% endcall %}\n\n\n\n\n\nforms.post\n\n\nCreate a POST form\n\n\nTo create a post form, which will automatically include the `csrf_token` to prevent cross-site request forgery.\n\n{% call forms.post(request.endpoint) %}\n\n\n{% endcall %}\n\n\n\n\n\nforms.upload\n\n\nCreate a UPLOAD form\n\n\nTo create a post form but with the ability to upload file, which will automatically include the `csrf_token` to prevent cross-site request forgery.\n\n{% call forms.upload(request.endpoint) %}\n\n\n{% endcall %}\n\n\n\n\n\nforms.input\n\n\n{{\n \nform.input\n(\nlabel\n=\nEnter your name\n,\n \nname\n=\nname\n,\n \nvalue\n=\n,\n \nplaceholder\n=\nEnter Name\n)\n \n}}\n\n\n\n\n\n\nforms.hidden\n\n\nforms.select\n\n\nforms.radio\n\n\nforms.checkbox\n\n\nforms.textarea\n\n\nforms.button\n\n\nforms.recaptcha\n\n\nIt creates the RECAPTCHA input \n\n\n{{\n \nforms.recaptcha\n()\n \n}}\n\n\n\n\n\n\nforms.examples\n\n\n{%\n \ncall\n \nforms.post\n(\nrequest.endpoint\n)\n \n%}\n\n\n\n    \n{{\n \nforms.input\n(\nlabel\n=\nName\n,\n \nname\n=\nname\n)\n \n}}\n\n\n    \n{{\n \nforms.input\n(\nlabel\n=\nCity\n,\n \nname\n=\ncity\n)\n \n}}\n\n\n    \n{{\n \nforms.radio\n(\nlabel\n=\nFavorite Colod\n,\n \nname\n=\nfav_color\n,\n \noptions\n=[(\nblue\n,\n \nBlue\n),\n \n(\nred\n,\n \nRed\n)])\n \n}}\n\n\n\n    \n{{\n \nforms.input\n(\nlabel\n=\nUpload Image\n,\n \nname\n=\nfile\n,\n \ntype\n=\nfile\n)\n \n}}\n\n\n\n    \n{{\n \nform.button\n(\ntype\n=\nsubmit\n)\n \n}}\n\n\n\n{%\n \nendcall\n \n%}\n\n\n\n\n\n\n\n\nWidget\n\n\nWidget exposes some bootstrap widget \n\n\n{\n%\n \nimport\n \nMocha/macros/forms.widget\n \nas\n \nwidget\n \nwith\n \ncontext\n \n%\n}\n\n\n\n\n\n\n\n\nMenu\n\n\n{\n%\n \nimport\n \nMocha/macros/menu.html\n \nas\n \nmenu\n \nwith\n \ncontext\n \n%\n}", 
+            "title": "Macros"
+        }, 
+        {
+            "location": "/templates-macros/#templates-macros", 
+            "text": "", 
+            "title": "Templates Macros"
+        }, 
+        {
+            "location": "/templates-macros/#forms", 
+            "text": "Forms expose forms fields.  { %   import   Mocha/macros/forms.html   as   forms   with   context   % }", 
+            "title": "Forms"
+        }, 
+        {
+            "location": "/templates-macros/#formsget", 
+            "text": "", 
+            "title": "forms.get"
+        }, 
+        {
+            "location": "/templates-macros/#create-a-get-form", 
+            "text": "To create a get form:\n\n{% call forms.get(request.endpoint) %}\n\n\n{% endcall %}", 
+            "title": "Create a GET form"
+        }, 
+        {
+            "location": "/templates-macros/#formspost", 
+            "text": "", 
+            "title": "forms.post"
+        }, 
+        {
+            "location": "/templates-macros/#create-a-post-form", 
+            "text": "To create a post form, which will automatically include the `csrf_token` to prevent cross-site request forgery.\n\n{% call forms.post(request.endpoint) %}\n\n\n{% endcall %}", 
+            "title": "Create a POST form"
+        }, 
+        {
+            "location": "/templates-macros/#formsupload", 
+            "text": "", 
+            "title": "forms.upload"
+        }, 
+        {
+            "location": "/templates-macros/#create-a-upload-form", 
+            "text": "To create a post form but with the ability to upload file, which will automatically include the `csrf_token` to prevent cross-site request forgery.\n\n{% call forms.upload(request.endpoint) %}\n\n\n{% endcall %}", 
+            "title": "Create a UPLOAD form"
+        }, 
+        {
+            "location": "/templates-macros/#formsinput", 
+            "text": "{{   form.input ( label = Enter your name ,   name = name ,   value = ,   placeholder = Enter Name )   }}", 
+            "title": "forms.input"
+        }, 
+        {
+            "location": "/templates-macros/#formshidden", 
+            "text": "", 
+            "title": "forms.hidden"
+        }, 
+        {
+            "location": "/templates-macros/#formsselect", 
+            "text": "", 
+            "title": "forms.select"
+        }, 
+        {
+            "location": "/templates-macros/#formsradio", 
+            "text": "", 
+            "title": "forms.radio"
+        }, 
+        {
+            "location": "/templates-macros/#formscheckbox", 
+            "text": "", 
+            "title": "forms.checkbox"
+        }, 
+        {
+            "location": "/templates-macros/#formstextarea", 
+            "text": "", 
+            "title": "forms.textarea"
+        }, 
+        {
+            "location": "/templates-macros/#formsbutton", 
+            "text": "", 
+            "title": "forms.button"
+        }, 
+        {
+            "location": "/templates-macros/#formsrecaptcha", 
+            "text": "It creates the RECAPTCHA input   {{   forms.recaptcha ()   }}", 
+            "title": "forms.recaptcha"
+        }, 
+        {
+            "location": "/templates-macros/#formsexamples", 
+            "text": "{%   call   forms.post ( request.endpoint )   %}       {{   forms.input ( label = Name ,   name = name )   }}       {{   forms.input ( label = City ,   name = city )   }}       {{   forms.radio ( label = Favorite Colod ,   name = fav_color ,   options =[( blue ,   Blue ),   ( red ,   Red )])   }}       {{   forms.input ( label = Upload Image ,   name = file ,   type = file )   }}       {{   form.button ( type = submit )   }}  {%   endcall   %}", 
+            "title": "forms.examples"
+        }, 
+        {
+            "location": "/templates-macros/#widget", 
+            "text": "Widget exposes some bootstrap widget   { %   import   Mocha/macros/forms.widget   as   widget   with   context   % }", 
+            "title": "Widget"
+        }, 
+        {
+            "location": "/templates-macros/#menu", 
+            "text": "{ %   import   Mocha/macros/menu.html   as   menu   with   context   % }", 
+            "title": "Menu"
+        }, 
+        {
+            "location": "/templates-widgets/", 
+            "text": "Templates\n\n\nTemplates\n\n\nAssets\n\n\nStatic", 
+            "title": "Widgets"
+        }, 
+        {
+            "location": "/templates-widgets/#templates", 
+            "text": "Templates", 
+            "title": "Templates"
+        }, 
+        {
+            "location": "/templates-widgets/#assets", 
+            "text": "", 
+            "title": "Assets"
+        }, 
+        {
+            "location": "/templates-widgets/#static", 
+            "text": "", 
+            "title": "Static"
+        }, 
+        {
+            "location": "/models/", 
+            "text": "Models\n\n\nConfiguration\n\n\ndb\n\n\nmodel", 
+            "title": "Models"
+        }, 
+        {
+            "location": "/models/#models", 
+            "text": "", 
+            "title": "Models"
+        }, 
+        {
+            "location": "/models/#configuration", 
+            "text": "", 
+            "title": "Configuration"
+        }, 
+        {
+            "location": "/models/#db", 
+            "text": "", 
+            "title": "db"
+        }, 
+        {
+            "location": "/models/#model", 
+            "text": "", 
+            "title": "model"
+        }, 
+        {
+            "location": "/ext/", 
+            "text": "Extensions\n\n\nExtensions are some flask extensions that are already loaded in your application \nfor you to use. They can be configured through their native configuration or \nthrough Mocha config.\n\n\n\n\nupload\n\n\n\n\ncache\n\n\ncache\n exposes a caching mechanism for your application's views.\n\n\nfrom\n \nmocha\n \nimport\n \ncache\n\n\n\n\n\n\nConfiguration\n\n\n#: Flask-Cache is used to caching\n\n#: CACHE_TYPE\n#: The type of cache to use\n#: null, simple, redis, filesystem,\nCACHE_TYPE = \nsimple\n\n\n#: CACHE_REDIS_URL\n#: If CHACHE_TYPE is \nredis\n, set the redis uri\n#: redis://username:password@host:port/db\nCACHE_REDIS_URL = \n\n\n#: CACHE_DIR\n#: Directory to store cache if CACHE_TYPE is filesystem, it will\nCACHE_DIR = \n\n\n\n\n\n\nExample\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@cache\n.\ncached\n(\n60\n*\n60\n)\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\nExtension: \nflask-cache\n\n\n\n\nmail\n\n\nmail\n exposes an interface to send email via SMTP or AWS SES.\n\n\nfrom\n \nmocha\n \nimport\n \nmail\n\n\n\n\n\n\nConfiguration\n\n\n# AWS SES\n\n\n# To use AWS SES to send email\n\n\n#:\n\n\n#: - To use the default AWS credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)\n\n\n#: set MAIL_URI = \nses://\n\n\n#: * To use a different credential:\n\n\n#: set MAIL_URI = \nses://{access_key}:{secret_key}@{region}\n\n\n#:\n\n\n#: *** uncomment if you are using SMTP instead\n\n\nMAIL_URI =\n \nses://\n\n\n\n# SMTP\n\n\n#: If you are using SMTP, it will use Flask-Mail\n\n\n#: The uri for the smtp connection. It will use Flask-Mail\n\n\n#: format: smtp://USERNAME:PASSWORD@HOST:PORT\n\n\n#: with sll -\n smtp+ssl://USERNAME:PASSWORD@HOST:PORT\n\n\n#: with ssl and tls -\n smtp+ssl+tls://USERNAME:PASSWORD@HOST:PORT\n\n\n#:\n\n\n#: *** comment out if you are using SES instead\n\n\n# MAIL_URI = \nsmtp+ssl://{username}:{password}@{host}:{port}\n\\\n\n\n#    .format(username=\n, password=\n, host=\nsmtp.gmail.com\n, port=465)\n\n\n\n#: MAIL_SENDER - The sender of the email by default\n\n\n#: For SES, this email must be authorized\n\n\nMAIL_SENDER =\n APPLICATION_ADMIN_EMAIL\n\n\n#: MAIL_REPLY_TO\n\n\n#: The email to reply to by default\n\n\nMAIL_REPLY_TO =\n APPLICATION_ADMIN_EMAIL\n\n\n#: MAIL_TEMPLATE\n\n\n#: a directory that contains the email template or a dict\n\n\nMAIL_TEMPLATE =\n os\n.\npath\n.\njoin\n(\nAPPLICATION_DATA_DIR\n,\n \nmail-templates\n)\n\n\n\n#: MAIL_TEMPLATE_CONTEXT\n\n\n#: a dict of all context to pass to the email by default\n\n\nMAIL_TEMPLATE_CONTEXT =\n \n{\n\n    \nsite_name\n:\n APPLICATION_NAME\n,\n\n    \nsite_url\n:\n APPLICATION_URL\n\n}\n\n\n\n\n\n\nAs a convenience, you can use \nsend_email()\n to send email. \n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n,\n \nsend_email\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \n@post\n()\n\n    \ndef\n \nsend\n():\n\n        \nrecipient\n \n=\n \nemail@email.com\n\n        \nsender\n \n=\n \nrequest\n.\nform\n.\nget\n(\nsender\n)\n\n        \nsubject\n \n=\n \nWelcome\n\n\n        \nmail\n.\nsend\n(\nto\n=\nrecipient\n,\n \nsender\n=\nsender\n,\n \nsubject\n=\nsubet\n)\n\n\n\n\n\n\nExtension: \nses-mailer\n\n\nExtension: \nflask-mail\n\n\n\n\nrecaptcha\n\n\nReCaptcha\n implements the Google recaptcha in your application. \n\n\nfrom\n \nmocha\n \nimport\n \nrecaptcha\n\n\n\n\n\n\nConfiguration\n\n\n#: Flask-Recaptcha\n#: Register your application at https://www.google.com/recaptcha/admin\n\n#: RECAPTCHA_ENABLED\nRECAPTCHA_ENABLED = True\n\n#: RECAPTCHA_SITE_KEY\nRECAPTCHA_SITE_KEY = \n\n\n#: RECAPTCHA_SECRET_KEY\nRECAPTCHA_SECRET_KEY = \n\n\n\n\n\n\nJinja Code\n\n\nTo include the recaptcha in your template add the code below\n\n\n{{\n \nrecaptcha\n \n}}\n\n\n\n\n\n\nVerify Code\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \npass\n\n\n    \n@post\n\n    \ndef\n \nsend_data\n(\nself\n)\n:\n\n        \nif\n \nrecaptcha\n.\nverify\n()\n:\n\n            \n#\n \nSUCCESS\n\n        \nelse\n:\n\n            \n#\n \nFAILED\n\n\n\n\n\n\nAbout\n\n\nExtension: \nflask-recaptcha\n\n\nTo register your application go \nhttps://www.google.com/recaptcha/admin\n\n\n\n\ncsrf\n\n\ncsrf\n prevents cross-site request forgery (CSRF) on your application\n\n\nfrom\n \nmocha\n \nimport\n \ncsrf\n\n\n\n\n\n\nAutomatically all POST, UPDATE methods will require a CSRF token, unless explicitly exempt.\n\n\nTo exempt and endpoint, jus add the decorator \ncsrf.exempt\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \npass\n\n\n    \n@post\n()\n\n    \n@csrf\n.\nexempt\n\n    \ndef\n \nexempted_post\n(\nself\n)\n:\n\n        \npass\n\n\n    \n@post\n()\n\n    \ndef\n \nsave_data\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\nIn the example above, when posting to \n/exempted-post/\n it will not require the CSRF token,\nhowever \n/save-data/\n requires it. \n\n\nAbout\n\n\nExtension: \nflask-seasurf\n\n\nSeaSurf is a Flask extension for preventing cross-site request forgery (CSRF).\n\n\nCSRF vulnerabilities have been found in large and popular sites such as YouTube. \nThese attacks are problematic because the mechanism they use is relatively easy to exploit. \nThis extension attempts to aid you in securing your application from such attacks.\n\n\n\n\nsession\n\n\nfrom\n \nmocha\n \nimport\n \nsession\n\n\n\n\n\n\n--\n\n\nstorage\n\n\nAllows you to to access, upload, download, save and delete files on cloud\nstorage providers such as: AWS S3, Google Storage, Microsoft Azure,\nRackspace Cloudfiles, and even Local file system\n\n\nfrom\n \nmocha\n \nimport\n \nstorage\n\n\n\n\n\n\nConfiguration\n\n\nEdit the keys below in your config class file:\n\n\n#: STORAGE_PROVIDER:\n# The provider to use. By default it\ns \nLOCAL\n.\n# You can use:\n# LOCAL, S3, GOOGLE_STORAGE, AZURE_BLOBS, CLOUDFILES\nSTORAGE_PROVIDER = \nLOCAL\n\n\n#: STORAGE_KEY\n# The storage key. Leave it blank if PROVIDER is LOCAL\nSTORAGE_KEY = AWS_ACCESS_KEY_ID\n\n#: STORAGE_SECRET\n#: The storage secret key. Leave it blank if PROVIDER is LOCAL\nSTORAGE_SECRET = AWS_SECRET_ACCESS_KEY\n\n#: STORAGE_REGION_NAME\n#: The region for the storage. Leave it blank if PROVIDER is LOCAL\nSTORAGE_REGION_NAME = AWS_REGION_NAME\n\n#: STORAGE_CONTAINER\n#: The Bucket name (for S3, Google storage, Azure, cloudfile)\n#: or the directory name (LOCAL) to access\nSTORAGE_CONTAINER = os.path.join(APPLICATION_DATA_DIR, \nuploads\n)\n\n#: STORAGE_SERVER\n#: Bool, to serve local file\nSTORAGE_SERVER = True\n\n#: STORAGE_SERVER_URL\n#: The url suffix for local storage\nSTORAGE_SERVER_URL = \nfiles\n\n\n\n\n\n\nstorage.get\n\n\nAllows you to get a file from the storage\n\n\nmy_file = storage.get(\nmyfile.jpg\n)\n\nmy_file.name  # return The file name\n\nmy_file.size  # returns file size\n\n\n\n\n\nstorage.upload", 
+            "title": "Extensions"
+        }, 
+        {
+            "location": "/ext/#extensions", 
+            "text": "Extensions are some flask extensions that are already loaded in your application \nfor you to use. They can be configured through their native configuration or \nthrough Mocha config.", 
+            "title": "Extensions"
+        }, 
+        {
+            "location": "/ext/#upload", 
+            "text": "", 
+            "title": "upload"
+        }, 
+        {
+            "location": "/ext/#cache", 
+            "text": "cache  exposes a caching mechanism for your application's views.  from   mocha   import   cache   Configuration  #: Flask-Cache is used to caching\n\n#: CACHE_TYPE\n#: The type of cache to use\n#: null, simple, redis, filesystem,\nCACHE_TYPE =  simple \n\n#: CACHE_REDIS_URL\n#: If CHACHE_TYPE is  redis , set the redis uri\n#: redis://username:password@host:port/db\nCACHE_REDIS_URL =  \n\n#: CACHE_DIR\n#: Directory to store cache if CACHE_TYPE is filesystem, it will\nCACHE_DIR =    Example  class   Index ( Mocha ) : \n\n     @cache . cached ( 60 * 60 ) \n     def   index ( self ) : \n         pass   Extension:  flask-cache", 
+            "title": "cache"
+        }, 
+        {
+            "location": "/ext/#mail", 
+            "text": "mail  exposes an interface to send email via SMTP or AWS SES.  from   mocha   import   mail   Configuration  # AWS SES  # To use AWS SES to send email  #:  #: - To use the default AWS credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)  #: set MAIL_URI =  ses://  #: * To use a different credential:  #: set MAIL_URI =  ses://{access_key}:{secret_key}@{region}  #:  #: *** uncomment if you are using SMTP instead  MAIL_URI =   ses://  # SMTP  #: If you are using SMTP, it will use Flask-Mail  #: The uri for the smtp connection. It will use Flask-Mail  #: format: smtp://USERNAME:PASSWORD@HOST:PORT  #: with sll -  smtp+ssl://USERNAME:PASSWORD@HOST:PORT  #: with ssl and tls -  smtp+ssl+tls://USERNAME:PASSWORD@HOST:PORT  #:  #: *** comment out if you are using SES instead  # MAIL_URI =  smtp+ssl://{username}:{password}@{host}:{port} \\  #    .format(username= , password= , host= smtp.gmail.com , port=465)  #: MAIL_SENDER - The sender of the email by default  #: For SES, this email must be authorized  MAIL_SENDER =  APPLICATION_ADMIN_EMAIL #: MAIL_REPLY_TO  #: The email to reply to by default  MAIL_REPLY_TO =  APPLICATION_ADMIN_EMAIL #: MAIL_TEMPLATE  #: a directory that contains the email template or a dict  MAIL_TEMPLATE =  os . path . join ( APPLICATION_DATA_DIR ,   mail-templates )  #: MAIL_TEMPLATE_CONTEXT  #: a dict of all context to pass to the email by default  MAIL_TEMPLATE_CONTEXT =   { \n     site_name :  APPLICATION_NAME , \n     site_url :  APPLICATION_URL }   As a convenience, you can use  send_email()  to send email.   from   mocha   import   Mocha ,   send_email  class   Index ( Mocha ): \n\n     @post () \n     def   send (): \n         recipient   =   email@email.com \n         sender   =   request . form . get ( sender ) \n         subject   =   Welcome \n\n         mail . send ( to = recipient ,   sender = sender ,   subject = subet )   Extension:  ses-mailer  Extension:  flask-mail", 
+            "title": "mail"
+        }, 
+        {
+            "location": "/ext/#recaptcha", 
+            "text": "ReCaptcha  implements the Google recaptcha in your application.   from   mocha   import   recaptcha   Configuration  #: Flask-Recaptcha\n#: Register your application at https://www.google.com/recaptcha/admin\n\n#: RECAPTCHA_ENABLED\nRECAPTCHA_ENABLED = True\n\n#: RECAPTCHA_SITE_KEY\nRECAPTCHA_SITE_KEY =  \n\n#: RECAPTCHA_SECRET_KEY\nRECAPTCHA_SECRET_KEY =    Jinja Code  To include the recaptcha in your template add the code below  {{   recaptcha   }}   Verify Code  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         pass \n\n     @post \n     def   send_data ( self ) : \n         if   recaptcha . verify () : \n             #   SUCCESS \n         else : \n             #   FAILED   About  Extension:  flask-recaptcha  To register your application go  https://www.google.com/recaptcha/admin", 
+            "title": "recaptcha"
+        }, 
+        {
+            "location": "/ext/#csrf", 
+            "text": "csrf  prevents cross-site request forgery (CSRF) on your application  from   mocha   import   csrf   Automatically all POST, UPDATE methods will require a CSRF token, unless explicitly exempt.  To exempt and endpoint, jus add the decorator  csrf.exempt  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         pass \n\n     @post () \n     @csrf . exempt \n     def   exempted_post ( self ) : \n         pass \n\n     @post () \n     def   save_data ( self ) : \n         pass   In the example above, when posting to  /exempted-post/  it will not require the CSRF token,\nhowever  /save-data/  requires it.   About  Extension:  flask-seasurf  SeaSurf is a Flask extension for preventing cross-site request forgery (CSRF).  CSRF vulnerabilities have been found in large and popular sites such as YouTube. \nThese attacks are problematic because the mechanism they use is relatively easy to exploit. \nThis extension attempts to aid you in securing your application from such attacks.", 
+            "title": "csrf"
+        }, 
+        {
+            "location": "/ext/#session", 
+            "text": "from   mocha   import   session   --", 
+            "title": "session"
+        }, 
+        {
+            "location": "/ext/#storage", 
+            "text": "Allows you to to access, upload, download, save and delete files on cloud\nstorage providers such as: AWS S3, Google Storage, Microsoft Azure,\nRackspace Cloudfiles, and even Local file system  from   mocha   import   storage", 
+            "title": "storage"
+        }, 
+        {
+            "location": "/ext/#configuration", 
+            "text": "Edit the keys below in your config class file:  #: STORAGE_PROVIDER:\n# The provider to use. By default it s  LOCAL .\n# You can use:\n# LOCAL, S3, GOOGLE_STORAGE, AZURE_BLOBS, CLOUDFILES\nSTORAGE_PROVIDER =  LOCAL \n\n#: STORAGE_KEY\n# The storage key. Leave it blank if PROVIDER is LOCAL\nSTORAGE_KEY = AWS_ACCESS_KEY_ID\n\n#: STORAGE_SECRET\n#: The storage secret key. Leave it blank if PROVIDER is LOCAL\nSTORAGE_SECRET = AWS_SECRET_ACCESS_KEY\n\n#: STORAGE_REGION_NAME\n#: The region for the storage. Leave it blank if PROVIDER is LOCAL\nSTORAGE_REGION_NAME = AWS_REGION_NAME\n\n#: STORAGE_CONTAINER\n#: The Bucket name (for S3, Google storage, Azure, cloudfile)\n#: or the directory name (LOCAL) to access\nSTORAGE_CONTAINER = os.path.join(APPLICATION_DATA_DIR,  uploads )\n\n#: STORAGE_SERVER\n#: Bool, to serve local file\nSTORAGE_SERVER = True\n\n#: STORAGE_SERVER_URL\n#: The url suffix for local storage\nSTORAGE_SERVER_URL =  files", 
+            "title": "Configuration"
+        }, 
+        {
+            "location": "/ext/#storageget", 
+            "text": "Allows you to get a file from the storage  my_file = storage.get( myfile.jpg )\n\nmy_file.name  # return The file name\n\nmy_file.size  # returns file size", 
+            "title": "storage.get"
+        }, 
+        {
+            "location": "/ext/#storageupload", 
+            "text": "", 
+            "title": "storage.upload"
+        }, 
+        {
+            "location": "/utils/", 
+            "text": "Utils contains some common function and also exposes under the \nutils\n\nnamespace some 3rd party function for convenience\n\n\nImport\n\n\nImport the utils as follow:\n\n\nfrom\n \nmocha\n \nimport\n \nutils\n\n\n\n\n\n\n Available Utils: \n\n\n\n\nis_email_valid\n\n\n\n\nis_password_valid\n\n\n\n\nis_username_valid\n\n\n\n\nis_url_valid\n\n\n\n\nurlencode\n\n\n\n\nurldecode\n\n\n\n\nmd5\n\n\n\n\nguid\n\n\n\n\nslugify\n\n\n\n\nundescore\n\n\n\n\ndasherize\n\n\n\n\ncamelize\n\n\n\n\npluralize\n\n\n\n\nsinguralize\n\n\n\n\ntitleize\n\n\n\n\nchunk_list\n\n\n\n\nin_any_list\n\n\n\n\nsign_jwt\n\n\n\n\nunsign_jwt\n\n\n\n\nsign_url_safe\n\n\n\n\nunsign_url_safe\n\n\n\n\nsign_data\n\n\n\n\nunsign_data\n\n\n\n\nto_json\n\n\n\n\nlist_replace\n\n\n\n\ndict_replace\n\n\n\n\ndictdot\n\n\n\n\ngenerate_random_string\n\n\n\n\ngenerate_random_hash", 
+            "title": "Utils"
+        }, 
+        {
+            "location": "/utils/#is_email_valid", 
+            "text": "", 
+            "title": "is_email_valid"
+        }, 
+        {
+            "location": "/utils/#is_password_valid", 
+            "text": "", 
+            "title": "is_password_valid"
+        }, 
+        {
+            "location": "/utils/#is_username_valid", 
+            "text": "", 
+            "title": "is_username_valid"
+        }, 
+        {
+            "location": "/utils/#is_url_valid", 
+            "text": "", 
+            "title": "is_url_valid"
+        }, 
+        {
+            "location": "/utils/#urlencode", 
+            "text": "", 
+            "title": "urlencode"
+        }, 
+        {
+            "location": "/utils/#urldecode", 
+            "text": "", 
+            "title": "urldecode"
+        }, 
+        {
+            "location": "/utils/#md5", 
+            "text": "", 
+            "title": "md5"
+        }, 
+        {
+            "location": "/utils/#guid", 
+            "text": "", 
+            "title": "guid"
+        }, 
+        {
+            "location": "/utils/#slugify", 
+            "text": "", 
+            "title": "slugify"
+        }, 
+        {
+            "location": "/utils/#undescore", 
+            "text": "", 
+            "title": "undescore"
+        }, 
+        {
+            "location": "/utils/#dasherize", 
+            "text": "", 
+            "title": "dasherize"
+        }, 
+        {
+            "location": "/utils/#camelize", 
+            "text": "", 
+            "title": "camelize"
+        }, 
+        {
+            "location": "/utils/#pluralize", 
+            "text": "", 
+            "title": "pluralize"
+        }, 
+        {
+            "location": "/utils/#singuralize", 
+            "text": "", 
+            "title": "singuralize"
+        }, 
+        {
+            "location": "/utils/#titleize", 
+            "text": "", 
+            "title": "titleize"
+        }, 
+        {
+            "location": "/utils/#chunk_list", 
+            "text": "", 
+            "title": "chunk_list"
+        }, 
+        {
+            "location": "/utils/#in_any_list", 
+            "text": "", 
+            "title": "in_any_list"
+        }, 
+        {
+            "location": "/utils/#sign_jwt", 
+            "text": "", 
+            "title": "sign_jwt"
+        }, 
+        {
+            "location": "/utils/#unsign_jwt", 
+            "text": "", 
+            "title": "unsign_jwt"
+        }, 
+        {
+            "location": "/utils/#sign_url_safe", 
+            "text": "", 
+            "title": "sign_url_safe"
+        }, 
+        {
+            "location": "/utils/#unsign_url_safe", 
+            "text": "", 
+            "title": "unsign_url_safe"
+        }, 
+        {
+            "location": "/utils/#sign_data", 
+            "text": "", 
+            "title": "sign_data"
+        }, 
+        {
+            "location": "/utils/#unsign_data", 
+            "text": "", 
+            "title": "unsign_data"
+        }, 
+        {
+            "location": "/utils/#to_json", 
+            "text": "", 
+            "title": "to_json"
+        }, 
+        {
+            "location": "/utils/#list_replace", 
+            "text": "", 
+            "title": "list_replace"
+        }, 
+        {
+            "location": "/utils/#dict_replace", 
+            "text": "", 
+            "title": "dict_replace"
+        }, 
+        {
+            "location": "/utils/#dictdot", 
+            "text": "", 
+            "title": "dictdot"
+        }, 
+        {
+            "location": "/utils/#generate_random_string", 
+            "text": "", 
+            "title": "generate_random_string"
+        }, 
+        {
+            "location": "/utils/#generate_random_hash", 
+            "text": "", 
+            "title": "generate_random_hash"
+        }, 
+        {
+            "location": "/pagination/", 
+            "text": "Import \n\n\nfrom\n \nmocha\n \nimport\n \npaginate\n\n\n\n\n\n\n Usage", 
+            "title": "Pagination"
+        }, 
+        {
+            "location": "/signals/", 
+            "text": "Mocha uses \nBlinker\n\nto provide a fast dispatching system that allows any number of\ninterested parties to subscribe to events, or \u201csignals\u201d.\n\n\nAs it will be described below, a best way to use signal is to dispatch data/message\nbetween modules.\n\n\nFor example, when a user register using the built-in AUTH, you may want to do\nsomething with that new user. So the create_user emit a signal containing\nthe new user data, and each function observing the create_user, will be executed\n\n\n Import \n\n\nfrom\n \nmocha.decorators\n \nimport\n \nemit_signal\n\n\n\n\n\n\nEmit Signal\n\n\n@emit_signal\n\n\nA decorator that will turn a function into a signal emitter, which will contain\na \npre\n and \npost\n signal.\n\n\n# signals.py\n\n\nfrom\n \nmocha\n \nimport\n \ndecorators\n \nas\n \ndeco\n\n\n\n@deco.emit_signal\n\n\ndef\n \ndo_something\n(\ndata\n):\n\n    \nreturn\n \ndata\n\n\n\n\n\n\nThe example above creates a signal \ndo_something\n, each time this function\nis invoked it will emit two signals \ndo_something.pre\n\nand \ndo_something.post\n. These objects (pre, post) were created when \n@emit_signal\n\ndecorated the \ndo_something\n function.\n\n\npre\n will be invoked before running accepting the signal, and \npost\n after the\nsignal is executed.\n\n\nFor every \n@emit_signal\n use, the function will have two blinker signal objects:\n\npre\n and \npost\n\n\n@emit_signal\ndef hello():\n    pass\n\n\n\n\n\nwill now have the following decorators:\n\n\n@hello.post\n@hello.pre\n\n\n\n\n\nReceive Signal\n\n\n@observe\n\n\n@observe\n allows you to connect a function to an emitter. \n@observe\n is a shortcut\nfor \n@post.connect\n.\n\n\nimport\n \nmy_signals\n\n\n\n@signals.do_something.observe\n\n\ndef\n \nmy_thing\n(\nresult\n,\n \n**\nkw\n):\n\n    \nif\n \nresult\n:\n\n        \npass\n\n\n\n\n\n\nTo fully utilize Blinker functionalities, use \npost\n and \npre\n, for example\n\n@do_something.post.connect\n, \n@do_something.pre.connect\n\n\n@post.connect\n\n\n@signals.do_something.post.connect\ndef receive_create_user(user, **kw):\n    if user:\n        # do something with user\n\n\n\n\n\nThe function receiving the signal, must have 2 args:\n\n\n\n\nresult: that's the result sent from the signal\n\n\n**kwargs: some\n\n\nkwargs: kwargs that were passed in the signal function\n\n\nsender: The name of the function\n\n\nemitter: The instance of the\n\n\n\n\n\n\n\n\n@pre.connect\n\n\n@signals.do_something.pre.connect\ndef receive_create_user_pre(**kw):\n    # do something", 
+            "title": "Signals"
+        }, 
+        {
+            "location": "/signals/#emit-signal", 
+            "text": "", 
+            "title": "Emit Signal"
+        }, 
+        {
+            "location": "/signals/#emit_signal", 
+            "text": "A decorator that will turn a function into a signal emitter, which will contain\na  pre  and  post  signal.  # signals.py  from   mocha   import   decorators   as   deco  @deco.emit_signal  def   do_something ( data ): \n     return   data   The example above creates a signal  do_something , each time this function\nis invoked it will emit two signals  do_something.pre \nand  do_something.post . These objects (pre, post) were created when  @emit_signal \ndecorated the  do_something  function.  pre  will be invoked before running accepting the signal, and  post  after the\nsignal is executed.  For every  @emit_signal  use, the function will have two blinker signal objects: pre  and  post  @emit_signal\ndef hello():\n    pass  will now have the following decorators:  @hello.post\n@hello.pre", 
+            "title": "@emit_signal"
+        }, 
+        {
+            "location": "/signals/#receive-signal", 
+            "text": "", 
+            "title": "Receive Signal"
+        }, 
+        {
+            "location": "/signals/#observe", 
+            "text": "@observe  allows you to connect a function to an emitter.  @observe  is a shortcut\nfor  @post.connect .  import   my_signals  @signals.do_something.observe  def   my_thing ( result ,   ** kw ): \n     if   result : \n         pass   To fully utilize Blinker functionalities, use  post  and  pre , for example @do_something.post.connect ,  @do_something.pre.connect", 
+            "title": "@observe"
+        }, 
+        {
+            "location": "/signals/#postconnect", 
+            "text": "@signals.do_something.post.connect\ndef receive_create_user(user, **kw):\n    if user:\n        # do something with user  The function receiving the signal, must have 2 args:   result: that's the result sent from the signal  **kwargs: some  kwargs: kwargs that were passed in the signal function  sender: The name of the function  emitter: The instance of the", 
+            "title": "@post.connect"
+        }, 
+        {
+            "location": "/signals/#preconnect", 
+            "text": "@signals.do_something.pre.connect\ndef receive_create_user_pre(**kw):\n    # do something", 
+            "title": "@pre.connect"
+        }, 
+        {
+            "location": "/logging/", 
+            "text": "Configuration", 
+            "title": "Logging"
+        }, 
+        {
+            "location": "/logging/#configuration", 
+            "text": "", 
+            "title": "Configuration"
+        }, 
+        {
+            "location": "/contrib/", 
+            "text": "Contrib\n\n\nContribs are ready to use embeddable applications to add in your \nINSTALLED_APPS\n \nto get going. They solved basic and common web development problems.\n\n\nThey are meant to be easy to installed with less configurations possible.\n\n\nThey may also come decorations or helpers functions for external use.\n\n\nThe contribs below are built in Mocha for developers convenience:\n\n\n\n\nMaintenance Page\n\n\nmocha.contrib.maintenance_page\n\n\nAutomatically show a maintenance page on the site. No pages will be able to be \naccessed.\n\n\nTo disable just comment out, or remove from the \nINSTALLED_APPS\n\n\nInstallation\n\n\nMAINTENANCE_PAGE = (\nmocha.contrib.views.maintenance_page\n, {\n    \non\n: False,\n    \nexcludes\n: []\n})\n\nINSTALLED_APPS: [\n    MAINTENANCE_PAGE\n]\n\n\n\n\n\nOptions\n\n\n- `template`: If using a different template page", 
+            "title": "Contrib"
+        }, 
+        {
+            "location": "/contrib/#contrib", 
+            "text": "Contribs are ready to use embeddable applications to add in your  INSTALLED_APPS  \nto get going. They solved basic and common web development problems.  They are meant to be easy to installed with less configurations possible.  They may also come decorations or helpers functions for external use.  The contribs below are built in Mocha for developers convenience:", 
+            "title": "Contrib"
+        }, 
+        {
+            "location": "/contrib/#maintenance-page", 
+            "text": "", 
+            "title": "Maintenance Page"
+        }, 
+        {
+            "location": "/contrib/#mochacontribmaintenance_page", 
+            "text": "Automatically show a maintenance page on the site. No pages will be able to be \naccessed.  To disable just comment out, or remove from the  INSTALLED_APPS  Installation  MAINTENANCE_PAGE = ( mocha.contrib.views.maintenance_page , {\n     on : False,\n     excludes : []\n})\n\nINSTALLED_APPS: [\n    MAINTENANCE_PAGE\n]  Options  - `template`: If using a different template page", 
+            "title": "mocha.contrib.maintenance_page"
+        }, 
+        {
+            "location": "/contrib/auth/", 
+            "text": "mocha.contrib.auth\n\n\nAuth\n adds authentication to your application\n\n\nIt has 3 modules: \nAuthLogin\n, \nAuthAccount\n, \nAuthAdmin\n\n\nAuthLogin\n: Creates a login page, including signup, lost-password, reset-password, logout.\n\n\nAuthAccount\n: Creates an interface for the user to change their login and personal info.\n\n\nAuthAdmin\n: Creates an admin interface to manage the users.\n\n\nRequirements\n\n\nAfter you install it (for the first time) in \nINSTALLED_APPS\n, run the\ncommand \nmocha setup-models\n\n\nInstallation\n\n\nINSTALLED_APPS [\n    {\n        \napp\n: \nmocha.contrib.auth\n,\n        \ndb\n: \napplication.models.db\n,\n        \nmodules\n: {\n            \nlogin\n: {\n                \nroute\n: \n/\n\n            },\n            \naccount\n: {\n                \nroute\n: \n/account/\n\n            },\n            \nadmin\n: {\n                \nroute\n: \n/admin/users\n\n            }\n        },\n        \noptions\n: {\n            # for login and logout view\n            \nlogin_view\n: None,\n            \nlogout_view\n: None,\n\n            # permission\n            \nallow_signup\n: True,\n            \nallow_login\n: True,\n            \nallow_social_login\n: False,\n\n            # Verification\n            \nverify_email\n: False,\n            \nverify_email_token_ttl\n: 60 * 24,\n            \nverify_email_template\n: \nverify-email.txt\n,\n            \nverify_signup_email_template\n: \nverify-signup-email.txt\n,\n\n            # reset password\n            \nreset_password_method\n: \ntoken\n,  # token or password\n            \nreset_password_token_ttl\n: 60,  # in minutes\n            \nreset_password_email_template\n: \nreset-password.txt\n,\n\n        }\n    }\n\n]\n\n\n\n\n\nThe \nmodules\n contain the interface of what to use in \nAuth\n. If you don't\nwant to use certain module, just exclude it in the list.\n\nAuthLogin\n is required in your modules.\n\n\nie:\n\n\nFor Admin only\n\n\nINSTALLED_APPS [\n    {\n        \napp\n: \nmocha.contrib.auth\n,\n        \ndb\n: \napplication.models.db\n,\n        \nmodules\n: {\n            \nlogin\n: {\n                \nroute\n: \n/\n\n            },\n            \nadmin\n: {\n                \nroute\n: \n/admin/users\n\n            }\n        },\n        \noptions\n: {\n            \nallow_signup\n: False\n        }\n    }\n]\n\n\n\n\n\nFor User Account\n\n\nINSTALLED_APPS [\n    {\n        \napp\n: \nmocha.contrib.auth\n,\n        \ndb\n: \napplication.models.db\n,\n        \nmodules\n: {\n            \nlogin\n: {\n                \nroute\n: \n/\n\n            },\n            \naccount\n: {\n                \nroute\n: \n/account/\n\n            }\n        }\n    }\n]\n\n\n\n\n\nOptions\n\n\n- `login_view`: the view to redirect to after login. By default it will go to `Index:index`\n- `logout_view`: The view to redirect to after logout. By defaut it will go to `Index:index`\n- `allow_signup`: A boolean to allow people to signup or not. Default `False`\n- `allow_login`: A boolean to allow people to login or not. Default `True`\n- `allow_social_login`: A boolean to allow people to use social login to signup/signin. NOT IMPLEMENTED YET\n- `verify_email`: A boolean to require user to verify email before they can continue signing up. Default `False`\n- `verify_email_token_ttl`: The time in minutes for the token to live. Beyond that it will not work\n- `verify_email_template`: A custom email template for email verification\n- `verify_signup_email_template`: A custom email for verification when signing up\n- `reset_password_method`: `token` or `email`. The type of password reset to use. A `password` will send a password reset. A `token` will send an email containing a token to click on\n- `reset_password_token_ttl`: The time in minutes for the token to live. Beyond that it will not work\n- `reset_password_email_template`: A custom email for password email template\n\n\n\n\n\nAuth.Decorators\n\n\nAuth\n exposes some decorators to use in your application views endpoints\n\n\nImport:\n\n\nimport\n \nmocha.contrib.auth\n \nas\n \nauth\n\n\n\n\n\n\n@auth.authenticated\n : Require authentication to access an endpoint\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@auth\n.\nauthenticated\n\n    \ndef\n \nsecure_page\n(\nself\n)\n:\n\n        \nreturn\n\n\n\n\n\n\n@auth.unauthenticated\n : When a whole class require authetication, but you want to exclude certain page\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n    \ndecorators\n \n=\n \n[\nauth\n.\nauthenticated\n]\n\n\n    \ndef\n \nsecure_page\n(\nself\n)\n:\n\n        \nreturn\n\n\n    \n@auth\n.\nunauthenticated\n\n    \ndef\n \nnon_secure_page\n(\nself\n)\n:\n\n        \nreturn\n\n\n\n\n\n\n@auth.require_verified_email\n : To restrict endpoint access to only verified email users\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@auth\n.\nrequire_verified_email\n\n    \ndef\n \nsecure_page\n(\nself\n)\n:\n\n        \nreturn\n\n\n\n\n\n\n@auth.logout_user\n : Upon accessing this endpoint will automatically log user out\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@auth\n.\nlogout_user\n\n    \ndef\n \nsecure_page\n(\nself\n)\n:\n\n        \nreturn\n\n\n\n\n\n\n@auth.accepts_admin_roles\n : Force an endpoint to accept users to have at least \nADMIN\n roles\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@auth\n.\naccepts_admin_roles\n\n    \ndef\n \npage\n(\nself\n)\n:\n\n        \nreturn\n\n\n\n\n\n\n@auth.accepts_manager_roles\n : Force an endpoint to accept users to have at least \nMANAGER\n roles\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@auth\n.\naccepts_manager_roles\n\n    \ndef\n \npage\n(\nself\n)\n:\n\n        \nreturn\n\n\n\n\n\n\n@auth.accepts_contributor_roles\n : Force an endpoint to accept users to have at least \nCONTRIBUTOR\n roles\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@auth\n.\naccepts_contributor_roles\n\n    \ndef\n \npage\n(\nself\n)\n:\n\n        \nreturn\n\n\n\n\n\n\n@auth.accepts_moderator_roles\n : Force an endpoint to accept users to have at least \nMODERATOR\n roles\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@auth\n.\naccepts_moderator_roles\n\n    \ndef\n \npage\n(\nself\n)\n:\n\n        \nreturn\n\n\n\n\n\n\n@auth.accepts_roles(*roles)\n : Force an endpoint to accept users to have at one of the roles provided\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@auth\n.\naccepts_roles\n(\nadmin\n,\n \nmanager\n,\n \nmy-custom-role\n)\n\n    \ndef\n \npage\n(\nself\n)\n:\n\n        \nreturn\n\n\n\n\n\n\nAuth.Helpers\n\n\nAuth\n also exposes some helpers functions.\n\n\nImport:\n\n\nimport\n \nmocha.contrib.auth\n \nas\n \nauth\n\n\n\n\n\n\nauth.current_user\n returns the \nAuthUser\n object, containing the user info such as name, email, etc\n\n\nauth.is_authenticated()\n return True if the \ncurrent_user\n user is authenticated\n\n\nauth.not_authenticated()\n return True if the \ncurrent_user\n user is not authenticated\n\n\nauth.get_user(id)\n returns \nAuthUser\n by id.\n\n\nauth.authenticate_email(email, password)\n to Authenticate by email and password. returns \nAuthUserLogin\n\n\nAuth.signals\n\n\nAuth come with some signals to help you do something before and/or after a user perform a task, such as login,\nlogout, signup etc.\n\n\non_signup\n\n\nPre Signup\n\n\n@auth.signals.on_signup.pre.connect\ndef pre_signup(*a, *kw):\n    pass\n\n\n\n\n\nPost Signup\n\n\n@auth.signals.on_signup.post.connect\ndef post_signup(sender, emitter, result, *a, *kw):\n    pass\n\n\n\n\n\non_login\n\n\non_logout\n\n\nmake_user_secure_token\n\n\nget_user_from_secure_token\n\n\nget_user_id_secure_token", 
+            "title": "Auth"
+        }, 
+        {
+            "location": "/contrib/auth/#mochacontribauth", 
+            "text": "Auth  adds authentication to your application  It has 3 modules:  AuthLogin ,  AuthAccount ,  AuthAdmin  AuthLogin : Creates a login page, including signup, lost-password, reset-password, logout.  AuthAccount : Creates an interface for the user to change their login and personal info.  AuthAdmin : Creates an admin interface to manage the users.  Requirements  After you install it (for the first time) in  INSTALLED_APPS , run the\ncommand  mocha setup-models  Installation  INSTALLED_APPS [\n    {\n         app :  mocha.contrib.auth ,\n         db :  application.models.db ,\n         modules : {\n             login : {\n                 route :  / \n            },\n             account : {\n                 route :  /account/ \n            },\n             admin : {\n                 route :  /admin/users \n            }\n        },\n         options : {\n            # for login and logout view\n             login_view : None,\n             logout_view : None,\n\n            # permission\n             allow_signup : True,\n             allow_login : True,\n             allow_social_login : False,\n\n            # Verification\n             verify_email : False,\n             verify_email_token_ttl : 60 * 24,\n             verify_email_template :  verify-email.txt ,\n             verify_signup_email_template :  verify-signup-email.txt ,\n\n            # reset password\n             reset_password_method :  token ,  # token or password\n             reset_password_token_ttl : 60,  # in minutes\n             reset_password_email_template :  reset-password.txt ,\n\n        }\n    }\n\n]  The  modules  contain the interface of what to use in  Auth . If you don't\nwant to use certain module, just exclude it in the list. AuthLogin  is required in your modules.  ie:  For Admin only  INSTALLED_APPS [\n    {\n         app :  mocha.contrib.auth ,\n         db :  application.models.db ,\n         modules : {\n             login : {\n                 route :  / \n            },\n             admin : {\n                 route :  /admin/users \n            }\n        },\n         options : {\n             allow_signup : False\n        }\n    }\n]  For User Account  INSTALLED_APPS [\n    {\n         app :  mocha.contrib.auth ,\n         db :  application.models.db ,\n         modules : {\n             login : {\n                 route :  / \n            },\n             account : {\n                 route :  /account/ \n            }\n        }\n    }\n]  Options  - `login_view`: the view to redirect to after login. By default it will go to `Index:index`\n- `logout_view`: The view to redirect to after logout. By defaut it will go to `Index:index`\n- `allow_signup`: A boolean to allow people to signup or not. Default `False`\n- `allow_login`: A boolean to allow people to login or not. Default `True`\n- `allow_social_login`: A boolean to allow people to use social login to signup/signin. NOT IMPLEMENTED YET\n- `verify_email`: A boolean to require user to verify email before they can continue signing up. Default `False`\n- `verify_email_token_ttl`: The time in minutes for the token to live. Beyond that it will not work\n- `verify_email_template`: A custom email template for email verification\n- `verify_signup_email_template`: A custom email for verification when signing up\n- `reset_password_method`: `token` or `email`. The type of password reset to use. A `password` will send a password reset. A `token` will send an email containing a token to click on\n- `reset_password_token_ttl`: The time in minutes for the token to live. Beyond that it will not work\n- `reset_password_email_template`: A custom email for password email template", 
+            "title": "mocha.contrib.auth"
+        }, 
+        {
+            "location": "/contrib/auth/#authdecorators", 
+            "text": "Auth  exposes some decorators to use in your application views endpoints  Import:  import   mocha.contrib.auth   as   auth   @auth.authenticated  : Require authentication to access an endpoint  class   Index ( Mocha ) : \n\n     @auth . authenticated \n     def   secure_page ( self ) : \n         return   @auth.unauthenticated  : When a whole class require authetication, but you want to exclude certain page  class   Index ( Mocha ) : \n     decorators   =   [ auth . authenticated ] \n\n     def   secure_page ( self ) : \n         return \n\n     @auth . unauthenticated \n     def   non_secure_page ( self ) : \n         return   @auth.require_verified_email  : To restrict endpoint access to only verified email users  class   Index ( Mocha ) : \n\n     @auth . require_verified_email \n     def   secure_page ( self ) : \n         return   @auth.logout_user  : Upon accessing this endpoint will automatically log user out  class   Index ( Mocha ) : \n\n     @auth . logout_user \n     def   secure_page ( self ) : \n         return   @auth.accepts_admin_roles  : Force an endpoint to accept users to have at least  ADMIN  roles  class   Index ( Mocha ) : \n\n     @auth . accepts_admin_roles \n     def   page ( self ) : \n         return   @auth.accepts_manager_roles  : Force an endpoint to accept users to have at least  MANAGER  roles  class   Index ( Mocha ) : \n\n     @auth . accepts_manager_roles \n     def   page ( self ) : \n         return   @auth.accepts_contributor_roles  : Force an endpoint to accept users to have at least  CONTRIBUTOR  roles  class   Index ( Mocha ) : \n\n     @auth . accepts_contributor_roles \n     def   page ( self ) : \n         return   @auth.accepts_moderator_roles  : Force an endpoint to accept users to have at least  MODERATOR  roles  class   Index ( Mocha ) : \n\n     @auth . accepts_moderator_roles \n     def   page ( self ) : \n         return   @auth.accepts_roles(*roles)  : Force an endpoint to accept users to have at one of the roles provided  class   Index ( Mocha ) : \n\n     @auth . accepts_roles ( admin ,   manager ,   my-custom-role ) \n     def   page ( self ) : \n         return", 
+            "title": "Auth.Decorators"
+        }, 
+        {
+            "location": "/contrib/auth/#authhelpers", 
+            "text": "Auth  also exposes some helpers functions.  Import:  import   mocha.contrib.auth   as   auth   auth.current_user  returns the  AuthUser  object, containing the user info such as name, email, etc  auth.is_authenticated()  return True if the  current_user  user is authenticated  auth.not_authenticated()  return True if the  current_user  user is not authenticated  auth.get_user(id)  returns  AuthUser  by id.  auth.authenticate_email(email, password)  to Authenticate by email and password. returns  AuthUserLogin", 
+            "title": "Auth.Helpers"
+        }, 
+        {
+            "location": "/contrib/auth/#authsignals", 
+            "text": "Auth come with some signals to help you do something before and/or after a user perform a task, such as login,\nlogout, signup etc.  on_signup  Pre Signup  @auth.signals.on_signup.pre.connect\ndef pre_signup(*a, *kw):\n    pass  Post Signup  @auth.signals.on_signup.post.connect\ndef post_signup(sender, emitter, result, *a, *kw):\n    pass  on_login  on_logout  make_user_secure_token  get_user_from_secure_token  get_user_id_secure_token", 
+            "title": "Auth.signals"
+        }, 
+        {
+            "location": "/contrib/admin/", 
+            "text": "Mocha makes it easy to turn your view classes into Admin area with restricted access.\n\n\nIt automatically setup the minimum permission, the layouts an everything.\n\n\nThis is simple accomplished by decorating your admin classes with \n@contrib.admin\n\n\nExample\n\n\nimport\n \nmocha.contrib\n\n\n\n@mocha.contrib.admin\n\n\nclass\n \nAdmin\n(\nMocha\n):\n\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \npass\n\n\n    \ndef\n \nhello\n(\nself\n):\n\n        \npass\n\n\n\n\n\n\nConfig", 
+            "title": "Admin"
+        }, 
+        {
+            "location": "/contrib/admin/#example", 
+            "text": "import   mocha.contrib  @mocha.contrib.admin  class   Admin ( Mocha ): \n\n     def   index ( self ): \n         pass \n\n     def   hello ( self ): \n         pass", 
+            "title": "Example"
+        }, 
+        {
+            "location": "/contrib/admin/#config", 
+            "text": "", 
+            "title": "Config"
+        }, 
+        {
+            "location": "/contrib/contact_page/", 
+            "text": "Contact Page\n\n\nmocha.contrib.views.contact_page\n\n\nAdds a contact page interface.\n\n\nInstallation\n\n\nCONTACT = (\nmocha.contrib.views.contact_page\n, {\n    \nroute\n: \n/contact/\n,\n    \nnav\n: {\n        \ntitle\n: \nContact\n,\n        \norder\n: 100\n    }\n    \nrecipients\n: \nrecipients@email.com\n,\n    \nsuccess_message\n: \nThe message to show when the email is sent successfully\n,\n    \ntitle\n: \nContact Us\n,\n    \nreturn_to\n: \n/\n\n})\n\nINSTALLED_APPS: [\n    CONTACT\n]\n\n\n\n\n\nOptions\n\n\n- `recipients`: The email address to send the message to\n\n- `return_to`: The view endpoint or url to return to\n\n- `title`: The page title\n\n- `success_message`: The message to show when the email is sent successfully", 
+            "title": "Contact Page"
+        }, 
+        {
+            "location": "/contrib/contact_page/#contact-page", 
+            "text": "", 
+            "title": "Contact Page"
+        }, 
+        {
+            "location": "/contrib/contact_page/#mochacontribviewscontact_page", 
+            "text": "Adds a contact page interface.  Installation  CONTACT = ( mocha.contrib.views.contact_page , {\n     route :  /contact/ ,\n     nav : {\n         title :  Contact ,\n         order : 100\n    }\n     recipients :  recipients@email.com ,\n     success_message :  The message to show when the email is sent successfully ,\n     title :  Contact Us ,\n     return_to :  / \n})\n\nINSTALLED_APPS: [\n    CONTACT\n]  Options  - `recipients`: The email address to send the message to\n\n- `return_to`: The view endpoint or url to return to\n\n- `title`: The page title\n\n- `success_message`: The message to show when the email is sent successfully", 
+            "title": "mocha.contrib.views.contact_page"
+        }, 
+        {
+            "location": "/contrib/error_page/", 
+            "text": "Error Page\n\n\nmocha.contrib.error_page\n\n\nAdds error pages for 4xx, 5xx errors\n\n\nInstallation\n\n\nERROR_PAGE = (\nmocha.contrib.views.error_page\n, {})\n\nINSTALLED_APPS: [\n    ERROR_PAGE\n]\n\n\n\n\n\nOptions\n\n\n- `template`: If using a different template page", 
+            "title": "Error Page"
+        }, 
+        {
+            "location": "/contrib/error_page/#error-page", 
+            "text": "", 
+            "title": "Error Page"
+        }, 
+        {
+            "location": "/contrib/error_page/#mochacontriberror_page", 
+            "text": "Adds error pages for 4xx, 5xx errors  Installation  ERROR_PAGE = ( mocha.contrib.views.error_page , {})\n\nINSTALLED_APPS: [\n    ERROR_PAGE\n]  Options  - `template`: If using a different template page", 
+            "title": "mocha.contrib.error_page"
+        }, 
+        {
+            "location": "/exceptions/", 
+            "text": "Mocha exposes some ex\n\n\nfrom\n \nmocha\n \nimport\n \nexceptions\n\n\n\n\n\n\n\n\nMochaError\n\n\nMochaError\n is raised when there is an error in the core of Mocha\n\n\n\n\nAppError\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nerror\n(\nself\n)\n:\n\n        \ntry\n:\n\n            \n#\n \nblah\n \nblah\n \ncode\n\n            \nraise\n \nexceptions\n.\nAppError\n(\nSomething bad happened..\n)\n\n        \nexcept\n \nexceptions\n.\nMochaError\n \nas\n \nae\n:\n            \nflash_error\n(\nae\n.\nmessage\n)\n\n\n\n\n\n\n\n\nModelError", 
+            "title": "Exceptions"
+        }, 
+        {
+            "location": "/exceptions/#mochaerror", 
+            "text": "MochaError  is raised when there is an error in the core of Mocha", 
+            "title": "MochaError"
+        }, 
+        {
+            "location": "/exceptions/#apperror", 
+            "text": "class   Index ( Mocha ) : \n\n     def   error ( self ) : \n         try : \n             #   blah   blah   code \n             raise   exceptions . AppError ( Something bad happened.. ) \n         except   exceptions . MochaError   as   ae :\n             flash_error ( ae . message )", 
+            "title": "AppError"
+        }, 
+        {
+            "location": "/exceptions/#modelerror", 
+            "text": "", 
+            "title": "ModelError"
+        }, 
+        {
+            "location": "/cli/", 
+            "text": "Juice : Command Line Tool\n\n\nJuice comes with a command line interface to conveniently create projects, \nbuild assets, push assets to S3, deploy application to production server and more.\n\n\nThere two types of command line tool. \n\n\nmocha\n: The command to let you create projects,  build assets,\npush assets to S3, deploy application to production server and more \n\n\nmocha:cli\n \nmocha:cli\n to manage your own command line interface\n\n\nBelow are the availale commands for \nmocha\n\n\n\n\ncreate\n\n\nTo create new project in your application.\n\n\nmocha create www\n\n\n\n\n\nWhere \nwww\n is the $project_name.\n\n\narguments\n\n\n\n\n$project_name : The name of the project to create\n\n\n\n\noptions\n\n\n\n\n--skel | -s \n(default: app)\n - The pre-made skeleton to use for the project. \n\n\napp\n : Basic skeleton\n\n\napi\n : A skeleton for RESTful API\n\n\n\n\n\n\n\n\n\n\nserve\n\n\nAllows to launch a project in local dev environment.\n\n\nmocha serve\n\n\n\n\n\nWhere \nwww\n is the $project_name.\n\n\narguments\n\n\n\n\n$project_name : The name of the project to serve\n\n\n\n\noptions\n\n\n\n\n\n\n-p | --port \n(default: 5000)\n - The port to use if you want to use one other than 5000\n\n\n\n\n\n\n--no-watch - The name of the project to create. \nNo space or dashes.\n\n\n\n\n\n\nThis will launch the \nwww\n project under port 5001\n\n\nmocha serve www -p 5001\n\n\n\n\n\nTo not watch the files when serving, so it doesn't reload\n\n\nmocha serve api --no-watch 1\n\n\n\n\n\n\n\nbuild-assets\n\n\nAllows to build web assets static files for the project\n\n\nmocha build-assets www\n\n\n\n\n\nWhere \nwww\n is the $project_name.\n\n\narguments\n\n\n\n\n$project_name : The name of the project\n\n\n\n\n\n\nassets2s3\n\n\nIf you want to host your assets on AWS S3, \nmocha\n can conveniently upload\nthem on S3.\n\n\nmocha asset-to-s3 www\n\n\n\n\n\nWhere \nwww\n is the $project_name.\n\n\narguments\n\n\n\n\n$project_name : The name of the project\n\n\n\n\nBy default the \nDevelopment\n config will be used. \nIf you want to use the \nPRODUCTION\n to upload from your local machine:\n\n\nENV=\nPRODUCTION\n mocha assets2s3 -p www\n\n\n\n\n\n\n\ndeploy\n\n\nThis is convenient command to push your application to production server by using GIT.\n\n\nmocha deploy web\n\n\n\n\n\nWhere \nweb\n is the $remote_name.\n\n\nNo need to add a remote manually. By specifying the remote in your \npropel.yml\n\nfile, it will push it to that remote. This will allow to quickly change the remotes\nto push to. Of course you must commit your code.\n\n\narguments\n\n\n\n\n$remote_name : The name of the remote in propel.yml to push\n\n\n\n\noptions\n\n\n\n\n--all : To push to all remotes\n\n\n\n\nIn your \n/propel.yml\n file, edit the section \ngit-remotes\n:\n\n\ndeploy\n:\n\n  \nweb\n:\n\n    \n-\n \nssh\n://\nuser\n@\nhost\n/\npath\n.\ngit\n\n    \n-\n \nssh\n://\nuser\n@\nhost2\n/\napplication\n-\nname\n.\ngit\n\n  \nworkers\n:\n\n    \n-\n \nssh\n://\nuser\n@\nhost3\n/\nanother\n.\ngit\n\n\n\n\n\n\nNow to push to \nweb\n only:\n\n\nmocha deploy -r web\n\n\n\n\n\nTo push \nworkers\n:\n\n\nmocha deploy -r workers\n\n\n\n\n\nTo push to all remotes:\n\n\nmocha deploy\n\n\n\n\n\nsetup-models\n\n\nmocha setup-models", 
+            "title": "Command Line"
+        }, 
+        {
+            "location": "/cli/#juice-command-line-tool", 
+            "text": "Juice comes with a command line interface to conveniently create projects, \nbuild assets, push assets to S3, deploy application to production server and more.  There two types of command line tool.   mocha : The command to let you create projects,  build assets,\npush assets to S3, deploy application to production server and more   mocha:cli   mocha:cli  to manage your own command line interface  Below are the availale commands for  mocha", 
+            "title": "Juice : Command Line Tool"
+        }, 
+        {
+            "location": "/cli/#create", 
+            "text": "To create new project in your application.  mocha create www  Where  www  is the $project_name.  arguments   $project_name : The name of the project to create   options   --skel | -s  (default: app)  - The pre-made skeleton to use for the project.   app  : Basic skeleton  api  : A skeleton for RESTful API", 
+            "title": "create"
+        }, 
+        {
+            "location": "/cli/#serve", 
+            "text": "Allows to launch a project in local dev environment.  mocha serve  Where  www  is the $project_name.  arguments   $project_name : The name of the project to serve   options    -p | --port  (default: 5000)  - The port to use if you want to use one other than 5000    --no-watch - The name of the project to create. \nNo space or dashes.    This will launch the  www  project under port 5001  mocha serve www -p 5001  To not watch the files when serving, so it doesn't reload  mocha serve api --no-watch 1", 
+            "title": "serve"
+        }, 
+        {
+            "location": "/cli/#build-assets", 
+            "text": "Allows to build web assets static files for the project  mocha build-assets www  Where  www  is the $project_name.  arguments   $project_name : The name of the project", 
+            "title": "build-assets"
+        }, 
+        {
+            "location": "/cli/#assets2s3", 
+            "text": "If you want to host your assets on AWS S3,  mocha  can conveniently upload\nthem on S3.  mocha asset-to-s3 www  Where  www  is the $project_name.  arguments   $project_name : The name of the project   By default the  Development  config will be used. \nIf you want to use the  PRODUCTION  to upload from your local machine:  ENV= PRODUCTION  mocha assets2s3 -p www", 
+            "title": "assets2s3"
+        }, 
+        {
+            "location": "/cli/#deploy", 
+            "text": "This is convenient command to push your application to production server by using GIT.  mocha deploy web  Where  web  is the $remote_name.  No need to add a remote manually. By specifying the remote in your  propel.yml \nfile, it will push it to that remote. This will allow to quickly change the remotes\nto push to. Of course you must commit your code.  arguments   $remote_name : The name of the remote in propel.yml to push   options   --all : To push to all remotes   In your  /propel.yml  file, edit the section  git-remotes :  deploy : \n   web : \n     -   ssh :// user @ host / path . git \n     -   ssh :// user @ host2 / application - name . git \n   workers : \n     -   ssh :// user @ host3 / another . git   Now to push to  web  only:  mocha deploy -r web  To push  workers :  mocha deploy -r workers  To push to all remotes:  mocha deploy", 
+            "title": "deploy"
+        }, 
+        {
+            "location": "/cli/#setup-models", 
+            "text": "mocha setup-models", 
+            "title": "setup-models"
+        }, 
+        {
+            "location": "/deploy/", 
+            "text": "Deployment\n\n\nYes, yes, deploying Python app is not as easy as let's j. \n\n\nSo let me introduce to you \nPropel\n\n\nI created", 
+            "title": "Deployment"
+        }, 
+        {
+            "location": "/deploy/#deployment", 
+            "text": "Yes, yes, deploying Python app is not as easy as let's j.   So let me introduce to you  Propel  I created", 
+            "title": "Deployment"
+        }
+    ]
+}
