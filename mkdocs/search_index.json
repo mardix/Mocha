@@ -391,303 +391,218 @@
             "title": "storage"
         }, 
         {
-            "location": "/templates-jinja2/", 
+            "location": "/templates/", 
+            "text": "Structure\n\n\nLayouts\n\n\nPages", 
+            "title": "Templates"
+        }, 
+        {
+            "location": "/templates/#structure", 
             "text": "", 
-            "title": "Jinja2"
+            "title": "Structure"
         }, 
         {
-            "location": "/templates-jade/", 
+            "location": "/templates/#layouts", 
             "text": "", 
-            "title": "Jade Markup"
+            "title": "Layouts"
         }, 
         {
-            "location": "/templates-filters/", 
-            "text": "Templates.Filters\n\n\nMocha\n also has some convenient filter to use in your template\n\n\nlink_for\n\n\nlink_for\n creates an link tag base on endpoint\n\n\n{{\n \nlink_for\n(\nIndex:about_us\n)\n \n}}\n\n\n\n\n\n\nThe code above would result into a link similar to this \n\n\na\n \nhref=\n/about-us\nAbout Us\n/a\n\n\n\n\n\n\nBased on a view like this\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@nav_menu\n(\nAbout Us\n)\n\n    \ndef\n \nabout_us\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\ndate\n\n\ndate\n : To format a date based on the \nDATE_FORMAT\n in your config file\n\n\n{{\n \nvar_date\n \n|\n \ndate\n \n}}\n\n\n\n\n\n\ndate_time\n\n\ndate_time\n : To format a date based on the \nDATE_TIME_FORMAT\n in your config file\n\n\n{{\n \nvar_date\n \n|\n \ndate_time\n \n}}\n\n\n\n\n\n\nformat_datetime\n\n\nformat_datetime(format)\n : To format a date \n\n\n{{\n \nvar_date\n \n|\n \nformat_datetime\n(\nMM/DD/YYYY\n)\n \n}}\n\n\n\n\n\n\ndate_since\n\n\ndate_since\n :Show the date ago: show Today, Yesterday, July 27 (without year in same year), July 15 2014 \n\n\n{{\n \nvar_date\n \n|\n \ndate_since\n \n}}\n\n\n\n\n\n\ntime_since\n\n\ntime_since\n : To show the time ago: 3 min ago, 2 days ago, 1 year 7 days ago \n\n\n{{\n \nvar_date\n \n|\n \ntime_since\n \n}}\n\n\n\n\n\n\nimg_src\n\n\nimg_src\n: Generate an \n tag\n\n\n{{\n \nimage_url\n \n|\n \nimg_src\n \n}}\n\n\n\n\n\n\noembed\n\n\noembed\n: To generate an oembed tag. Mocha will load the content via JS\n\n\n{{\n \nurl\n \n|\n \noembed\n \n}}\n\n\n\n\n\n\nstatic\n\n\nstatic\n: Generates a a url for static file\n\n\nimg src=\n{{\n \nfile.jpg\n \n|\n \nstatic\n \n}}\n\n\n\n\n\n\nslugify\n\n\nslugify\n : \n\n\n{{\n \nvarname\n \n|\n \nslugify\n \n}}\n\n\n\n\n\n\nmarkdown\n\n\nmarkdown\n Transform a markdown text to safe html\n\n\n{{\n \nvar_markdown_content\n \n|\n \nmarkdown\n \n}}\n\n\n\n\n\n\nmarkdown_toc\n\n\nmarkdown_toc\n From the markdown content, generate the table of content\n\n\n{{\n \nvar_markdown_content\n \n|\n \nmarkdown_toc\n \n}}\n\n\n\n\n\n\n\n\nMacros\n\n\nForms\n\n\nForms expose forms fields.\n\n\n{\n%\n \nimport\n \nMocha/macros/forms.html\n \nas\n \nforms\n \nwith\n \ncontext\n \n%\n}\n\n\n\n\n\n\nforms.get\n\n\nCreate a GET form\n\n\nTo create a get form:\n\n{% call forms.get(request.endpoint) %}\n\n\n{% endcall %}\n\n\n\n\n\nforms.post\n\n\nCreate a POST form\n\n\nTo create a post form, which will automatically include the `csrf_token` to prevent cross-site request forgery.\n\n{% call forms.post(request.endpoint) %}\n\n\n{% endcall %}\n\n\n\n\n\nforms.upload\n\n\nCreate a UPLOAD form\n\n\nTo create a post form but with the ability to upload file, which will automatically include the `csrf_token` to prevent cross-site request forgery.\n\n{% call forms.upload(request.endpoint) %}\n\n\n{% endcall %}\n\n\n\n\n\nforms.input\n\n\n{{\n \nform.input\n(\nlabel\n=\nEnter your name\n,\n \nname\n=\nname\n,\n \nvalue\n=\n,\n \nplaceholder\n=\nEnter Name\n)\n \n}}\n\n\n\n\n\n\nforms.hidden\n\n\nforms.select\n\n\nforms.radio\n\n\nforms.checkbox\n\n\nforms.textarea\n\n\nforms.button\n\n\nforms.recaptcha\n\n\nIt creates the RECAPTCHA input \n\n\n{{\n \nforms.recaptcha\n()\n \n}}\n\n\n\n\n\n\nforms.examples\n\n\n{%\n \ncall\n \nforms.post\n(\nrequest.endpoint\n)\n \n%}\n\n\n\n    \n{{\n \nforms.input\n(\nlabel\n=\nName\n,\n \nname\n=\nname\n)\n \n}}\n\n\n    \n{{\n \nforms.input\n(\nlabel\n=\nCity\n,\n \nname\n=\ncity\n)\n \n}}\n\n\n    \n{{\n \nforms.radio\n(\nlabel\n=\nFavorite Colod\n,\n \nname\n=\nfav_color\n,\n \noptions\n=[(\nblue\n,\n \nBlue\n),\n \n(\nred\n,\n \nRed\n)])\n \n}}\n\n\n\n    \n{{\n \nforms.input\n(\nlabel\n=\nUpload Image\n,\n \nname\n=\nfile\n,\n \ntype\n=\nfile\n)\n \n}}\n\n\n\n    \n{{\n \nform.button\n(\ntype\n=\nsubmit\n)\n \n}}\n\n\n\n{%\n \nendcall\n \n%}\n\n\n\n\n\n\n\n\nWidget\n\n\nWidget exposes some bootstrap widget \n\n\n{\n%\n \nimport\n \nMocha/macros/forms.widget\n \nas\n \nwidget\n \nwith\n \ncontext\n \n%\n}\n\n\n\n\n\n\n\n\nMenu\n\n\n{\n%\n \nimport\n \nMocha/macros/menu.html\n \nas\n \nmenu\n \nwith\n \ncontext\n \n%\n}", 
-            "title": "Filters"
+            "location": "/templates/#pages", 
+            "text": "", 
+            "title": "Pages"
         }, 
         {
-            "location": "/templates-filters/#templatesfilters", 
-            "text": "Mocha  also has some convenient filter to use in your template", 
-            "title": "Templates.Filters"
+            "location": "/templates/filters/", 
+            "text": "Mocha\n also has some convenient filter to use in your template\n\n\nlink_for\n\n\nlink_for\n creates an link tag base on endpoint\n\n\n{{\n \nlink_for\n(\nIndex:about_us\n)\n \n}}\n\n\n\n\n\n\nThe code above would result into a link similar to this \n\n\na\n \nhref=\n/about-us\nAbout Us\n/a\n\n\n\n\n\n\nBased on a view like this\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@nav_menu\n(\nAbout Us\n)\n\n    \ndef\n \nabout_us\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\ndate\n\n\ndate\n : To format a date based on the \nDATE_FORMAT\n in your config file\n\n\n{{\n \nvar_date\n \n|\n \ndate\n \n}}\n\n\n\n\n\n\ndate_time\n\n\ndate_time\n : To format a date based on the \nDATE_TIME_FORMAT\n in your config file\n\n\n{{\n \nvar_date\n \n|\n \ndate_time\n \n}}\n\n\n\n\n\n\nformat_datetime\n\n\nformat_datetime(format)\n : To format a date \n\n\n{{\n \nvar_date\n \n|\n \nformat_datetime\n(\nMM/DD/YYYY\n)\n \n}}\n\n\n\n\n\n\ndate_since\n\n\ndate_since\n :Show the date ago: show Today, Yesterday, July 27 (without year in same year), July 15 2014 \n\n\n{{\n \nvar_date\n \n|\n \ndate_since\n \n}}\n\n\n\n\n\n\ntime_since\n\n\ntime_since\n : To show the time ago: 3 min ago, 2 days ago, 1 year 7 days ago \n\n\n{{\n \nvar_date\n \n|\n \ntime_since\n \n}}\n\n\n\n\n\n\nimg_src\n\n\nimg_src\n: Generate an \n tag\n\n\n{{\n \nimage_url\n \n|\n \nimg_src\n \n}}\n\n\n\n\n\n\noembed\n\n\noembed\n: To generate an oembed tag. Mocha will load the content via JS\n\n\n{{\n \nurl\n \n|\n \noembed\n \n}}\n\n\n\n\n\n\nstatic\n\n\nstatic\n: Generates a a url for static file\n\n\nimg src=\n{{\n \nfile.jpg\n \n|\n \nstatic\n \n}}\n\n\n\n\n\n\nslugify\n\n\nslugify\n : \n\n\n{{\n \nvarname\n \n|\n \nslugify\n \n}}\n\n\n\n\n\n\nmarkdown\n\n\nmarkdown\n Transform a markdown text to safe html\n\n\n{{\n \nvar_markdown_content\n \n|\n \nmarkdown\n \n}}\n\n\n\n\n\n\nmarkdown_toc\n\n\nmarkdown_toc\n From the markdown content, generate the table of content\n\n\n{{\n \nvar_markdown_content\n \n|\n \nmarkdown_toc\n \n}}\n\n\n\n\n\n\n\n\nMacros\n\n\nForms\n\n\nForms expose forms fields.\n\n\n{\n%\n \nimport\n \nMocha/macros/forms.html\n \nas\n \nforms\n \nwith\n \ncontext\n \n%\n}\n\n\n\n\n\n\nforms.get\n\n\nCreate a GET form\n\n\nTo create a get form:\n\n{% call forms.get(request.endpoint) %}\n\n\n{% endcall %}\n\n\n\n\n\nforms.post\n\n\nCreate a POST form\n\n\nTo create a post form, which will automatically include the `csrf_token` to prevent cross-site request forgery.\n\n{% call forms.post(request.endpoint) %}\n\n\n{% endcall %}\n\n\n\n\n\nforms.upload\n\n\nCreate a UPLOAD form\n\n\nTo create a post form but with the ability to upload file, which will automatically include the `csrf_token` to prevent cross-site request forgery.\n\n{% call forms.upload(request.endpoint) %}\n\n\n{% endcall %}\n\n\n\n\n\nforms.input\n\n\n{{\n \nform.input\n(\nlabel\n=\nEnter your name\n,\n \nname\n=\nname\n,\n \nvalue\n=\n,\n \nplaceholder\n=\nEnter Name\n)\n \n}}\n\n\n\n\n\n\nforms.hidden\n\n\nforms.select\n\n\nforms.radio\n\n\nforms.checkbox\n\n\nforms.textarea\n\n\nforms.button\n\n\nforms.recaptcha\n\n\nIt creates the RECAPTCHA input \n\n\n{{\n \nforms.recaptcha\n()\n \n}}\n\n\n\n\n\n\nforms.examples\n\n\n{%\n \ncall\n \nforms.post\n(\nrequest.endpoint\n)\n \n%}\n\n\n\n    \n{{\n \nforms.input\n(\nlabel\n=\nName\n,\n \nname\n=\nname\n)\n \n}}\n\n\n    \n{{\n \nforms.input\n(\nlabel\n=\nCity\n,\n \nname\n=\ncity\n)\n \n}}\n\n\n    \n{{\n \nforms.radio\n(\nlabel\n=\nFavorite Colod\n,\n \nname\n=\nfav_color\n,\n \noptions\n=[(\nblue\n,\n \nBlue\n),\n \n(\nred\n,\n \nRed\n)])\n \n}}\n\n\n\n    \n{{\n \nforms.input\n(\nlabel\n=\nUpload Image\n,\n \nname\n=\nfile\n,\n \ntype\n=\nfile\n)\n \n}}\n\n\n\n    \n{{\n \nform.button\n(\ntype\n=\nsubmit\n)\n \n}}\n\n\n\n{%\n \nendcall\n \n%}\n\n\n\n\n\n\n\n\nWidget\n\n\nWidget exposes some bootstrap widget \n\n\n{\n%\n \nimport\n \nMocha/macros/forms.widget\n \nas\n \nwidget\n \nwith\n \ncontext\n \n%\n}\n\n\n\n\n\n\n\n\nMenu\n\n\n{\n%\n \nimport\n \nMocha/macros/menu.html\n \nas\n \nmenu\n \nwith\n \ncontext\n \n%\n}", 
+            "title": "Templates: Filters"
         }, 
         {
-            "location": "/templates-filters/#link_for", 
+            "location": "/templates/filters/#link_for", 
             "text": "link_for  creates an link tag base on endpoint  {{   link_for ( Index:about_us )   }}   The code above would result into a link similar to this   a   href= /about-us About Us /a   Based on a view like this  class   Index ( Mocha ) : \n\n     @nav_menu ( About Us ) \n     def   about_us ( self ) : \n         pass", 
             "title": "link_for"
         }, 
         {
-            "location": "/templates-filters/#date", 
+            "location": "/templates/filters/#date", 
             "text": "date  : To format a date based on the  DATE_FORMAT  in your config file  {{   var_date   |   date   }}", 
             "title": "date"
         }, 
         {
-            "location": "/templates-filters/#date_time", 
+            "location": "/templates/filters/#date_time", 
             "text": "date_time  : To format a date based on the  DATE_TIME_FORMAT  in your config file  {{   var_date   |   date_time   }}", 
             "title": "date_time"
         }, 
         {
-            "location": "/templates-filters/#format_datetime", 
+            "location": "/templates/filters/#format_datetime", 
             "text": "format_datetime(format)  : To format a date   {{   var_date   |   format_datetime ( MM/DD/YYYY )   }}", 
             "title": "format_datetime"
         }, 
         {
-            "location": "/templates-filters/#date_since", 
+            "location": "/templates/filters/#date_since", 
             "text": "date_since  :Show the date ago: show Today, Yesterday, July 27 (without year in same year), July 15 2014   {{   var_date   |   date_since   }}", 
             "title": "date_since"
         }, 
         {
-            "location": "/templates-filters/#time_since", 
+            "location": "/templates/filters/#time_since", 
             "text": "time_since  : To show the time ago: 3 min ago, 2 days ago, 1 year 7 days ago   {{   var_date   |   time_since   }}", 
             "title": "time_since"
         }, 
         {
-            "location": "/templates-filters/#img_src", 
+            "location": "/templates/filters/#img_src", 
             "text": "img_src : Generate an   tag  {{   image_url   |   img_src   }}", 
             "title": "img_src"
         }, 
         {
-            "location": "/templates-filters/#oembed", 
+            "location": "/templates/filters/#oembed", 
             "text": "oembed : To generate an oembed tag. Mocha will load the content via JS  {{   url   |   oembed   }}", 
             "title": "oembed"
         }, 
         {
-            "location": "/templates-filters/#static", 
+            "location": "/templates/filters/#static", 
             "text": "static : Generates a a url for static file  img src= {{   file.jpg   |   static   }}", 
             "title": "static"
         }, 
         {
-            "location": "/templates-filters/#slugify", 
+            "location": "/templates/filters/#slugify", 
             "text": "slugify  :   {{   varname   |   slugify   }}", 
             "title": "slugify"
         }, 
         {
-            "location": "/templates-filters/#markdown", 
+            "location": "/templates/filters/#markdown", 
             "text": "markdown  Transform a markdown text to safe html  {{   var_markdown_content   |   markdown   }}", 
             "title": "markdown"
         }, 
         {
-            "location": "/templates-filters/#markdown_toc", 
+            "location": "/templates/filters/#markdown_toc", 
             "text": "markdown_toc  From the markdown content, generate the table of content  {{   var_markdown_content   |   markdown_toc   }}", 
             "title": "markdown_toc"
         }, 
         {
-            "location": "/templates-filters/#macros", 
+            "location": "/templates/filters/#macros", 
             "text": "", 
             "title": "Macros"
         }, 
         {
-            "location": "/templates-filters/#forms", 
+            "location": "/templates/filters/#forms", 
             "text": "Forms expose forms fields.  { %   import   Mocha/macros/forms.html   as   forms   with   context   % }", 
             "title": "Forms"
         }, 
         {
-            "location": "/templates-filters/#formsget", 
+            "location": "/templates/filters/#formsget", 
             "text": "", 
             "title": "forms.get"
         }, 
         {
-            "location": "/templates-filters/#create-a-get-form", 
+            "location": "/templates/filters/#create-a-get-form", 
             "text": "To create a get form:\n\n{% call forms.get(request.endpoint) %}\n\n\n{% endcall %}", 
             "title": "Create a GET form"
         }, 
         {
-            "location": "/templates-filters/#formspost", 
+            "location": "/templates/filters/#formspost", 
             "text": "", 
             "title": "forms.post"
         }, 
         {
-            "location": "/templates-filters/#create-a-post-form", 
+            "location": "/templates/filters/#create-a-post-form", 
             "text": "To create a post form, which will automatically include the `csrf_token` to prevent cross-site request forgery.\n\n{% call forms.post(request.endpoint) %}\n\n\n{% endcall %}", 
             "title": "Create a POST form"
         }, 
         {
-            "location": "/templates-filters/#formsupload", 
+            "location": "/templates/filters/#formsupload", 
             "text": "", 
             "title": "forms.upload"
         }, 
         {
-            "location": "/templates-filters/#create-a-upload-form", 
+            "location": "/templates/filters/#create-a-upload-form", 
             "text": "To create a post form but with the ability to upload file, which will automatically include the `csrf_token` to prevent cross-site request forgery.\n\n{% call forms.upload(request.endpoint) %}\n\n\n{% endcall %}", 
             "title": "Create a UPLOAD form"
         }, 
         {
-            "location": "/templates-filters/#formsinput", 
+            "location": "/templates/filters/#formsinput", 
             "text": "{{   form.input ( label = Enter your name ,   name = name ,   value = ,   placeholder = Enter Name )   }}", 
             "title": "forms.input"
         }, 
         {
-            "location": "/templates-filters/#formshidden", 
+            "location": "/templates/filters/#formshidden", 
             "text": "", 
             "title": "forms.hidden"
         }, 
         {
-            "location": "/templates-filters/#formsselect", 
+            "location": "/templates/filters/#formsselect", 
             "text": "", 
             "title": "forms.select"
         }, 
         {
-            "location": "/templates-filters/#formsradio", 
+            "location": "/templates/filters/#formsradio", 
             "text": "", 
             "title": "forms.radio"
         }, 
         {
-            "location": "/templates-filters/#formscheckbox", 
+            "location": "/templates/filters/#formscheckbox", 
             "text": "", 
             "title": "forms.checkbox"
         }, 
         {
-            "location": "/templates-filters/#formstextarea", 
+            "location": "/templates/filters/#formstextarea", 
             "text": "", 
             "title": "forms.textarea"
         }, 
         {
-            "location": "/templates-filters/#formsbutton", 
+            "location": "/templates/filters/#formsbutton", 
             "text": "", 
             "title": "forms.button"
         }, 
         {
-            "location": "/templates-filters/#formsrecaptcha", 
+            "location": "/templates/filters/#formsrecaptcha", 
             "text": "It creates the RECAPTCHA input   {{   forms.recaptcha ()   }}", 
             "title": "forms.recaptcha"
         }, 
         {
-            "location": "/templates-filters/#formsexamples", 
+            "location": "/templates/filters/#formsexamples", 
             "text": "{%   call   forms.post ( request.endpoint )   %}       {{   forms.input ( label = Name ,   name = name )   }}       {{   forms.input ( label = City ,   name = city )   }}       {{   forms.radio ( label = Favorite Colod ,   name = fav_color ,   options =[( blue ,   Blue ),   ( red ,   Red )])   }}       {{   forms.input ( label = Upload Image ,   name = file ,   type = file )   }}       {{   form.button ( type = submit )   }}  {%   endcall   %}", 
             "title": "forms.examples"
         }, 
         {
-            "location": "/templates-filters/#widget", 
+            "location": "/templates/filters/#widget", 
             "text": "Widget exposes some bootstrap widget   { %   import   Mocha/macros/forms.widget   as   widget   with   context   % }", 
             "title": "Widget"
         }, 
         {
-            "location": "/templates-filters/#menu", 
+            "location": "/templates/filters/#menu", 
             "text": "{ %   import   Mocha/macros/menu.html   as   menu   with   context   % }", 
             "title": "Menu"
         }, 
         {
-            "location": "/templates-macros/", 
-            "text": "Templates Macros\n\n\nForms\n\n\nForms expose forms fields.\n\n\n{\n%\n \nimport\n \nMocha/macros/forms.html\n \nas\n \nforms\n \nwith\n \ncontext\n \n%\n}\n\n\n\n\n\n\nforms.get\n\n\nCreate a GET form\n\n\nTo create a get form:\n\n{% call forms.get(request.endpoint) %}\n\n\n{% endcall %}\n\n\n\n\n\nforms.post\n\n\nCreate a POST form\n\n\nTo create a post form, which will automatically include the `csrf_token` to prevent cross-site request forgery.\n\n{% call forms.post(request.endpoint) %}\n\n\n{% endcall %}\n\n\n\n\n\nforms.upload\n\n\nCreate a UPLOAD form\n\n\nTo create a post form but with the ability to upload file, which will automatically include the `csrf_token` to prevent cross-site request forgery.\n\n{% call forms.upload(request.endpoint) %}\n\n\n{% endcall %}\n\n\n\n\n\nforms.input\n\n\n{{\n \nform.input\n(\nlabel\n=\nEnter your name\n,\n \nname\n=\nname\n,\n \nvalue\n=\n,\n \nplaceholder\n=\nEnter Name\n)\n \n}}\n\n\n\n\n\n\nforms.hidden\n\n\nforms.select\n\n\nforms.radio\n\n\nforms.checkbox\n\n\nforms.textarea\n\n\nforms.button\n\n\nforms.recaptcha\n\n\nIt creates the RECAPTCHA input \n\n\n{{\n \nforms.recaptcha\n()\n \n}}\n\n\n\n\n\n\nforms.examples\n\n\n{%\n \ncall\n \nforms.post\n(\nrequest.endpoint\n)\n \n%}\n\n\n\n    \n{{\n \nforms.input\n(\nlabel\n=\nName\n,\n \nname\n=\nname\n)\n \n}}\n\n\n    \n{{\n \nforms.input\n(\nlabel\n=\nCity\n,\n \nname\n=\ncity\n)\n \n}}\n\n\n    \n{{\n \nforms.radio\n(\nlabel\n=\nFavorite Colod\n,\n \nname\n=\nfav_color\n,\n \noptions\n=[(\nblue\n,\n \nBlue\n),\n \n(\nred\n,\n \nRed\n)])\n \n}}\n\n\n\n    \n{{\n \nforms.input\n(\nlabel\n=\nUpload Image\n,\n \nname\n=\nfile\n,\n \ntype\n=\nfile\n)\n \n}}\n\n\n\n    \n{{\n \nform.button\n(\ntype\n=\nsubmit\n)\n \n}}\n\n\n\n{%\n \nendcall\n \n%}\n\n\n\n\n\n\n\n\nWidget\n\n\nWidget exposes some bootstrap widget \n\n\n{\n%\n \nimport\n \nMocha/macros/forms.widget\n \nas\n \nwidget\n \nwith\n \ncontext\n \n%\n}\n\n\n\n\n\n\n\n\nMenu\n\n\n{\n%\n \nimport\n \nMocha/macros/menu.html\n \nas\n \nmenu\n \nwith\n \ncontext\n \n%\n}", 
-            "title": "Macros"
-        }, 
-        {
-            "location": "/templates-macros/#templates-macros", 
+            "location": "/templates/forms/", 
             "text": "", 
-            "title": "Templates Macros"
-        }, 
-        {
-            "location": "/templates-macros/#forms", 
-            "text": "Forms expose forms fields.  { %   import   Mocha/macros/forms.html   as   forms   with   context   % }", 
             "title": "Forms"
         }, 
         {
-            "location": "/templates-macros/#formsget", 
-            "text": "", 
-            "title": "forms.get"
-        }, 
-        {
-            "location": "/templates-macros/#create-a-get-form", 
-            "text": "To create a get form:\n\n{% call forms.get(request.endpoint) %}\n\n\n{% endcall %}", 
-            "title": "Create a GET form"
-        }, 
-        {
-            "location": "/templates-macros/#formspost", 
-            "text": "", 
-            "title": "forms.post"
-        }, 
-        {
-            "location": "/templates-macros/#create-a-post-form", 
-            "text": "To create a post form, which will automatically include the `csrf_token` to prevent cross-site request forgery.\n\n{% call forms.post(request.endpoint) %}\n\n\n{% endcall %}", 
-            "title": "Create a POST form"
-        }, 
-        {
-            "location": "/templates-macros/#formsupload", 
-            "text": "", 
-            "title": "forms.upload"
-        }, 
-        {
-            "location": "/templates-macros/#create-a-upload-form", 
-            "text": "To create a post form but with the ability to upload file, which will automatically include the `csrf_token` to prevent cross-site request forgery.\n\n{% call forms.upload(request.endpoint) %}\n\n\n{% endcall %}", 
-            "title": "Create a UPLOAD form"
-        }, 
-        {
-            "location": "/templates-macros/#formsinput", 
-            "text": "{{   form.input ( label = Enter your name ,   name = name ,   value = ,   placeholder = Enter Name )   }}", 
-            "title": "forms.input"
-        }, 
-        {
-            "location": "/templates-macros/#formshidden", 
-            "text": "", 
-            "title": "forms.hidden"
-        }, 
-        {
-            "location": "/templates-macros/#formsselect", 
-            "text": "", 
-            "title": "forms.select"
-        }, 
-        {
-            "location": "/templates-macros/#formsradio", 
-            "text": "", 
-            "title": "forms.radio"
-        }, 
-        {
-            "location": "/templates-macros/#formscheckbox", 
-            "text": "", 
-            "title": "forms.checkbox"
-        }, 
-        {
-            "location": "/templates-macros/#formstextarea", 
-            "text": "", 
-            "title": "forms.textarea"
-        }, 
-        {
-            "location": "/templates-macros/#formsbutton", 
-            "text": "", 
-            "title": "forms.button"
-        }, 
-        {
-            "location": "/templates-macros/#formsrecaptcha", 
-            "text": "It creates the RECAPTCHA input   {{   forms.recaptcha ()   }}", 
-            "title": "forms.recaptcha"
-        }, 
-        {
-            "location": "/templates-macros/#formsexamples", 
-            "text": "{%   call   forms.post ( request.endpoint )   %}       {{   forms.input ( label = Name ,   name = name )   }}       {{   forms.input ( label = City ,   name = city )   }}       {{   forms.radio ( label = Favorite Colod ,   name = fav_color ,   options =[( blue ,   Blue ),   ( red ,   Red )])   }}       {{   forms.input ( label = Upload Image ,   name = file ,   type = file )   }}       {{   form.button ( type = submit )   }}  {%   endcall   %}", 
-            "title": "forms.examples"
-        }, 
-        {
-            "location": "/templates-macros/#widget", 
-            "text": "Widget exposes some bootstrap widget   { %   import   Mocha/macros/forms.widget   as   widget   with   context   % }", 
-            "title": "Widget"
-        }, 
-        {
-            "location": "/templates-macros/#menu", 
-            "text": "{ %   import   Mocha/macros/menu.html   as   menu   with   context   % }", 
-            "title": "Menu"
-        }, 
-        {
-            "location": "/templates-widgets/", 
+            "location": "/templates/widgets/", 
             "text": "Templates\n\n\nTemplates\n\n\nAssets\n\n\nStatic", 
             "title": "Widgets"
         }, 
         {
-            "location": "/templates-widgets/#templates", 
+            "location": "/templates/widgets/#templates", 
             "text": "Templates", 
             "title": "Templates"
         }, 
         {
-            "location": "/templates-widgets/#assets", 
+            "location": "/templates/widgets/#assets", 
             "text": "", 
             "title": "Assets"
         }, 
         {
-            "location": "/templates-widgets/#static", 
+            "location": "/templates/widgets/#static", 
             "text": "", 
             "title": "Static"
         }, 
         {
+            "location": "/templates/navs/", 
+            "text": "", 
+            "title": "Navs"
+        }, 
+        {
             "location": "/models/", 
-            "text": "Models\n\n\nConfiguration\n\n\ndb\n\n\nmodel", 
+            "text": "Models\n\n\n\n\nConfiguration\n\n\n\n\ndb\n\n\n\n\nmodel\n\n\n\n\nTypes\n\n\n\n\nSpecial Types\n\n\nBeside the default SQLAlchemy column types,\n\n\nSQLAlchemy-Utils\n\n\n\n\nDateTime\n\n\nAlias to ArrowType, which provides way of saving \nArrow\n objects into database.\nIt automatically changes Arrow objects to datetime objects on the way in and\ndatetime objects back to Arrow objects on the way out (when querying database).\n\n\nExample\n\n\nfrom\n \nmocha\n \nimport\n \ndb\n\n\n\nclass\n \nArticle\n(\ndb\n.\nModel\n):\n\n    \ntitle\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nString\n(\n255\n))\n\n    \npublished_at\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nDateTime\n)\n\n\n\n\n\n\n Create \n\n\nfrom\n \nmocha\n \nimport\n \nutc_now\n,\n \nmodels\n\n\n\nmodels\n.\nArticle\n.\ncreate\n(\ntitle\n=\nHi\n,\n \npublished_at\n=\nutc_now\n)\n\n\n\n\n\n\n Read \n\n\nfrom\n \nmocha\n \nimport\n \nmodels\n\n\n\narticle\n \n=\n \nmodels\n.\nArticle\n.\nget\n(\n1\n)\n\n\n\narticle\n.\ncreated_at\n \n=\n \narticle\n.\ncreated_at\n.\nreplace\n(\nhours\n=-\n1\n)\n\n\n\narticle\n.\ncreated_at\n.\nhumanize\n()\n\n\n# \nan hour ago\n\n\n\n\n\n\n Links \n\n\nArrowType\n\n\nArrow\n\n\nArrow Tokens\n\n\n\n\nStorageObjectType\n\n\nStorageObjectType offers way of saving \nStorage.Object\n data structures to database.\nIt automatically changes Arrow objects to JSON objects on the way in and\n\nStorage.Object\n objects back on the way out (when querying database).\n\n\nExample\n\n\nfrom\n \nmocha\n \nimport\n \ndb\n\n\n\nclass\n \nArticle\n(\ndb\n.\nModel\n):\n\n    \ntitle\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nString\n(\n255\n))\n\n    \npublished_at\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nDateTime\n)\n\n    \nimage\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nStorageObjectType\n)\n\n\n\n\n\n\n Create \n\n\nfrom\n \nmocha\n \nimport\n \nutc_now\n,\n \nmodels\n,\n \nupload_file\n\n\n\nimage_file\n \n=\n \nfile/xyz.jpg\n\n\nimage\n \n=\n \nupload_file\n(\nimage_file\n)\n\n\n\nmodels\n.\nArticle\n.\ncreate\n(\ntitle\n=\nHi\n,\n \npublished_at\n=\nutc_now\n,\n \nimage\n=\nimage\n)\n\n\n\n\n\n\n Read \n\n\nfrom\n \nmocha\n \nimport\n \nmodels\n\n\n\narticle\n \n=\n \nmodels\n.\nArticle\n.\nget\n(\n1\n)\n\n\n\narticle\n.\nimage\n.\nurl\n\n\narticle\n.\nimage\n.\nsize\n\n\narticle\n.\nimage\n.\ndownload\n()\n\n\n\n\n\n\n\n\nEmailType\n\n\nProvides a way for storing emails in a lower case.\n\n\nExample\n\n\nfrom\n \nmocha\n \nimport\n \ndb\n\n\n\nclass\n \nArticle\n(\ndb\n.\nModel\n):\n\n    \ntitle\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nString\n(\n255\n))\n\n    \npublished_at\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nDateTime\n)\n\n    \nemail\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nEmailType\n)\n\n\n\n\n\n\nLink: \nEmailType\n\n\n\n\nJSONType\n\n\nJSONType offers way of saving JSON data structures to database.\nOn PostgreSQL the underlying implementation of this data type is \u2018json\u2019\nwhile on other databases its simply \u2018text\u2019.\n\n\nExample\n\n\nfrom\n \nmocha\n \nimport\n \ndb\n\n\n\nclass\n \nArticle\n(\ndb\n.\nModel\n):\n\n    \ntitle\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nString\n(\n255\n))\n\n    \npublished_at\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nDateTime\n)\n\n    \ndata\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nJSONType\n)\n\n\n\n\n\n\n Create \n\n\nfrom\n \nmocha\n \nimport\n \nmodels\n,\n \nutc_now\n\n\n\nmodels\n.\nArticle\n.\ncreate\n(\ntitle\n=\nHello\n,\n\n                      \npublished_at\n=\nutc_now\n,\n\n                      \ndata\n=\n{\n\n                        \nreference\n:\n \nblah\n,\n\n                        \ntags\n:\n \n[\nA\n,\n \nB\n,\n \nC\n]\n\n                      \n})\n\n\n\n\n\n\n Read \n\n\narticle = models.Article.get(1)\n\narticle.data.get(\nreference\n)\n# blah\n\narticle.data.get(\ntags\n)\n# [\nA\n, \nB\n, \nC\n]\n\narticle.data.get(\nlocation\n, \nCharlotte\n)\n# Charlotte\n\n\n\n\n\nLink: \nJSONType\n\n\n\n\nGeneric Types\n\n\n\n\nSQLAlchemy-Utils Types\n\n\nIf you want to use the other types from\n\nSQLAlchemy-Utils\n\n\n\n\nArrowType\n\n\nChoiceType\n\n\nColorType\n\n\nCountryType\n\n\nCurrencyType\n\n\nEmailType\n\n\nEncryptedType\n\n\nJSONType\n\n\nLocaleType\n\n\nLtreeType\n\n\nIPAddressType\n\n\nPasswordType\n\n\nPhoneNumberType\n\n\nScalarListType\n\n\nTimezoneType\n\n\nTSVectorType\n\n\nURLType\n\n\nUUIDType\n\n\nWeekDaysType", 
             "title": "Models"
         }, 
         {
@@ -709,6 +624,51 @@
             "location": "/models/#model", 
             "text": "", 
             "title": "model"
+        }, 
+        {
+            "location": "/models/#types", 
+            "text": "", 
+            "title": "Types"
+        }, 
+        {
+            "location": "/models/#special-types", 
+            "text": "Beside the default SQLAlchemy column types,  SQLAlchemy-Utils", 
+            "title": "Special Types"
+        }, 
+        {
+            "location": "/models/#datetime", 
+            "text": "Alias to ArrowType, which provides way of saving  Arrow  objects into database.\nIt automatically changes Arrow objects to datetime objects on the way in and\ndatetime objects back to Arrow objects on the way out (when querying database).  Example  from   mocha   import   db  class   Article ( db . Model ): \n     title   =   db . Column ( db . String ( 255 )) \n     published_at   =   db . Column ( db . DateTime )    Create   from   mocha   import   utc_now ,   models  models . Article . create ( title = Hi ,   published_at = utc_now )    Read   from   mocha   import   models  article   =   models . Article . get ( 1 )  article . created_at   =   article . created_at . replace ( hours =- 1 )  article . created_at . humanize ()  #  an hour ago    Links   ArrowType  Arrow  Arrow Tokens", 
+            "title": "DateTime"
+        }, 
+        {
+            "location": "/models/#storageobjecttype", 
+            "text": "StorageObjectType offers way of saving  Storage.Object  data structures to database.\nIt automatically changes Arrow objects to JSON objects on the way in and Storage.Object  objects back on the way out (when querying database).  Example  from   mocha   import   db  class   Article ( db . Model ): \n     title   =   db . Column ( db . String ( 255 )) \n     published_at   =   db . Column ( db . DateTime ) \n     image   =   db . Column ( db . StorageObjectType )    Create   from   mocha   import   utc_now ,   models ,   upload_file  image_file   =   file/xyz.jpg  image   =   upload_file ( image_file )  models . Article . create ( title = Hi ,   published_at = utc_now ,   image = image )    Read   from   mocha   import   models  article   =   models . Article . get ( 1 )  article . image . url  article . image . size  article . image . download ()", 
+            "title": "StorageObjectType"
+        }, 
+        {
+            "location": "/models/#emailtype", 
+            "text": "Provides a way for storing emails in a lower case.  Example  from   mocha   import   db  class   Article ( db . Model ): \n     title   =   db . Column ( db . String ( 255 )) \n     published_at   =   db . Column ( db . DateTime ) \n     email   =   db . Column ( db . EmailType )   Link:  EmailType", 
+            "title": "EmailType"
+        }, 
+        {
+            "location": "/models/#jsontype", 
+            "text": "JSONType offers way of saving JSON data structures to database.\nOn PostgreSQL the underlying implementation of this data type is \u2018json\u2019\nwhile on other databases its simply \u2018text\u2019.  Example  from   mocha   import   db  class   Article ( db . Model ): \n     title   =   db . Column ( db . String ( 255 )) \n     published_at   =   db . Column ( db . DateTime ) \n     data   =   db . Column ( db . JSONType )    Create   from   mocha   import   models ,   utc_now  models . Article . create ( title = Hello , \n                       published_at = utc_now , \n                       data = { \n                         reference :   blah , \n                         tags :   [ A ,   B ,   C ] \n                       })    Read   article = models.Article.get(1)\n\narticle.data.get( reference )\n# blah\n\narticle.data.get( tags )\n# [ A ,  B ,  C ]\n\narticle.data.get( location ,  Charlotte )\n# Charlotte  Link:  JSONType", 
+            "title": "JSONType"
+        }, 
+        {
+            "location": "/models/#generic-types", 
+            "text": "", 
+            "title": "Generic Types"
+        }, 
+        {
+            "location": "/models/#sqlalchemy-utils-types", 
+            "text": "If you want to use the other types from SQLAlchemy-Utils   ArrowType  ChoiceType  ColorType  CountryType  CurrencyType  EmailType  EncryptedType  JSONType  LocaleType  LtreeType  IPAddressType  PasswordType  PhoneNumberType  ScalarListType  TimezoneType  TSVectorType  URLType  UUIDType  WeekDaysType", 
+            "title": "SQLAlchemy-Utils Types"
+        }, 
+        {
+            "location": "/assets/", 
+            "text": "", 
+            "title": "Assets"
         }, 
         {
             "location": "/ext/", 
@@ -972,23 +932,13 @@
         }, 
         {
             "location": "/contrib/", 
-            "text": "Contrib\n\n\nContribs are ready to use embeddable applications to add in your \nINSTALLED_APPS\n \nto get going. They solved basic and common web development problems.\n\n\nThey are meant to be easy to installed with less configurations possible.\n\n\nThey may also come decorations or helpers functions for external use.\n\n\nThe contribs below are built in Mocha for developers convenience:\n\n\n\n\nMaintenance Page\n\n\nmocha.contrib.maintenance_page\n\n\nAutomatically show a maintenance page on the site. No pages will be able to be \naccessed.\n\n\nTo disable just comment out, or remove from the \nINSTALLED_APPS\n\n\nInstallation\n\n\nMAINTENANCE_PAGE = (\nmocha.contrib.views.maintenance_page\n, {\n    \non\n: False,\n    \nexcludes\n: []\n})\n\nINSTALLED_APPS: [\n    MAINTENANCE_PAGE\n]\n\n\n\n\n\nOptions\n\n\n- `template`: If using a different template page", 
+            "text": "Contrib\n\n\nContribs are ready to use embeddable applications to add in your \nINSTALLED_APPS\n \nto get going. They solved basic and common web development problems.\n\n\nThey are meant to be easy to install with less configurations possible.\n\n\nThey may also come decorations or helpers functions for external use.", 
             "title": "Contrib"
         }, 
         {
             "location": "/contrib/#contrib", 
-            "text": "Contribs are ready to use embeddable applications to add in your  INSTALLED_APPS  \nto get going. They solved basic and common web development problems.  They are meant to be easy to installed with less configurations possible.  They may also come decorations or helpers functions for external use.  The contribs below are built in Mocha for developers convenience:", 
+            "text": "Contribs are ready to use embeddable applications to add in your  INSTALLED_APPS  \nto get going. They solved basic and common web development problems.  They are meant to be easy to install with less configurations possible.  They may also come decorations or helpers functions for external use.", 
             "title": "Contrib"
-        }, 
-        {
-            "location": "/contrib/#maintenance-page", 
-            "text": "", 
-            "title": "Maintenance Page"
-        }, 
-        {
-            "location": "/contrib/#mochacontribmaintenance_page", 
-            "text": "Automatically show a maintenance page on the site. No pages will be able to be \naccessed.  To disable just comment out, or remove from the  INSTALLED_APPS  Installation  MAINTENANCE_PAGE = ( mocha.contrib.views.maintenance_page , {\n     on : False,\n     excludes : []\n})\n\nINSTALLED_APPS: [\n    MAINTENANCE_PAGE\n]  Options  - `template`: If using a different template page", 
-            "title": "mocha.contrib.maintenance_page"
         }, 
         {
             "location": "/contrib/auth/", 
@@ -1031,34 +981,49 @@
             "title": "Config"
         }, 
         {
-            "location": "/contrib/contact_page/", 
+            "location": "/contrib/contact-page/", 
             "text": "Contact Page\n\n\nmocha.contrib.views.contact_page\n\n\nAdds a contact page interface.\n\n\nInstallation\n\n\nCONTACT = (\nmocha.contrib.views.contact_page\n, {\n    \nroute\n: \n/contact/\n,\n    \nnav\n: {\n        \ntitle\n: \nContact\n,\n        \norder\n: 100\n    }\n    \nrecipients\n: \nrecipients@email.com\n,\n    \nsuccess_message\n: \nThe message to show when the email is sent successfully\n,\n    \ntitle\n: \nContact Us\n,\n    \nreturn_to\n: \n/\n\n})\n\nINSTALLED_APPS: [\n    CONTACT\n]\n\n\n\n\n\nOptions\n\n\n- `recipients`: The email address to send the message to\n\n- `return_to`: The view endpoint or url to return to\n\n- `title`: The page title\n\n- `success_message`: The message to show when the email is sent successfully", 
             "title": "Contact Page"
         }, 
         {
-            "location": "/contrib/contact_page/#contact-page", 
+            "location": "/contrib/contact-page/#contact-page", 
             "text": "", 
             "title": "Contact Page"
         }, 
         {
-            "location": "/contrib/contact_page/#mochacontribviewscontact_page", 
+            "location": "/contrib/contact-page/#mochacontribviewscontact_page", 
             "text": "Adds a contact page interface.  Installation  CONTACT = ( mocha.contrib.views.contact_page , {\n     route :  /contact/ ,\n     nav : {\n         title :  Contact ,\n         order : 100\n    }\n     recipients :  recipients@email.com ,\n     success_message :  The message to show when the email is sent successfully ,\n     title :  Contact Us ,\n     return_to :  / \n})\n\nINSTALLED_APPS: [\n    CONTACT\n]  Options  - `recipients`: The email address to send the message to\n\n- `return_to`: The view endpoint or url to return to\n\n- `title`: The page title\n\n- `success_message`: The message to show when the email is sent successfully", 
             "title": "mocha.contrib.views.contact_page"
         }, 
         {
-            "location": "/contrib/error_page/", 
+            "location": "/contrib/error-page/", 
             "text": "Error Page\n\n\nmocha.contrib.error_page\n\n\nAdds error pages for 4xx, 5xx errors\n\n\nInstallation\n\n\nERROR_PAGE = (\nmocha.contrib.views.error_page\n, {})\n\nINSTALLED_APPS: [\n    ERROR_PAGE\n]\n\n\n\n\n\nOptions\n\n\n- `template`: If using a different template page", 
             "title": "Error Page"
         }, 
         {
-            "location": "/contrib/error_page/#error-page", 
+            "location": "/contrib/error-page/#error-page", 
             "text": "", 
             "title": "Error Page"
         }, 
         {
-            "location": "/contrib/error_page/#mochacontriberror_page", 
+            "location": "/contrib/error-page/#mochacontriberror_page", 
             "text": "Adds error pages for 4xx, 5xx errors  Installation  ERROR_PAGE = ( mocha.contrib.views.error_page , {})\n\nINSTALLED_APPS: [\n    ERROR_PAGE\n]  Options  - `template`: If using a different template page", 
             "title": "mocha.contrib.error_page"
+        }, 
+        {
+            "location": "/contrib/maintenance-page/", 
+            "text": "The contribs below are built in Mocha for developers convenience:\n\n\n\n\nMaintenance Page\n\n\nmocha.contrib.maintenance_page\n\n\nAutomatically show a maintenance page on the site. No pages will be able to be\naccessed.\n\n\nTo disable just comment out, or remove from the \nINSTALLED_APPS\n\n\nInstallation\n\n\nMAINTENANCE_PAGE = (\nmocha.contrib.views.maintenance_page\n, {\n    \non\n: False,\n    \nexcludes\n: []\n})\n\nINSTALLED_APPS: [\n    MAINTENANCE_PAGE\n]\n\n\n\n\n\nOptions\n\n\n- `template`: If using a different template page", 
+            "title": "Error Page"
+        }, 
+        {
+            "location": "/contrib/maintenance-page/#maintenance-page", 
+            "text": "", 
+            "title": "Maintenance Page"
+        }, 
+        {
+            "location": "/contrib/maintenance-page/#mochacontribmaintenance_page", 
+            "text": "Automatically show a maintenance page on the site. No pages will be able to be\naccessed.  To disable just comment out, or remove from the  INSTALLED_APPS  Installation  MAINTENANCE_PAGE = ( mocha.contrib.views.maintenance_page , {\n     on : False,\n     excludes : []\n})\n\nINSTALLED_APPS: [\n    MAINTENANCE_PAGE\n]  Options  - `template`: If using a different template page", 
+            "title": "mocha.contrib.maintenance_page"
         }, 
         {
             "location": "/exceptions/", 
@@ -1082,43 +1047,63 @@
         }, 
         {
             "location": "/cli/", 
-            "text": "Juice : Command Line Tool\n\n\nJuice comes with a command line interface to conveniently create projects, \nbuild assets, push assets to S3, deploy application to production server and more.\n\n\nThere two types of command line tool. \n\n\nmocha\n: The command to let you create projects,  build assets,\npush assets to S3, deploy application to production server and more \n\n\nmocha:cli\n \nmocha:cli\n to manage your own command line interface\n\n\nBelow are the availale commands for \nmocha\n\n\n\n\ncreate\n\n\nTo create new project in your application.\n\n\nmocha create www\n\n\n\n\n\nWhere \nwww\n is the $project_name.\n\n\narguments\n\n\n\n\n$project_name : The name of the project to create\n\n\n\n\noptions\n\n\n\n\n--skel | -s \n(default: app)\n - The pre-made skeleton to use for the project. \n\n\napp\n : Basic skeleton\n\n\napi\n : A skeleton for RESTful API\n\n\n\n\n\n\n\n\n\n\nserve\n\n\nAllows to launch a project in local dev environment.\n\n\nmocha serve\n\n\n\n\n\nWhere \nwww\n is the $project_name.\n\n\narguments\n\n\n\n\n$project_name : The name of the project to serve\n\n\n\n\noptions\n\n\n\n\n\n\n-p | --port \n(default: 5000)\n - The port to use if you want to use one other than 5000\n\n\n\n\n\n\n--no-watch - The name of the project to create. \nNo space or dashes.\n\n\n\n\n\n\nThis will launch the \nwww\n project under port 5001\n\n\nmocha serve www -p 5001\n\n\n\n\n\nTo not watch the files when serving, so it doesn't reload\n\n\nmocha serve api --no-watch 1\n\n\n\n\n\n\n\nbuild-assets\n\n\nAllows to build web assets static files for the project\n\n\nmocha build-assets www\n\n\n\n\n\nWhere \nwww\n is the $project_name.\n\n\narguments\n\n\n\n\n$project_name : The name of the project\n\n\n\n\n\n\nassets2s3\n\n\nIf you want to host your assets on AWS S3, \nmocha\n can conveniently upload\nthem on S3.\n\n\nmocha asset-to-s3 www\n\n\n\n\n\nWhere \nwww\n is the $project_name.\n\n\narguments\n\n\n\n\n$project_name : The name of the project\n\n\n\n\nBy default the \nDevelopment\n config will be used. \nIf you want to use the \nPRODUCTION\n to upload from your local machine:\n\n\nENV=\nPRODUCTION\n mocha assets2s3 -p www\n\n\n\n\n\n\n\ndeploy\n\n\nThis is convenient command to push your application to production server by using GIT.\n\n\nmocha deploy web\n\n\n\n\n\nWhere \nweb\n is the $remote_name.\n\n\nNo need to add a remote manually. By specifying the remote in your \npropel.yml\n\nfile, it will push it to that remote. This will allow to quickly change the remotes\nto push to. Of course you must commit your code.\n\n\narguments\n\n\n\n\n$remote_name : The name of the remote in propel.yml to push\n\n\n\n\noptions\n\n\n\n\n--all : To push to all remotes\n\n\n\n\nIn your \n/propel.yml\n file, edit the section \ngit-remotes\n:\n\n\ndeploy\n:\n\n  \nweb\n:\n\n    \n-\n \nssh\n://\nuser\n@\nhost\n/\npath\n.\ngit\n\n    \n-\n \nssh\n://\nuser\n@\nhost2\n/\napplication\n-\nname\n.\ngit\n\n  \nworkers\n:\n\n    \n-\n \nssh\n://\nuser\n@\nhost3\n/\nanother\n.\ngit\n\n\n\n\n\n\nNow to push to \nweb\n only:\n\n\nmocha deploy -r web\n\n\n\n\n\nTo push \nworkers\n:\n\n\nmocha deploy -r workers\n\n\n\n\n\nTo push to all remotes:\n\n\nmocha deploy\n\n\n\n\n\nsetup-models\n\n\nmocha setup-models", 
-            "title": "Command Line"
+            "text": "Mocha provides a command line tool to do sim\n\n\nmocha\n\n\n\n\n\n:init\n\n\nRunning init will initialize mocha in the current directory\n\n\nmocha\n \n:\ninit\n\n\n\n\n\n\n\n\n:serve\n\n\nRun the server in the development mode.\n\n\nmocha\n \n:\nserve\n\n\n\n\n\n\nBy default it will run the \nmain\n application in \nconfig.Dev\n environment\n\n\nTo change application and environment, prepend the app before mocha :serve\n\n\napp=main:production mocha :serve\n\n\n\n\n\nThe code above will run the \nmain\n application with the \nconfig.Production\n\n\napp=admin:stage mocha :serve\n\n\n\n\n\nThe code above will run \nadmin\n application with \nconfig.Stage\n\n\nenv=production mocha :serve\n\n\n\n\n\nThe code above will run the \nmain\n application with \nconfig.Production\n.\n\n\nWhen \napp\n is not provided, or only \nenv\n is provided, it will assume the app is \nmain\n\n\n\n\n:addview\n\n\nTo create a new view\n\n\nmocha\n \n:\naddview\n\n\n\n\n\n\n\n\n:install-assets\n\n\nTo install assets from \napplication/assets/package.json\n\n\nThis command requires \nnpm\n as it will run \nnpm install\n to install the assets\n\n\nmocha\n \n:\ninstall\n-\nassets\n\n\n\n\n\n\n\n\n:dbsync\n\n\nTo create new models in your DBMS.\n\n\nmocha\n \n:\ndbsync\n\n\n\n\n\n\n\n\n:assets2s3\n\n\nWhen \nconfig.ASSETS_DELIVERY_METHOD\n is \nS3\n, this util will allow you to upload\nyour assets to S3, and the application will automatically point all your assets\nto S3.\n\n\nmocha\n \n:\nassets2s3\n\n\n\n\n\n\nSince it will be in production or some other places other than local,\nyou may need to add the environment variables\n\n\napp=main:production mocha :assets2s3\n\n\n\n\n\n\n\nDevelop CLI\n\n\nYou can develop your own CLI to also attach to the \nmocha\n cli.\n\n\nThis will allow you to admin your application within one command line.\n\n\nMocha provides a CLI interface using \nclick\n\n\nCreate\n\n\nimport\n \nmocha.cli\n\n\nclass\n \nMyCLI\n(\nmocha\n.\ncli\n.\nCLI\n):\n\n\n    \ndef\n \n__init__\n(\nself\n,\n \ncommand\n,\n \nclick\n):\n\n\n        \n@command\n(\nhello-world\n)\n\n        \ndef\n \nhello_world\n():\n\n            \n This is my hello world \n\n            \nprint\n(\nHello World!\n)\n\n\n\n        \n@command\n(\nadd-entry\n)\n\n        \n@click.argument\n(\nname\n)\n\n        \ndef\n \nadd_entry\n(\nname\n):\n\n            \n Add new entry \n\n            \nprint\n(\nName: \n%s\n \n%\n \nname\n)\n\n\n\n\n\n\nRunning\n\n\nmocha\n\n\n\n\n\nRunning the code above will show the follow\n\n\nCommands:\n  :addview                 Create a new view and template page\n  :assets2s3               Upload assets files to S3\n  :dbsync                  Sync database Create new tables etc...\n  :init                    Setup Mocha in the current directory\n  :install-assets          Install NPM Packages for the front end in the...\n  :serve                   Serve application in development mode\n  :version\n  add-entry                Add new entry\n  hello-world              This is my hellow word\n\n\n\n\n\nIf you run\n\n\nmocha hello-world\n\n\n\n\n\nIt will print out 'Hello World!'\n\n\nAnd...\n\n\nmocha add-entry Jonas\n\n\n\n\n\nwill print out 'Name: Jonas'\n\n\nHow does it work?\n\n\nMocha looks for all the subclasses of \nmocha.cli.CLI\n and instantiate them by\npassing the \nmocha.cli command\n scope, along with \nclick\n\n\nImporting application modules in the CLI\n\n\nTo import application modules, place them in \n__init__\n of the class, so Mocha\nhas the time to load all the necessary modules\n\n\nclass\n \nMyCLI\n(\nmocha\n.\ncli\n.\nCLI\n):\n\n\n    \ndef\n \n__init__\n(\nself\n,\n \ncommand\n,\n \nclick\n):\n\n\n        \nimport\n \napplication.helpers\n \nas\n \nhelpers\n\n\n        \n@command\n(\nhello-world\n)\n\n        \ndef\n \nhello_world\n():\n\n            \n This is my hello world \n\n            \nprint\n(\nHello World!\n)", 
+            "title": "CLI"
         }, 
         {
-            "location": "/cli/#juice-command-line-tool", 
-            "text": "Juice comes with a command line interface to conveniently create projects, \nbuild assets, push assets to S3, deploy application to production server and more.  There two types of command line tool.   mocha : The command to let you create projects,  build assets,\npush assets to S3, deploy application to production server and more   mocha:cli   mocha:cli  to manage your own command line interface  Below are the availale commands for  mocha", 
-            "title": "Juice : Command Line Tool"
-        }, 
-        {
-            "location": "/cli/#create", 
-            "text": "To create new project in your application.  mocha create www  Where  www  is the $project_name.  arguments   $project_name : The name of the project to create   options   --skel | -s  (default: app)  - The pre-made skeleton to use for the project.   app  : Basic skeleton  api  : A skeleton for RESTful API", 
-            "title": "create"
+            "location": "/cli/#init", 
+            "text": "Running init will initialize mocha in the current directory  mocha   : init", 
+            "title": ":init"
         }, 
         {
             "location": "/cli/#serve", 
-            "text": "Allows to launch a project in local dev environment.  mocha serve  Where  www  is the $project_name.  arguments   $project_name : The name of the project to serve   options    -p | --port  (default: 5000)  - The port to use if you want to use one other than 5000    --no-watch - The name of the project to create. \nNo space or dashes.    This will launch the  www  project under port 5001  mocha serve www -p 5001  To not watch the files when serving, so it doesn't reload  mocha serve api --no-watch 1", 
-            "title": "serve"
+            "text": "Run the server in the development mode.  mocha   : serve   By default it will run the  main  application in  config.Dev  environment  To change application and environment, prepend the app before mocha :serve  app=main:production mocha :serve  The code above will run the  main  application with the  config.Production  app=admin:stage mocha :serve  The code above will run  admin  application with  config.Stage  env=production mocha :serve  The code above will run the  main  application with  config.Production .  When  app  is not provided, or only  env  is provided, it will assume the app is  main", 
+            "title": ":serve"
         }, 
         {
-            "location": "/cli/#build-assets", 
-            "text": "Allows to build web assets static files for the project  mocha build-assets www  Where  www  is the $project_name.  arguments   $project_name : The name of the project", 
-            "title": "build-assets"
+            "location": "/cli/#addview", 
+            "text": "To create a new view  mocha   : addview", 
+            "title": ":addview"
+        }, 
+        {
+            "location": "/cli/#install-assets", 
+            "text": "To install assets from  application/assets/package.json  This command requires  npm  as it will run  npm install  to install the assets  mocha   : install - assets", 
+            "title": ":install-assets"
+        }, 
+        {
+            "location": "/cli/#dbsync", 
+            "text": "To create new models in your DBMS.  mocha   : dbsync", 
+            "title": ":dbsync"
         }, 
         {
             "location": "/cli/#assets2s3", 
-            "text": "If you want to host your assets on AWS S3,  mocha  can conveniently upload\nthem on S3.  mocha asset-to-s3 www  Where  www  is the $project_name.  arguments   $project_name : The name of the project   By default the  Development  config will be used. \nIf you want to use the  PRODUCTION  to upload from your local machine:  ENV= PRODUCTION  mocha assets2s3 -p www", 
-            "title": "assets2s3"
+            "text": "When  config.ASSETS_DELIVERY_METHOD  is  S3 , this util will allow you to upload\nyour assets to S3, and the application will automatically point all your assets\nto S3.  mocha   : assets2s3   Since it will be in production or some other places other than local,\nyou may need to add the environment variables  app=main:production mocha :assets2s3", 
+            "title": ":assets2s3"
         }, 
         {
-            "location": "/cli/#deploy", 
-            "text": "This is convenient command to push your application to production server by using GIT.  mocha deploy web  Where  web  is the $remote_name.  No need to add a remote manually. By specifying the remote in your  propel.yml \nfile, it will push it to that remote. This will allow to quickly change the remotes\nto push to. Of course you must commit your code.  arguments   $remote_name : The name of the remote in propel.yml to push   options   --all : To push to all remotes   In your  /propel.yml  file, edit the section  git-remotes :  deploy : \n   web : \n     -   ssh :// user @ host / path . git \n     -   ssh :// user @ host2 / application - name . git \n   workers : \n     -   ssh :// user @ host3 / another . git   Now to push to  web  only:  mocha deploy -r web  To push  workers :  mocha deploy -r workers  To push to all remotes:  mocha deploy", 
-            "title": "deploy"
+            "location": "/cli/#develop-cli", 
+            "text": "You can develop your own CLI to also attach to the  mocha  cli.  This will allow you to admin your application within one command line.  Mocha provides a CLI interface using  click", 
+            "title": "Develop CLI"
         }, 
         {
-            "location": "/cli/#setup-models", 
-            "text": "mocha setup-models", 
-            "title": "setup-models"
+            "location": "/cli/#create", 
+            "text": "import   mocha.cli  class   MyCLI ( mocha . cli . CLI ): \n\n     def   __init__ ( self ,   command ,   click ): \n\n         @command ( hello-world ) \n         def   hello_world (): \n              This is my hello world  \n             print ( Hello World! ) \n\n\n         @command ( add-entry ) \n         @click.argument ( name ) \n         def   add_entry ( name ): \n              Add new entry  \n             print ( Name:  %s   %   name )", 
+            "title": "Create"
+        }, 
+        {
+            "location": "/cli/#running", 
+            "text": "mocha  Running the code above will show the follow  Commands:\n  :addview                 Create a new view and template page\n  :assets2s3               Upload assets files to S3\n  :dbsync                  Sync database Create new tables etc...\n  :init                    Setup Mocha in the current directory\n  :install-assets          Install NPM Packages for the front end in the...\n  :serve                   Serve application in development mode\n  :version\n  add-entry                Add new entry\n  hello-world              This is my hellow word  If you run  mocha hello-world  It will print out 'Hello World!'  And...  mocha add-entry Jonas  will print out 'Name: Jonas'", 
+            "title": "Running"
+        }, 
+        {
+            "location": "/cli/#how-does-it-work", 
+            "text": "Mocha looks for all the subclasses of  mocha.cli.CLI  and instantiate them by\npassing the  mocha.cli command  scope, along with  click", 
+            "title": "How does it work?"
+        }, 
+        {
+            "location": "/cli/#importing-application-modules-in-the-cli", 
+            "text": "To import application modules, place them in  __init__  of the class, so Mocha\nhas the time to load all the necessary modules  class   MyCLI ( mocha . cli . CLI ): \n\n     def   __init__ ( self ,   command ,   click ): \n\n         import   application.helpers   as   helpers \n\n         @command ( hello-world ) \n         def   hello_world (): \n              This is my hello world  \n             print ( Hello World! )", 
+            "title": "Importing application modules in the CLI"
         }, 
         {
             "location": "/deploy/", 

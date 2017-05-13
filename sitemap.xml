@@ -50,33 +50,37 @@
     
 
     
+    <url>
+     <loc>https://mardix.github.com/mocha/templates/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/templates/filters/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
         
     <url>
-     <loc>https://mardix.github.com/mocha/templates-jinja2/</loc>
+     <loc>https://mardix.github.com/mocha/templates/forms/</loc>
      <lastmod>2017-05-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>https://mardix.github.com/mocha/templates-jade/</loc>
+     <loc>https://mardix.github.com/mocha/templates/widgets/</loc>
      <lastmod>2017-05-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>https://mardix.github.com/mocha/templates-filters/</loc>
-     <lastmod>2017-05-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>https://mardix.github.com/mocha/templates-macros/</loc>
-     <lastmod>2017-05-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>https://mardix.github.com/mocha/templates-widgets/</loc>
+     <loc>https://mardix.github.com/mocha/templates/navs/</loc>
      <lastmod>2017-05-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -86,6 +90,14 @@
     
     <url>
      <loc>https://mardix.github.com/mocha/models/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/assets/</loc>
      <lastmod>2017-05-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -157,7 +169,7 @@
 
     
     <url>
-     <loc>https://mardix.github.com/mocha/contrib/contact_page/</loc>
+     <loc>https://mardix.github.com/mocha/contrib/contact-page/</loc>
      <lastmod>2017-05-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -165,7 +177,15 @@
 
     
     <url>
-     <loc>https://mardix.github.com/mocha/contrib/error_page/</loc>
+     <loc>https://mardix.github.com/mocha/contrib/error-page/</loc>
+     <lastmod>2017-05-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://mardix.github.com/mocha/contrib/maintenance-page/</loc>
      <lastmod>2017-05-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
