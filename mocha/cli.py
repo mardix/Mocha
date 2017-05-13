@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 ________________________________________________________________________________
 
@@ -39,7 +40,7 @@ from .core import db
 
 CWD = os.getcwd()
 SKELETON_DIR = "skel"
-APPLICATION_DIR = "%s/app" % CWD
+APPLICATION_DIR = "%s/application" % CWD
 
 
 class CLI(object):

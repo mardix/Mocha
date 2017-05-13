@@ -1,21 +1,30 @@
-import functools
-import inspect
+# -*- coding: utf-8 -*-
+"""
+decorators.py
+
+All the core decorators
+
+"""
+
 import copy
-from flask import Response, jsonify, request, current_app, url_for, make_response, g
-from werkzeug.wrappers import BaseResponse
+import inspect
+import blinker
+import functools
+import flask_cors
 from jinja2 import Markup
 from dicttoxml import dicttoxml
+from werkzeug.wrappers import BaseResponse
 from .core import (Mocha,
                    init_app as h_init_app,
                    apply_function_to_members,
                    build_endpoint_route_name)
-
-from . import utils
-import blinker
-import flask_cors
-import json
-
-import sys
+from flask import (Response,
+                   jsonify,
+                   request,
+                   current_app,
+                   url_for,
+                   make_response,
+                   g)
 
 
 # ------------------------------------------------------------------------------
@@ -24,6 +33,18 @@ def init_app(f):
     """
     Decorator for init_app
     As a convenience
+    ie:
+    def fn(app):
+        pass
+        
+    before you would do: init_app(fn)
+    
+    with this decorator
+    
+    @init_app
+    def fn(app):
+        pass
+        
     """
     return h_init_app(f)
 

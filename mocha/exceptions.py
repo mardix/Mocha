@@ -1,12 +1,11 @@
+# -*- coding: utf-8 -*-
 """
-Mocha
+exceptions.py
 
-Error
-
+Raise Mocha specific exceptions
 """
 
-
-class Mocha(Exception):
+class MochaError(Exception):
     """
     This exception is not reserved, but it used for all Mocha exception.
     It helps catch Core problems.
@@ -14,36 +13,18 @@ class Mocha(Exception):
     pass
 
 
-class AppError(Mocha):
+class AppError(MochaError):
     """
     Use this exception in your application level.
     """
     pass
 
 
-class ModelError(AppError):
+class ModelError(MochaError):
     """
     Use this exception in your model level.
     """
     pass
-
-
-class ExtensionError(Mocha):
-    """
-    This Exception wraps the exception that was raised.
-    Having multiple extension, we need a way to catch them all :)
-    """
-    def __init__(self, exc):
-        """
-        :param exc: Exception
-        """
-        self.exception = exc
-        message = "%s : %s" % (exc.__class__.__name__, exc.message)
-        super(self.__class__, self).__init__(message)
-
-
-
-
 
 
 

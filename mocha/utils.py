@@ -1,6 +1,18 @@
+# -*- coding: utf-8 -*-
 """
-Some common functions
+utils.py
+
+This module contains some common functions, and also exposes under the `utils`
+namespace some 3rd party functions. ie: 
+    utils.slugify 
+    utils.dasherize
+    
+others:
+    utils.is_email_valid
+    utils.md5(string)
+
 """
+
 from __future__ import division
 import os
 import re
@@ -18,7 +30,6 @@ import urllib
 import hashlib
 import json
 import uuid
-from . import exceptions
 from six import string_types
 from slugify import slugify
 from werkzeug.utils import import_string
@@ -240,15 +251,12 @@ def sign_jwt(data, secret_key, expires_in, salt=None, **kw):
     :param kw:
     :return: string
     """
-    try:
-        s = itsdangerous.TimedJSONWebSignatureSerializer(secret_key=secret_key,
-                                                         expires_in=expires_in,
-                                                         salt=salt,
-                                                          **kw)
-        return s.dumps(data)
+    s = itsdangerous.TimedJSONWebSignatureSerializer(secret_key=secret_key,
+                                                     expires_in=expires_in,
+                                                     salt=salt,
+                                                      **kw)
+    return s.dumps(data)
 
-    except itsdangerous.BadData as e:
-        raise exceptions.ExtensionError(e)
 
 
 def unsign_jwt(token, secret_key, salt=None, **kw):
@@ -258,11 +266,8 @@ def unsign_jwt(token, secret_key, salt=None, **kw):
     :param kw:
     :return: mixed data
     """
-    try:
-        s = itsdangerous.TimedJSONWebSignatureSerializer(secret_key, salt=salt, **kw)
-        return s.loads(token)
-    except itsdangerous.BadData as e:
-        raise exceptions.ExtensionError(e)
+    s = itsdangerous.TimedJSONWebSignatureSerializer(secret_key, salt=salt, **kw)
+    return s.loads(token)
 
 
 class TimestampSigner2(itsdangerous.TimestampSigner):
@@ -297,20 +302,18 @@ def sign_url_safe(data, secret_key, expires_in=None, salt=None, **kw):
     :param kw: kwargs for itsdangerous.URLSafeSerializer
     :return:
     """
-    try:
-        if expires_in:
-            expires_in *= 60
-            s = URLSafeTimedSerializer2(secret_key=secret_key,
-                                        expires_in=expires_in,
-                                        salt=salt,
-                                        **kw)
-        else:
-            s = itsdangerous.URLSafeSerializer(secret_key=secret_key,
-                                               salt=salt,
-                                               **kw)
-        return s.dumps(data)
-    except itsdangerous.BadData as e:
-        raise exceptions.ExtensionError(e)
+    if expires_in:
+        expires_in *= 60
+        s = URLSafeTimedSerializer2(secret_key=secret_key,
+                                    expires_in=expires_in,
+                                    salt=salt,
+                                    **kw)
+    else:
+        s = itsdangerous.URLSafeSerializer(secret_key=secret_key,
+                                           salt=salt,
+                                           **kw)
+    return s.dumps(data)
+
 
 
 def unsign_url_safe(token, secret_key, salt=None, **kw):
@@ -323,23 +326,21 @@ def unsign_url_safe(token, secret_key, salt=None, **kw):
     :param kw:
     :return:
     """
-    try:
-        if len(token.split(".")) == 3:
-            s = URLSafeTimedSerializer2(secret_key=secret_key, salt=salt, **kw)
-            value, timestamp = s.loads(token, max_age=None, return_timestamp=True)
-            now = datetime.datetime.utcnow()
-            if timestamp > now:
-                return value
-            else:
-                raise itsdangerous.SignatureExpired(
-                    'Signature age %s < %s ' % (timestamp, now),
-                    payload=value,
-                    date_signed=timestamp)
+    if len(token.split(".")) == 3:
+        s = URLSafeTimedSerializer2(secret_key=secret_key, salt=salt, **kw)
+        value, timestamp = s.loads(token, max_age=None, return_timestamp=True)
+        now = datetime.datetime.utcnow()
+        if timestamp > now:
+            return value
         else:
-            s = itsdangerous.URLSafeSerializer(secret_key=secret_key, salt=salt, **kw)
-            return s.loads(token)
-    except itsdangerous.BadData as e:
-        raise exceptions.ExtensionError(e)
+            raise itsdangerous.SignatureExpired(
+                'Signature age %s < %s ' % (timestamp, now),
+                payload=value,
+                date_signed=timestamp)
+    else:
+        s = itsdangerous.URLSafeSerializer(secret_key=secret_key, salt=salt, **kw)
+        return s.loads(token)
+
 
 
 def sign_data(data, secret_key, expires_in=None, salt=None, **kw):

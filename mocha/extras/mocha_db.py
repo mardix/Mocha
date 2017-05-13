@@ -19,8 +19,9 @@ class MochaDB(active_alchemy.ActiveAlchemy):
         self.Model = active_alchemy.declarative_base(cls=active_alchemy.Model, name='Model')
         self.BaseModel = active_alchemy.declarative_base(cls=active_alchemy.BaseModel, name='BaseModel')
         self._initialized = False
+        self.ok__ = False
 
-    def _connect(self, uri, app):
+    def connect__(self, uri, app):
         self.uri = uri
         self.info = sa_make_url(uri)
         self.options = self._cleanup_options(
@@ -32,10 +33,10 @@ class MochaDB(active_alchemy.ActiveAlchemy):
         )
 
         self._initialized = True
+        self.ok__ = True
         self.connector = None
         self._engine_lock = active_alchemy.threading.Lock()
-        self.session = active_alchemy._create_scoped_session(self,
-                                                             query_cls=active_alchemy.BaseQuery)
+        self.session = active_alchemy._create_scoped_session(self, query_cls=active_alchemy.BaseQuery)
 
         self.Model.db, self.BaseModel.db = self, self
         self.Model._query, self.BaseModel._query = self.session.query, self.session.query
@@ -44,10 +45,9 @@ class MochaDB(active_alchemy.ActiveAlchemy):
         active_alchemy._include_sqlalchemy(self)
         self.StorageObjectType = StorageObjectType
 
-
-
 # ------------------------------------------------------------------------------
 # StorageObjectType
+
 
 class StorageObjectType(sa_utils.JSONType):
     """

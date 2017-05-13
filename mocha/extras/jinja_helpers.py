@@ -91,7 +91,7 @@ FILTERS = {
     "markdown_toc": md.toc,  # Create a Table of Content of the Markdown
     "nl2br": nl2br,
     "local_datetime": local_datetime,
-    "local_time_since": lambda dt: local_datetime(dt).humanize(),
+    "local_time_since": lambda dt: local_datetime(dt, False).humanize(),
     "oembed": oembed,
     "img_src": img_src,
     "static": static_url

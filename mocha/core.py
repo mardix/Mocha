@@ -1,24 +1,30 @@
+# -*- coding: utf-8 -*-
 """
-Mocha
+core.py
+
+This is the Mocha core. it contains the classes and functions 
 
 """
 
 import re
 import os
 import sys
+import six
 import arrow
 import jinja2
 import inspect
 import logging
+import werkzeug
 import functools
+from . import utils
 import pkg_resources
 import logging.config
-from six import string_types
-from werkzeug import import_string
+from .__about__ import *
+from . import exceptions
+from .extras.mocha_db import MochaDB
 from flask_assets import Environment
 from werkzeug.contrib.fixers import ProxyFix
-from werkzeug.routing import (BaseConverter,
-                              parse_rule)
+from werkzeug.routing import (BaseConverter, parse_rule)
 from flask import (Flask,
                    g,
                    render_template,
@@ -30,11 +36,6 @@ from flask import (Flask,
                    abort,
                    url_for as f_url_for,
                    redirect as f_redirect)
-from . import (utils, exceptions)
-from .extras.mocha_db import MochaDB
-from .__about__ import *
-
-_py2 = sys.version_info[0] == 2
 
 # ------------------------------------------------------------------------------
 
@@ -78,7 +79,7 @@ __all__ = [
 # Hold the current environment
 __ENV__ = None
 
-is_method = lambda x: inspect.ismethod if _py2 else inspect.isfunction
+is_method = lambda x: inspect.ismethod if six.PY2 else inspect.isfunction
 
 # Will hold all active class views
 # It can be used for redirection etc
@@ -374,7 +375,7 @@ def url_for(endpoint, **kw):
     """
 
     _endpoint = None
-    if isinstance(endpoint, string_types):
+    if isinstance(endpoint, six.string_types):
         return f_url_for(endpoint, **kw)
     else:
         # self, will refer the caller method, by getting the method name
@@ -414,7 +415,7 @@ def redirect(endpoint, **kw):
 
     _endpoint = None
 
-    if isinstance(endpoint, string_types):
+    if isinstance(endpoint, six.string_types):
         _endpoint = endpoint
         # valid for https:// or /path/
         # Endpoint should not have slashes. Use : (colon) to build endpoint
@@ -485,6 +486,8 @@ def _build_endpoint_route_name(endpoint):
 
 # ------------------------------------------------------------------------------
 
+# Exceptions
+
 
 class Mocha(object):
     decorators = []
@@ -551,8 +554,8 @@ class Mocha(object):
         # By default it will use PROXY FIX
         # To by pass it, or to use your own, set config
         # USE_PROXY_FIX = False
-        if app.config.get("USE_PROXY_FIX") is not False:
-            app.wsgi_app = ProxyFix(app.wsgi_app)
+        if app.config.get("USE_PROXY_FIX", True):
+            app.wsgi_app = werkzeug.contrib.fixers.ProxyFix(app.wsgi_app)
 
         cls._app = app
         cls.assets = Environment(cls._app)
@@ -564,9 +567,10 @@ class Mocha(object):
         cls._expose_models()
 
         try:
+
             # import models
             m = "%s.models" % app_directory
-            import_string(m)
+            werkzeug.import_string(m)
             cls._expose_models()
 
             # import projects views
@@ -577,10 +581,10 @@ class Mocha(object):
                 raise ValueError("Missing project: %s" % project_name)
 
             _projects = projects.get(project_name)
-            if isinstance(_projects, string_types):
+            if isinstance(_projects, six.string_types):
                 _projects = [_projects]
             for _ in _projects:
-                import_string("%s.views.%s" % (app_directory, _))
+                werkzeug.import_string("%s.views.%s" % (app_directory, _))
 
         except ImportError as ie1:
             pass
@@ -647,11 +651,11 @@ class Mocha(object):
         cls._installed_apps = cls._app.config.get("INSTALLED_APPS", [])
         if cls._installed_apps:
             def import_app(module, props={}):
-                _ = import_string(module)
+                _ = werkzeug.import_string(module)
                 setattr(_, "__options__", utils.dict_dot(props))
 
             for k in cls._installed_apps:
-                if isinstance(k, string_types): # One string
+                if isinstance(k, six.string_types): # One string
                     import_app(k, {})
                 elif isinstance(k, tuple):
                     import_app(k[0], k[1])
@@ -681,6 +685,7 @@ class Mocha(object):
         for k, v in vars.items():
             setattr(g, k, v)
 
+        # Build the template using the method name being called
         if not _template:
             stack = inspect.stack()[1]
             action_name = stack[3]
@@ -729,17 +734,22 @@ class Mocha(object):
 
     @classmethod
     def _setup_db(cls):
-        cls._app.db = None
+        """
+        Setup the DB connection if DB_URL is set 
+        """
         uri = cls._app.config.get("DB_URL")
         if uri:
-            db._connect(uri, cls._app)
-            cls._app.db = db
+            db.connect__(uri, cls._app)
 
     @classmethod
     def _expose_models(cls):
-        if cls._app.db:
-            register_models(**{m.__name__:m
-                               for m in cls._app.db.Model.__subclasses__()
+        """
+        Register the models and assign them to `models`
+        :return: 
+        """
+        if db.ok__:
+            register_models(**{m.__name__: m
+                               for m in db.Model.__subclasses__()
                                if not hasattr(models, m.__name__)})
 
     @classmethod
@@ -1018,7 +1028,7 @@ class Mocha(object):
         for ext in extensions:
             cls._app.jinja_env.add_extension(ext)
 
-# Brew
+# Brew, initialize Mocha as a single instance that will be served
 Brew = Mocha()
 
 # ------------------------------------------------------------------------------
@@ -1028,7 +1038,7 @@ def build_endpoint_route_name(cls, method_name, class_name=None):
     Build the route endpoint
     It is recommended to place your views in /views directory, so it can build
     the endpoint from it. If not, it will make the endpoint from the module name
-    The main reason for having the views directory, it is explicitely easy
+    The main reason for having the views directory, it is explicitly easy
     to see the path of the view
 
     :param cls: The view class
@@ -1046,17 +1056,25 @@ def get_interesting_members(base_class, cls):
     """Returns a generator of methods that can be routed to"""
 
     base_members = dir(base_class)
-    predicate = inspect.ismethod if _py2 else inspect.isfunction
+    predicate = inspect.ismethod if six.PY2 else inspect.isfunction
     all_members = inspect.getmembers(cls, predicate=predicate)
     return (member for member in all_members
             if not member[0] in base_members
-            and ((hasattr(member[1], "__self__") and not member[1].__self__ in inspect.getmro(cls)) if _py2 else True)
+            and ((hasattr(member[1], "__self__") and not member[1].__self__ in inspect.getmro(cls)) if six.PY2 else True)
             and not member[0].startswith("_")
             and not member[0].startswith("before_")
             and not member[0].startswith("after_"))
 
 
 def apply_function_to_members(cls, fn):
+    """
+    Apply a function to all the members of a class.
+    Used for decorators that is applied in a class and want all the members
+    to use it
+    :param cls: class
+    :param fn: function
+    :return: 
+    """
     for name, method in get_interesting_members(Mocha, cls):
         setattr(cls, name, fn(method))
 

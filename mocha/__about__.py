@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 This the about file
 """
@@ -14,7 +15,7 @@ __all__ = [
 ]
 
 __title__ = "Mocha"
-__version__ = "0.0.1"
+__version__ = "0.1.4"
 __summary__ = "A mid stack Flask based framework that put structure in the " \
               "file system. Features: Caching, Mailing, Storage, CSRF, recaptcha, Cors. " \
               "Supports HTML, Markdown and Jade " \

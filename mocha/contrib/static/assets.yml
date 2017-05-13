@@ -80,12 +80,20 @@ contrib.auth-admin.js:
   contents:
       - contrib/auth/admin.js
 
+jquery.js:
+  output: gen/jquery.js
+  contents:
+      - node_modules/jquery/dist/jquery.min.js
 
+bootstrap.js:
+  output: gen/bootstrap.js
+  contents:
+    - node_modules/bootstrap/dist/js/bootstrap.min.js
 
-
-
-
-
+bootstrap.css:
+  output: gen/bootstrap.css
+  contents:
+    - node_modules/bootstrap/dist/css/bootstrap.min.css
 
 
 
@@ -102,21 +110,6 @@ mocha-commons.js:
     - Mocha/lib/js/mocha.js
 
 
-
-jquery.js:
-  output: gen/jquery.js
-  contents:
-      - Mocha/vendor/jquery/jquery.min.js
-
-bootstrap.js:
-  output: gen/bootstrap.js
-  contents:
-    - Mocha/vendor/bootstrap/js/bootstrap.min.js
-
-bootstrap.css:
-  output: gen/bootstrap.css
-  contents:
-    - Mocha/vendor/bootstrap/js/bootstrap.min.js
 
 global.js:
   output: gen/global.js

@@ -63,7 +63,7 @@ class Main(Mocha):
         @app.errorhandler(504)
         @app.errorhandler(505)
         def index(error):
-            print("ERROR")
+
             page_meta("Error %s" % error.code)
 
             # if isinstance(error, SQLAlchemyError):

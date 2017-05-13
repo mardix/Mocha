@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 from . import decorators as deco
 
 @deco.emit_signal()
