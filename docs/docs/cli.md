@@ -1,153 +1,165 @@
-# Juice : Command Line Tool
+Mocha provides a command line tool to do sim
 
-Juice comes with a command line interface to conveniently create projects, 
-build assets, push assets to S3, deploy application to production server and more.
+    mocha
 
-There two types of command line tool. 
- 
-`mocha`: The command to let you create projects,  build assets,
-push assets to S3, deploy application to production server and more 
+### :init
 
-`mocha:cli` [mocha:cli](application/cli.md) to manage your own command line interface
+Running init will initialize mocha in the current directory
 
-Below are the availale commands for `mocha`
+    mocha :init
 
 ---
 
-## create
+### :serve
 
-To create new project in your application.
+Run the server in the development mode.
 
-    mocha create www
-    
-*Where `www` is the $project_name.*
+    mocha :serve
 
-**arguments**
+By default it will run the `main` application in `config.Dev` environment
 
-- $project_name : The name of the project to create
-    
-**options**
+To change application and environment, prepend the app before mocha :serve
 
-- --skel | -s *(default: app)* - The pre-made skeleton to use for the project. 
-    - `app` : Basic skeleton
-    - `api` : A skeleton for RESTful API
+    app=main:production mocha :serve
 
-    
----
+The code above will run the `main` application with the `config.Production`
 
-## serve
+    app=admin:stage mocha :serve
 
-Allows to launch a project in local dev environment.
+The code above will run `admin` application with `config.Stage`
 
-    mocha serve
+    env=production mocha :serve
 
-*Where `www` is the $project_name.*
+The code above will run the `main` application with `config.Production`.
 
-**arguments**
-
-- $project_name : The name of the project to serve
-    
-**options**
-
-- -p | --port *(default: 5000)* - The port to use if you want to use one other than 5000
-
-- --no-watch - The name of the project to create. 
-No space or dashes.
-
-
-This will launch the `www` project under port 5001
-
-    mocha serve www -p 5001
-
-
-To not watch the files when serving, so it doesn't reload
-
-    mocha serve api --no-watch 1
-    
----
-
-## build-assets
-
-Allows to build web assets static files for the project
-
-    mocha build-assets www
-    
-*Where `www` is the $project_name.*
-
-**arguments**
-
-- $project_name : The name of the project
-    
----
-
-## assets2s3
-
-If you want to host your assets on AWS S3, **mocha** can conveniently upload
-them on S3.
-
-    mocha asset-to-s3 www
-    
-*Where `www` is the $project_name.*
-
-**arguments**
-
-- $project_name : The name of the project
-    
-    
-By default the `Development` config will be used. 
-If you want to use the `PRODUCTION` to upload from your local machine:
-
-    ENV='PRODUCTION' mocha assets2s3 -p www
+When `app` is not provided, or only `env` is provided, it will assume the app is `main`
 
 ---
 
-## deploy
+### :addview
 
-This is convenient command to push your application to production server by using GIT.
+To create a new view
 
-    mocha deploy web
+    mocha :addview
 
-*Where `web` is the $remote_name.*
+---
 
-No need to add a remote manually. By specifying the remote in your `propel.yml`
-file, it will push it to that remote. This will allow to quickly change the remotes
-to push to. Of course you must commit your code.
+### :install-assets
 
-**arguments**
+To install assets from `application/assets/package.json`
 
-- $remote_name : The name of the remote in propel.yml to push
-    
-    
-**options**
+This command requires `npm` as it will run `npm install` to install the assets
 
-- --all : To push to all remotes
+    mocha :install-assets
 
-In your `/propel.yml` file, edit the section `git-remotes`:
+---
 
+### :dbsync
 
-    deploy:
-      web:
-        - ssh://user@host/path.git
-        - ssh://user@host2/application-name.git
-      workers:
-        - ssh://user@host3/another.git
+To create new models in your DBMS.
 
-Now to push to `web` only:
-
-    mocha deploy -r web
-
-To push `workers`:
-
-    mocha deploy -r workers
-    
-To push to all remotes:
-
-    mocha deploy
+    mocha :dbsync
 
 
-## setup-models
+---
 
-    mocha setup-models
+### :assets2s3
 
+
+When `config.ASSETS_DELIVERY_METHOD` is `S3`, this util will allow you to upload
+your assets to S3, and the application will automatically point all your assets
+to S3.
+
+    mocha :assets2s3
+
+Since it will be in production or some other places other than local,
+you may need to add the environment variables
+
+    app=main:production mocha :assets2s3
+
+
+---
+
+## Develop CLI
+
+You can develop your own CLI to also attach to the `mocha` cli.
+
+This will allow you to admin your application within one command line.
+
+Mocha provides a CLI interface using `click`
+
+
+### Create
+
+    import mocha.cli
+    class MyCLI(mocha.cli.CLI):
+
+        def __init__(self, command, click):
+
+            @command('hello-world')
+            def hello_world():
+                """ This is my hello world """
+                print("Hello World!")
+
+
+            @command("add-entry")
+            @click.argument("name")
+            def add_entry(name):
+                """ Add new entry """
+                print("Name: %s" % name)
+
+
+### Running
+
+    mocha
+
+Running the code above will show the follow
+
+    Commands:
+      :addview                 Create a new view and template page
+      :assets2s3               Upload assets files to S3
+      :dbsync                  Sync database Create new tables etc...
+      :init                    Setup Mocha in the current directory
+      :install-assets          Install NPM Packages for the front end in the...
+      :serve                   Serve application in development mode
+      :version
+      add-entry                Add new entry
+      hello-world              This is my hellow word
+
+
+If you run
+
+    mocha hello-world
+
+It will print out 'Hello World!'
+
+And...
+
+    mocha add-entry Jonas
+
+will print out 'Name: Jonas'
+
+
+### How does it work?
+
+Mocha looks for all the subclasses of `mocha.cli.CLI` and instantiate them by
+passing the `mocha.cli command` scope, along with `click`
+
+### Importing application modules in the CLI
+
+To import application modules, place them in `__init__` of the class, so Mocha
+has the time to load all the necessary modules
+
+
+    class MyCLI(mocha.cli.CLI):
+
+        def __init__(self, command, click):
+
+            import application.helpers as helpers
+
+            @command('hello-world')
+            def hello_world():
+                """ This is my hello world """
+                print("Hello World!")
 
 

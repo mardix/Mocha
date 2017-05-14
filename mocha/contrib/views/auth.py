@@ -560,7 +560,7 @@ class Account(Mocha):
         nav.setdefault("order", 100)
         nav["visible"] = is_authenticated
         nav["position"] = "right"
-        nav["tags"] = ["default", "AREA51"]
+        nav["tags"] = ["default", "ADMIN"]
         title = nav.pop("title") or _("My Account")
 
         # Custom Nav Title

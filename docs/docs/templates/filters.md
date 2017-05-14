@@ -1,6 +1,5 @@
 
 
-# Templates.Filters
 
 **Mocha** also has some convenient filter to use in your template
 

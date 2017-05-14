@@ -27,15 +27,18 @@ pages:
   - "Views: Decorators": views/decorators.md
   - "Views: Helpers": views/helpers.md
 
-  - Templates:
-    - Jinja2: templates-jinja2.md
-    - Jade Markup: templates-jade.md
-    - Filters: templates-filters.md
-    - Macros: templates-macros.md
-    - Widgets: templates-widgets.md
+  - Templates: templates/index.md
+  - "Templates: Filters": templates/filters.md
+
+  - Templates Components:
+    - Forms: templates/forms.md
+    - Widgets: templates/widgets.md
+    - Navs: templates/navs.md
 
   - Models: models.md
+  - Assets: assets.md
   - Extensions: ext.md
+  - Arrow: arrow.md
   - Utils: utils.md
   - Pagination: pagination.md
   - Signals: signals.md
@@ -44,10 +47,11 @@ pages:
   - Contrib: contrib/index.md
   - Auth: contrib/auth.md
   - Admin: contrib/admin.md
-  - Contact Page: contrib/contact_page.md
-  - Error Page: contrib/error_page.md
+  - Contact Page: contrib/contact-page.md
+  - Error Page: contrib/error-page.md
+  - Error Page: contrib/maintenance-page.md
   - Exceptions: exceptions.md
-  - Command Line: cli.md
+  - CLI: cli.md
   - Deployment: deploy.md
 #  - Snippets:
 #    - Home: snippets/index.md
