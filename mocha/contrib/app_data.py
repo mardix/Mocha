@@ -42,7 +42,7 @@ def set(key, value={}, reset=False, init=False):
     :return: 
     """
     if not isinstance(value, dict):
-        raise ValueError("Application Data value must be a dict")
+        raise ValueError("App Data value must be a dict")
 
     k = AppData.get_by_key(key, True)
     if not k:

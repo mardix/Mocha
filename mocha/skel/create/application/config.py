@@ -296,6 +296,10 @@ class BaseConfig(object):
 #: ADMIN
     #: The admin area which requires users to login, and have a min access level
 
+    # By default admin is enabled. If set to False, all class decorated by
+    # @contrib.admin will not be able for access
+    ADMIN_ENABLED = True
+
     # The name of the admin. Will be used as brand name
     ADMIN_BRAND_NAME = "Mocha Admin"
 
@@ -308,6 +312,9 @@ class BaseConfig(object):
 
     # The layout to use for Area51, by default it will use the built-in one
     ADMIN_LAYOUT = None
+
+    # Some special footer text, ie: version number
+    ADMIN_FOOTER_TEXT = ""
 
 
 # ------------------------------------------------------------------------------

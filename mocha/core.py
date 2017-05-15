@@ -40,41 +40,40 @@ from flask import (Flask,
 # ------------------------------------------------------------------------------
 
 __all__ = [
-            "Mocha",
-            "Brew",
-            "db",
-            "models",
-            "views",
-            "get_env",
-            "set_env",
-            "get_app_env",
-            "get_env_config",
-            "get_config",
-            "page_meta",
-            "flash_success",
-            "flash_error",
-            "flash_info",
-            "flash_data",
-            "get_flash_data",
-            "init_app",
-            "register_package",
-            "register_models",
-            "utc_now",
-            "local_datetime",
+    "Mocha",
+    "Brew",
+    "db",
+    "models",
+    "views",
+    "get_env",
+    "set_env",
+    "get_app_env",
+    "get_env_config",
+    "get_config",
+    "page_meta",
+    "flash_success",
+    "flash_error",
+    "flash_info",
+    "flash_data",
+    "get_flash_data",
+    "init_app",
+    "register_package",
+    "register_models",
+    "utc_now",
+    "local_datetime",
 
-            # For convenience when importing from mocha, but can use
-            # the flask one
-            "flash",
-            "session",
-            "request",
-            "abort",
-            "g",
+    # For convenience when importing from mocha, but can use
+    # the flask one
+    "flash",
+    "session",
+    "request",
+    "abort",
+    "g",
 
-            # They have been altered with extra functionalities
-            "redirect",
-            "url_for"
-           ]
-
+    # They have been altered with extra functionalities
+    "redirect",
+    "url_for"
+]
 
 # Hold the current environment
 __ENV__ = None
@@ -92,7 +91,6 @@ views = type('', (), {})
 # For convenience, use `register_models(**kw)` to register the models
 # By default mocha will load all the application/models.py models
 models = type('', (), {})
-
 
 # Setup the DB
 # upon initialization will use the right URL for it
@@ -246,19 +244,19 @@ def page_meta(title=None, **kwargs):
 python
     """
     default = dict(
-            title="",
-            description="",
-            url="",
-            image="",
-            site_name="",
-            object_type="article",
-            locale="",
-            keywords=[],
-            use_opengraph=True,
-            use_googleplus=True,
-            use_twitter=True,
-            properties={}
-        )
+        title="",
+        description="",
+        url="",
+        image="",
+        site_name="",
+        object_type="article",
+        locale="",
+        keywords=[],
+        use_opengraph=True,
+        use_googleplus=True,
+        use_twitter=True,
+        properties={}
+    )
     meta = getattr(g, "__META__", default)
     if title:
         kwargs["title"] = title
@@ -360,6 +358,7 @@ def local_now():
     :return: 
     """
     return to_local_datetime(utc_now())
+
 
 # ------------------------------------------------------------------------------
 # Altered flask functions
@@ -473,7 +472,6 @@ def _get_action_endpoint(action):
 
 
 def _build_endpoint_route_name(endpoint):
-
     is_class = inspect.isclass(endpoint)
     class_name = endpoint.im_class.__name__ if not is_class else endpoint.__name__
     method_name = endpoint.__name__
@@ -483,6 +481,7 @@ def _build_endpoint_route_name(endpoint):
         else endpoint.__self__
 
     return build_endpoint_route_name(cls, method_name, class_name)
+
 
 # ------------------------------------------------------------------------------
 
@@ -655,14 +654,13 @@ class Mocha(object):
                 setattr(_, "__options__", utils.dict_dot(props))
 
             for k in cls._installed_apps:
-                if isinstance(k, six.string_types): # One string
+                if isinstance(k, six.string_types):  # One string
                     import_app(k, {})
                 elif isinstance(k, tuple):
                     import_app(k[0], k[1])
                 elif isinstance(k, list):  # list of tuple[(module props), ...]
                     for t in k:
                         import_app(t[0], t[1])
-
 
     @classmethod
     def render(cls, data={}, _template=None, _layout=None, **kwargs):
@@ -861,7 +859,8 @@ class Mocha(object):
                                      subdomain=subdomain,
                                      methods=methods)
             except DecoratorCompatibilityError:
-                raise DecoratorCompatibilityError("Incompatible decorator detected on %s in class %s" % (name, cls.__name__))
+                raise DecoratorCompatibilityError(
+                    "Incompatible decorator detected on %s in class %s" % (name, cls.__name__))
 
         if hasattr(cls, "orig_base_route"):
             cls.base_route = cls.orig_base_route
@@ -1028,8 +1027,10 @@ class Mocha(object):
         for ext in extensions:
             cls._app.jinja_env.add_extension(ext)
 
+
 # Brew, initialize Mocha as a single instance that will be served
 Brew = Mocha()
+
 
 # ------------------------------------------------------------------------------
 
@@ -1060,7 +1061,8 @@ def get_interesting_members(base_class, cls):
     all_members = inspect.getmembers(cls, predicate=predicate)
     return (member for member in all_members
             if not member[0] in base_members
-            and ((hasattr(member[1], "__self__") and not member[1].__self__ in inspect.getmro(cls)) if six.PY2 else True)
+            and (
+            (hasattr(member[1], "__self__") and not member[1].__self__ in inspect.getmro(cls)) if six.PY2 else True)
             and not member[0].startswith("_")
             and not member[0].startswith("before_")
             and not member[0].startswith("after_"))
@@ -1097,7 +1099,7 @@ def get_true_argspec(method):
         if inner_method is method:
             continue
         if not inspect.isfunction(inner_method) \
-            and not inspect.ismethod(inner_method):
+                and not inspect.ismethod(inner_method):
             continue
         true_argspec = get_true_argspec(inner_method)
         if true_argspec:
@@ -1112,6 +1114,3 @@ class RegexConverter(BaseConverter):
     def __init__(self, url_map, *items):
         super(RegexConverter, self).__init__(url_map)
         self.regex = items[0]
-
-
-

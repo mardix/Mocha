@@ -51,6 +51,10 @@ html(lang="en")
             .container-fluid
                 .row
                     .col-md-12
-                        .text-center.
-                            &copy; {{ g.__YEAR__}} {{ config.ADMIN_BRAND_NAME }}
+                        hr
+                        .text-center
+                            | &copy; {{ g.__YEAR__}} {{ config.ADMIN_BRAND_NAME }}
+                            if config.ADMIN_FOOTER_TEXT
+                                = config.ADMIN_FOOTER_TEXT
+
 
