@@ -10,7 +10,7 @@ flask-mail==0.9.0
 flask-caching==1.0.0
 flask-cloudy>=1.0.1
 flask-seasurf==0.2.2
-flask-babel==0.11.1
+flask-babel==0.11.2
 flask-cors==3.0.2
 Flask-OAuthlib==0.9.3
 Active-Alchemy>=1.0.0
