@@ -35,6 +35,9 @@ def admin(f):
 
     if get_config("ADMIN_ENABLED", True):
 
+        # Index route
+        index_route = get_config("ADMIN_INDEX_ROUTE", "/")
+
         # ROLES
         min_role = get_config("ADMIN_MIN_ACL", "ADMIN")
         role_name = "accepts_%s_roles" % min_role.lower()

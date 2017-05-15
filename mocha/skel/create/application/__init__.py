@@ -84,6 +84,11 @@ AVAILABLE_APPS = {
     # Error Page. Create a friendly page when an error occurs
     "ERROR_PAGE": "mocha.contrib.views.error_page",
 
+    # ADMIN: for the admin section
+    "ADMIN": ("mocha.contrib.views.admin", {
+        "route": "/"
+    }),
+
     # Maintenance page. When uncommented, the whole site will
     # show a maintenance page
     "MAINTENANCE_PAGE": ("mocha.contrib.views.maintenance_page", {

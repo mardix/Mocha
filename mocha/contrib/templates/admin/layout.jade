@@ -53,8 +53,7 @@ html(lang="en")
                     .col-md-12
                         hr
                         .text-center
-                            | &copy; {{ g.__YEAR__}} {{ config.ADMIN_BRAND_NAME }}
-                            if config.ADMIN_FOOTER_TEXT
-                                = config.ADMIN_FOOTER_TEXT
+                            = config.ADMIN_FOOTER_TEXT | replace('__YEAR__', g.__YEAR__) | safe
+
 
 

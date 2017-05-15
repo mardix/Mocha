@@ -296,7 +296,7 @@ class BaseConfig(object):
 #: ADMIN
     #: The admin area which requires users to login, and have a min access level
 
-    # By default admin is enabled. If set to False, all class decorated by
+    # By default admin is enabled. If set to False, all classes decorated by
     # @contrib.admin will not be able for access
     ADMIN_ENABLED = True
 
@@ -313,8 +313,9 @@ class BaseConfig(object):
     # The layout to use for Area51, by default it will use the built-in one
     ADMIN_LAYOUT = None
 
-    # Some special footer text, ie: version number
-    ADMIN_FOOTER_TEXT = ""
+    # Admin Footer : For custom footer text.
+    # The token __YEAR__ will be translated into the current year
+    ADMIN_FOOTER_TEXT = "&copy; __YEAR__ %s - v. %s" % (APPLICATION_NAME, APPLICATION_VERSION)
 
 
 # ------------------------------------------------------------------------------
