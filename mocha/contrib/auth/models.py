@@ -32,7 +32,7 @@ class AuthUserRole(db.Model):
     level = db.Column(db.Integer, index=True)
 
     @classmethod
-    def _syncdb(cls):
+    def __initialize(cls):
         """
         Mocha specific
         To setup some models data after

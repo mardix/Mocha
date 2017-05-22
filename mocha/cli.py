@@ -172,7 +172,7 @@ def init():
         print("")
         print("> What's next?")
         print("- Edit the config [ application/config.py ] ")
-        print("- If necessary setup your model database [ mocha :dbsync ]")
+        print("- If necessary setup your model database [ mocha :initdb ]")
         print("- Launch app on development mode, run [ mocha :serve ]")
         print("")
         print("*" * 80)
@@ -228,8 +228,8 @@ def server(port):
     application.app.run(debug=True, host='0.0.0.0', port=port)
 
 
-@cli.command(":dbsync")
-def db_sync():
+@cli.command(":initdb")
+def initdb():
     """ Sync database Create new tables etc... """
 
     print("Syncing up database...")
@@ -237,9 +237,9 @@ def db_sync():
     if application.app.db and application.app.db.Model:
         application.app.db.create_all()
         for m in application.app.db.Model.__subclasses__():
-            if hasattr(m, "_syncdb"):
+            if hasattr(m, "__initialize"):
                 print("Sync up model: %s ..." % m.__name__)
-                getattr(m, "_syncdb")()
+                getattr(m, "__initialize")()
 
     print("Done")
 
