@@ -184,7 +184,7 @@ def init():
 def add_view(name, no_template):
     """ Create a new view and template page """
 
-    app_dest = os.path.join(CWD, "app")
+    app_dest = APPLICATION_DIR
     viewsrc = "%s/create-view/view.py" % SKELETON_DIR
     tplsrc = "%s/create-view/template.jade" % SKELETON_DIR
     viewdest_dir = os.path.join(app_dest, "views")
@@ -204,6 +204,13 @@ def add_view(name, no_template):
         if not os.path.isdir(viewdest_dir):
             utils.make_dirs(viewdest_dir)
         copy_resource_file(viewsrc, viewdest)
+        with open(viewdest, "r+") as vd:
+            content = vd.read()\
+                .replace("%ROUTE%", name.lower())\
+                .replace("%NAV_TITLE%", name.capitalize())
+            vd.seek(0)
+            vd.write(content)
+            vd.truncate()
 
         if not no_template:
             if not os.path.isdir(tpldest_dir):
