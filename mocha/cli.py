@@ -241,9 +241,9 @@ def initdb():
 
     print("Syncing up database...")
     cwd_to_sys_path()
-    if application.app.db and application.app.db.Model:
-        application.app.db.create_all()
-        for m in application.app.db.Model.__subclasses__():
+    if db and hasattr(db, "Model"):
+        db.create_all()
+        for m in db.Model.__subclasses__():
             if hasattr(m, "__initialize"):
                 print("Sync up model: %s ..." % m.__name__)
                 getattr(m, "__initialize")()
@@ -270,7 +270,7 @@ def db_migrate():
     cwd_to_sys_path()
     alembic = _set_flask_alembic()
     with application.app.app_context():
-        p = application.app.db.Model.__subclasses__()
+        p = db.Model.__subclasses__()
         print(p)
 
         # Auto-generate a migration
