@@ -244,9 +244,9 @@ def initdb():
     if db and hasattr(db, "Model"):
         db.create_all()
         for m in db.Model.__subclasses__():
-            if hasattr(m, "__initialize"):
+            if hasattr(m, "initialize__"):
                 print("Sync up model: %s ..." % m.__name__)
-                getattr(m, "__initialize")()
+                getattr(m, "initialize__")()
 
     print("Done")
 

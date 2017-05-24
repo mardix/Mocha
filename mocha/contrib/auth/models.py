@@ -32,7 +32,7 @@ class AuthUserRole(db.Model):
     level = db.Column(db.Integer, index=True)
 
     @classmethod
-    def __initialize(cls):
+    def initialize__(cls):
         """
         Mocha specific
         To setup some models data after
