@@ -80,7 +80,7 @@ class AuthUser(db.Model):
     last_name = db.Column(db.String(255))
     profile_image = db.Column(db.StorageObjectType)
     options = db.Column(db.JSONType)
-    status = db.Column(db.String, default=STATUS_ACTIVE, index=True)
+    status = db.Column(db.String(255), default=STATUS_ACTIVE, index=True)
     last_login_at = db.Column(db.DateTime)
     locale = db.Column(db.String(10), default="en")
     timezone = db.Column(db.String(255))
