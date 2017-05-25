@@ -51,6 +51,7 @@ __all__ = [
     "get_env_config",
     "get_config",
     "page_meta",
+    "page_title",
     "flash_success",
     "flash_error",
     "flash_info",
@@ -262,6 +263,15 @@ python
         kwargs["title"] = title
     meta.update(**kwargs)
     setattr(g, "__META__", meta)
+
+
+def page_title(title):
+    """
+    Alias to create page title
+    :param title: 
+    :return: 
+    """
+    page_meta(title=title)
 
 
 def flash_success(msg):

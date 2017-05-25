@@ -5,7 +5,7 @@ Views
 
 """
 from mocha import (Mocha,
-                   page_meta,
+                   page_title,
                    get_config,
                    flash_success,
                    flash_error,
@@ -27,5 +27,5 @@ class Index(Mocha):
 
     @deco.nav_title("Home", order=1)
     def index(self):
-        page_meta("Hello View!")
+        page_title("Hello View!")
         return
