@@ -1,15 +1,15 @@
-
 import inspect
 from mocha import (register_package,
-                     get_config,
-                     decorators as h_deco,
-                     abort)
-
+                   get_config,
+                   decorators as h_deco,
+                   abort
+                   )
+from mocha.core import (set_view_attr,
+                        get_view_attr)
 
 # `contrib` prefix is set so all templates in this package
 # get accessed via `contrib/`
 register_package(__package__, "contrib")
-
 
 # ------------------------------------------------------------------------------
 
@@ -19,8 +19,10 @@ ADMIN_LAYOUT = "contrib/admin/layout.jade"
 
 ADMIN_TAG = "ADMIN"
 
+
 def disable_admin(*a, **kw):
     abort(404)
+
 
 # @admin
 def admin(f):
@@ -48,12 +50,11 @@ def admin(f):
         getattr(a_deco, role_name)(f)
         a_deco.login_required(f)
 
-        f._nav_tags = [ADMIN_TAG]
+        set_view_attr(f, "nav_tags", [ADMIN_TAG])
         layout = get_config("ADMIN_LAYOUT") or ADMIN_LAYOUT
         return h_deco.template(layout=layout)(f)
 
     else:
-        f._nav_visible = False
+        set_view_attr(f, "nav_visible", False)
         f.before_request = disable_admin
         return f
-

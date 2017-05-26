@@ -14,7 +14,7 @@ from mocha import (Mocha,
                    get_flash_data,
                    send_mail,
                    recaptcha,
-                   page_meta,
+                   page_attr,
                    redirect,
                    decorators as deco,
                    exceptions)
@@ -122,7 +122,7 @@ class Main(Mocha):
             return redirect(self)
 
         title = __options__.get("title", _("Contact Us"))
-        page_meta(title)
+        page_attr(title)
 
         fd = get_flash_data()
         return {
@@ -141,7 +141,7 @@ class Admin(Mocha):
     @deco.template("contrib/contact_us/Admin/index.jade")
     def index(self):
         adata = app_data.get(APP_DATA_KEY)
-        page_meta("Contact Us Settings")
+        page_attr("Contact Us Settings")
         return {
             "recipients": adata.get("recipients"),
             "success_message": adata.get("success_message"),

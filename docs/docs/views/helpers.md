@@ -10,7 +10,7 @@ or from Flask itself. Some of them may extend some functionalities.
 ---
 
 
-## page_meta
+## page_attr
 
 ---
 

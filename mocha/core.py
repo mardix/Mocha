@@ -50,8 +50,7 @@ __all__ = [
     "get_app_env",
     "get_env_config",
     "get_config",
-    "page_meta",
-    "page_title",
+    "page_attr",
     "flash_success",
     "flash_error",
     "flash_info",
@@ -222,9 +221,9 @@ def get_config(key, default=None):
     return Mocha._app.config.get(key, default) if Mocha._app else default
 
 
-def page_meta(title=None, **kwargs):
+def page_attr(title=None, **kwargs):
     """
-    Meta allows you to add page meta data in the request `g` context
+    Page Attr allows you to add page meta data in the request `g` context
     :params **kwargs:
 
     meta keys we're expecting:
@@ -263,15 +262,6 @@ python
         kwargs["title"] = title
     meta.update(**kwargs)
     setattr(g, "__META__", meta)
-
-
-def page_title(title):
-    """
-    Alias to create page title
-    :param title: 
-    :return: 
-    """
-    page_meta(title=title)
 
 
 def flash_success(msg):
@@ -682,7 +672,7 @@ class Mocha(object):
         """
 
         # Invoke the page meta so it can always be set
-        page_meta()
+        page_attr()
 
         # Add some global Mocha data in g, along with APPLICATION DATA
         vars = dict(
@@ -701,11 +691,12 @@ class Mocha(object):
             _template = utils.list_replace([".", ":"], "/", _template)
             _template = "%s.%s" % (_template, cls.template_markup)
 
-        data = data or dict()
+        data = data or {}
         data.update(kwargs)
         data["__template__"] = _template
 
         return render_template(_layout or cls.base_layout, **data)
+
 
     @classmethod
     def _add_asset_bundle(cls, path):
@@ -938,6 +929,11 @@ class Mocha(object):
                     _template = build_endpoint_route_name(cls, view.__name__)
                     _template = utils.list_replace([".", ":"], "/", _template)
                     _template = "%s.%s" % (_template, cls.template_markup)
+
+                    # Get the title from the nav title, if not set
+                    if not getattr(g, "__META__", {}).get("title") and get_view_attr(view, "title"):
+                        page_attr(title=get_view_attr(view, "title"))
+
                     response.setdefault("_template", _template)
                     response = i.render(**response)
 
@@ -1044,6 +1040,7 @@ Brew = Mocha()
 
 # ------------------------------------------------------------------------------
 
+
 def build_endpoint_route_name(cls, method_name, class_name=None):
     """
     Build the route endpoint
@@ -1124,3 +1121,21 @@ class RegexConverter(BaseConverter):
     def __init__(self, url_map, *items):
         super(RegexConverter, self).__init__(url_map)
         self.regex = items[0]
+
+
+"""
+Views attributes store data that was set for the views
+It prevents overrite from custom class attribute with other attributes
+Use it to 
+"""
+
+_views_attr = type('', (), {})
+
+def set_view_attr(view, key, value):
+    setattr(_views_attr, key, value)
+
+def get_view_attr(view, key, default=None):
+    return default if not hasattr(_views_attr, key) else getattr(_views_attr, key) or default
+
+
+

@@ -17,7 +17,9 @@ from werkzeug.wrappers import BaseResponse
 from .core import (Mocha,
                    init_app as h_init_app,
                    apply_function_to_members,
-                   build_endpoint_route_name)
+                   build_endpoint_route_name,
+                   set_view_attr,
+                   get_view_attr)
 from flask import (Response,
                    jsonify,
                    request,
@@ -412,6 +414,9 @@ class SiteNavigation(object):
     def _push(self, title, view, class_name, is_class, **kwargs):
         """ Push nav data stack """
 
+        # Set the page title
+        set_view_attr(view, "title", title)
+
         module_name = view.__module__
         method_name = view.__name__
 
@@ -421,7 +426,7 @@ class SiteNavigation(object):
         order = kwargs.pop("order", 0)
 
         # Tags
-        _nav_tags = view._nav_tags if hasattr(view, "_nav_tags") else ["default"]
+        _nav_tags = get_view_attr(view, "nav_tags", ["default"])
         tags = kwargs.pop("tags", _nav_tags)
         if not isinstance(tags, list):
             _ = tags
@@ -433,7 +438,7 @@ class SiteNavigation(object):
         if not isinstance(visible, list):
             visible = [visible]
 
-        if hasattr(view, "_nav_visible") and view._nav_visible is False:
+        if get_view_attr(view, "nav_visible") is False:
             visible = False
 
         kwargs["view"] = view

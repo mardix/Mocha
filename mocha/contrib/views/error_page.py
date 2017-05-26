@@ -8,7 +8,7 @@ Can be called as standalone
 from __future__ import division
 import logging
 from mocha import (Mocha,
-                   page_meta,
+                   page_attr,
                    abort)
 
 from mocha import exceptions
@@ -64,7 +64,7 @@ class Main(Mocha):
         @app.errorhandler(505)
         def index(error):
 
-            page_meta("Error %s" % error.code)
+            page_attr("Error %s" % error.code)
 
             # if isinstance(error, SQLAlchemyError):
             #     error = SQLAlchemyHTTPException(error)

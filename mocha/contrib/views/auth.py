@@ -14,7 +14,7 @@ from mocha import (Mocha,
                    _,
                    g,
                    models,
-                   page_meta,
+                   page_attr,
                    request,
                    redirect,
                    flash_success,
@@ -193,7 +193,7 @@ class Login(Mocha):
 
             return redirect(self.login, next=request.form.get("next"))
 
-        page_meta("Login")
+        page_attr("Login")
         return {
             "username": request.args.get("username"),
             "login_url_next": request.args.get("next", ""),
@@ -213,7 +213,7 @@ class Login(Mocha):
             abort(403,
                   "Registration is not allowed. Contact admin if it's a mistake")
 
-        page_meta("Register")
+        page_attr("Register")
 
         if request.method == "POST":
             try:
@@ -324,7 +324,7 @@ class Login(Mocha):
         if not __options__.get("allow_login"):
             abort(403, "Login is not allowed. Contact admin if it's a mistake")
 
-        page_meta("Lost Password")
+        page_attr("Lost Password")
 
         if request.method == "POST":
             username = request.form.get("username")
@@ -423,7 +423,7 @@ class Login(Mocha):
             flash_error("Invalid account")
             return redirect(self.request_email_verification, email=email)
 
-        page_meta("Request Email Verification")
+        page_attr("Request Email Verification")
         return {
             "email": request.args.get("email"),
         }
@@ -598,7 +598,7 @@ class Account(Mocha):
     @h_deco.nav_title("Account Settings", order=1)
     @h_deco.template("contrib/auth/Account/account_settings.jade")
     def account_settings(self):
-        page_meta("Account Info")
+        page_attr("Account Info")
         return {}
 
     @h_deco.accept_post
@@ -772,7 +772,7 @@ class Admin(Mocha):
     @h_deco.template("contrib/auth/Admin/index.jade")
     def index(self):
 
-        page_meta("All Users")
+        page_attr("All Users")
 
         include_deleted = True if request.args.get(
             "include-deleted") == "y" else False
@@ -836,7 +836,7 @@ class Admin(Mocha):
     @h_deco.nav_title("User Info", visible=False)
     @h_deco.template("contrib/auth/Admin/info.jade")
     def info(self, id):
-        page_meta("User Info")
+        page_attr("User Info")
         user = models.AuthUser.get(id, include_deleted=True)
         if not user:
             abort(404, "User doesn't exist")
@@ -1044,7 +1044,7 @@ class Admin(Mocha):
                 flash_error("%s" % ex.message)
             return redirect(self.roles)
 
-        page_meta("User Roles")
+        page_attr("User Roles")
         roles = models.AuthUserRole.query().order_by(
             models.AuthUserRole.level.desc())
 
