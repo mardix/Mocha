@@ -6,7 +6,7 @@ Views
 """
 from mocha import (Mocha,
                    page_attr,
-                   get_config,
+                   config,
                    flash_success,
                    flash_error,
                    abort,

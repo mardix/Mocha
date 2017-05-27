@@ -3,7 +3,7 @@ Contact Page
 """
 from mocha import (Mocha,
                    _,
-                   get_config,
+                   config,
                    url_for,
                    abort,
                    request,
@@ -72,7 +72,7 @@ class Main(Mocha):
 
         recipients = app_data.get(APP_DATA_KEY, "recipients") \
                      or __options__.get("recipients") \
-                     or get_config("CONTACT_EMAIL")
+                     or config("CONTACT_EMAIL")
 
         if not recipients:
             abort(500, "ContactPage missing email recipient")

@@ -1,6 +1,6 @@
 import inspect
 from mocha import (register_package,
-                   get_config,
+                   config,
                    decorators as h_deco,
                    abort
                    )
@@ -35,13 +35,13 @@ def admin(f):
     if not inspect.isclass(f):
         raise TypeError("@ADMIN expects a Mocha class")
 
-    if get_config("ADMIN_ENABLED", True):
+    if config("ADMIN_ENABLED", True):
 
         # Index route
-        index_route = get_config("ADMIN_INDEX_ROUTE", "/")
+        index_route = config("ADMIN_INDEX_ROUTE", "/")
 
         # ROLES
-        min_role = get_config("ADMIN_MIN_ACL", "ADMIN")
+        min_role = config("ADMIN_MIN_ACL", "ADMIN")
         role_name = "accepts_%s_roles" % min_role.lower()
 
         if not hasattr(a_deco, role_name):
@@ -51,7 +51,7 @@ def admin(f):
         a_deco.login_required(f)
 
         set_view_attr(f, "nav_tags", [ADMIN_TAG])
-        layout = get_config("ADMIN_LAYOUT") or ADMIN_LAYOUT
+        layout = config("ADMIN_LAYOUT") or ADMIN_LAYOUT
         return h_deco.template(layout=layout)(f)
 
     else:

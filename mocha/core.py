@@ -45,11 +45,11 @@ __all__ = [
     "db",
     "models",
     "views",
+    "config",
     "get_env",
     "set_env",
     "get_app_env",
     "get_env_config",
-    "get_config",
     "page_attr",
     "flash_success",
     "flash_error",
@@ -211,7 +211,7 @@ def register_package(pkg, prefix=None):
         Mocha._add_asset_bundle(static_path)
 
 
-def get_config(key, default=None):
+def config(key, default=None):
     """
     Shortcut to access the application's config in your class
     :param key: The key to access
@@ -330,14 +330,14 @@ def local_datetime(utcdatetime, format=None, timezone=None):
     if utcdatetime is None:
         return None
 
-    timezone = timezone or get_config("DATETIME_TIMEZONE", "US/Eastern")
+    timezone = timezone or config("DATETIME_TIMEZONE", "US/Eastern")
     dt = utcdatetime.to(timezone) \
         if isinstance(utcdatetime, arrow.Arrow) \
         else arrow.get(utcdatetime, timezone)
     if format is False:
         return dt
 
-    _ = get_config("DATETIME_FORMAT")
+    _ = config("DATETIME_FORMAT")
     format = _.get("default") or "MM/DD/YYYY" if not format else _.get(format)
     return dt.format(format)
 
@@ -697,7 +697,6 @@ class Mocha(object):
 
         return render_template(_layout or cls.base_layout, **data)
 
-
     @classmethod
     def _add_asset_bundle(cls, path):
         """
@@ -930,8 +929,9 @@ class Mocha(object):
                     _template = utils.list_replace([".", ":"], "/", _template)
                     _template = "%s.%s" % (_template, cls.template_markup)
 
-                    # Get the title from the nav title, if not set
-                    if not getattr(g, "__META__", {}).get("title") and get_view_attr(view, "title"):
+                    # Set the title from the nav title, if not set
+                    _meta_title = getattr(g, "__META__", {}).get("title")
+                    if (not _meta_title or _meta_title == "") and get_view_attr(view, "title"):
                         page_attr(title=get_view_attr(view, "title"))
 
                     response.setdefault("_template", _template)
@@ -1037,7 +1037,7 @@ class Mocha(object):
 # Brew, initialize Mocha as a single instance that will be served
 Brew = Mocha()
 
-
+# ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
 
@@ -1069,7 +1069,7 @@ def get_interesting_members(base_class, cls):
     return (member for member in all_members
             if not member[0] in base_members
             and (
-            (hasattr(member[1], "__self__") and not member[1].__self__ in inspect.getmro(cls)) if six.PY2 else True)
+                (hasattr(member[1], "__self__") and not member[1].__self__ in inspect.getmro(cls)) if six.PY2 else True)
             and not member[0].startswith("_")
             and not member[0].startswith("before_")
             and not member[0].startswith("after_"))
@@ -1122,20 +1122,75 @@ class RegexConverter(BaseConverter):
         super(RegexConverter, self).__init__(url_map)
         self.regex = items[0]
 
+# ------------------------------------------------------------------------------
 
 """
 Views attributes store data that was set for the views
 It prevents overrite from custom class attribute with other attributes
-Use it to 
+Meant to be used internally, for holding global view-based data
 """
 
-_views_attr = type('', (), {})
+_views_attr = {}
 
-def set_view_attr(view, key, value):
-    setattr(_views_attr, key, value)
 
-def get_view_attr(view, key, default=None):
-    return default if not hasattr(_views_attr, key) else getattr(_views_attr, key) or default
+def set_view_attr(view, key, value, cls_name=None):
+    """
+    Set the view attributes
+    :param view: object (class or instance method)
+    :param key: string - the key
+    :param value: mixed - the value
+    :param cls_name: str - To pass the class name associated to the view
+            in the case of decorators that may not give the real class name
+    :return: 
+    """
+    ns = view_namespace(view, cls_name)
+    if ns:
+        if ns not in _views_attr:
+            _views_attr[ns] = {}
+        _views_attr[ns][key] = value
+
+
+def get_view_attr(view, key, default=None, cls_name=None):
+    """
+    Get the attributes that was saved for the view
+    :param view: object (class or instance method)
+    :param key: string - the key
+    :param default: mixed - the default value
+    :param cls_name: str - To pass the class name associated to the view
+            in the case of decorators that may not give the real class name
+    :return: mixed
+    """
+    ns = view_namespace(view, cls_name)
+    if ns:
+        if ns not in _views_attr:
+            return default
+        return _views_attr[ns].get(key, default)
+    return default
+
+
+def view_namespace(view, cls_name=None):
+    """
+    Create the namespace from the view
+    :param view: object (class or instance method)
+    :param cls_name: str - To pass the class name associated to the view
+            in the case of decorators that may not give the real class name
+    :return: string or None
+    """
+    ns = view.__module__
+    if inspect.isclass(view):
+        ns += ".%s" % view.__name__
+    else:
+        if hasattr(view, "im_class") or hasattr(view, "im_self"):
+            if view.im_class is not None:
+                cls_name = view.im_class.__name__
+            elif view.im_self is not None:
+                cls_name = view.im_self.__name__
+        if cls_name is None:
+            return None
+        ns += ".%s.%s" % (cls_name, view.__name__)
+    return ns
+
+# ------------------------------------------------------------------------------
 
 
 

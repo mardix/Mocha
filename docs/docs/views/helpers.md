@@ -5,7 +5,7 @@ Utils are functions or objects that are exposed to the applications. They can be
 or from Flask itself. Some of them may extend some functionalities. 
 
 
-## get_config
+## config
 
 ---
 

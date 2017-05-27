@@ -415,7 +415,7 @@ class SiteNavigation(object):
         """ Push nav data stack """
 
         # Set the page title
-        set_view_attr(view, "title", title)
+        set_view_attr(view, "title", title, cls_name=class_name)
 
         module_name = view.__module__
         method_name = view.__name__
@@ -426,7 +426,7 @@ class SiteNavigation(object):
         order = kwargs.pop("order", 0)
 
         # Tags
-        _nav_tags = get_view_attr(view, "nav_tags", ["default"])
+        _nav_tags = get_view_attr(view, "nav_tags", ["default"], cls_name=class_name)
         tags = kwargs.pop("tags", _nav_tags)
         if not isinstance(tags, list):
             _ = tags
@@ -438,7 +438,7 @@ class SiteNavigation(object):
         if not isinstance(visible, list):
             visible = [visible]
 
-        if get_view_attr(view, "nav_visible") is False:
+        if get_view_attr(view, "nav_visible", cls_name=class_name) is False:
             visible = False
 
         kwargs["view"] = view

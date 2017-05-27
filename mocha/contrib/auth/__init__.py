@@ -10,7 +10,7 @@ from mocha.exceptions import AppError
 import mocha.cli
 from mocha import (_,
                    utc_now,
-                   get_config,
+                   config,
                    abort,
                    send_mail,
                    url_for,
@@ -150,8 +150,8 @@ def get_jwt_secret():
     Get the JWT secret
     :return: str
     """
-    secret_key = __options__.get("jwt_secret") or get_config(
-        "JWT_SECRET") or get_config("SECRET_KEY")
+    secret_key = __options__.get("jwt_secret") or config(
+        "JWT_SECRET") or config("SECRET_KEY")
     if not secret_key:
         raise exceptions.AuthError("Missing config JWT/SECRET_KEY")
     return secret_key
@@ -672,7 +672,7 @@ def _url_for_email(endpoint, base_url=None, **kw):
     :param kw:
     :return:
     """
-    base_url = base_url or get_config("MAIL_EXTERNAL_BASE_URL")
+    base_url = base_url or config("MAIL_EXTERNAL_BASE_URL")
     _external = True if not base_url else False
     url = url_for(endpoint, _external=_external, **kw)
     if base_url and not _external:

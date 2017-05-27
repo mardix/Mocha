@@ -5,7 +5,7 @@ Social
 
 import sys
 from werkzeug import import_string
-from mocha import get_config, init_app
+from mocha import config, init_app
 from flask_oauthlib.client import OAuth
 
 this = sys.modules[__name__]
@@ -110,7 +110,7 @@ def init_oauth(app):
 
     oauth.init_app(app)
 
-    oauth_creds = get_config("OAUTH_CREDENTIALS", {})
+    oauth_creds = config("OAUTH_CREDENTIALS", {})
 
     for name, kwargs in oauth_creds.items():
         if "consumer_key" in kwargs and kwargs.get("consumer_key"):

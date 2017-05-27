@@ -8,7 +8,7 @@ from flask import url_for
 import humanize
 import arrow
 from mocha import (init_app,
-                     get_config,
+                     config,
                      local_datetime,
                      utils)
 

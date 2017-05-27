@@ -21,7 +21,7 @@ from . import (Mocha,
                utils,
                exceptions,
                g,
-               get_config,
+               config,
                signals)
 
 from.extras import jinja_helpers, mocha_db
@@ -338,7 +338,7 @@ def upload_file(_props_key, file, **kw):
     """
     kwargs = {}
     if _props_key is not None:
-        conf = get_config("STORAGE_UPLOAD_FILE_PROPS")
+        conf = config("STORAGE_UPLOAD_FILE_PROPS")
         if not conf:
             raise ValueError("Missing STORAGE_UPLOAD_FILE_PROPS in config")
         if _props_key not in conf:
@@ -383,8 +383,8 @@ def paginate(iter, **kwargs):
     :return: Paginator
     """
     kwargs.setdefault("page", int(request.args.get('page', 1)))
-    kwargs.setdefault("per_page", int(get_config("PAGINATION_PER_PAGE", 1)))
-    kwargs.setdefault("padding", int(get_config("PAGINATION_PADDING", 0)))
+    kwargs.setdefault("per_page", int(config("PAGINATION_PER_PAGE", 1)))
+    kwargs.setdefault("padding", int(config("PAGINATION_PADDING", 0)))
     return Paginator(iter, **kwargs)
 
 # Babel
