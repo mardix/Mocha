@@ -39,8 +39,7 @@ class Main(Mocha):
     @classmethod
     def _register(cls, app, **kwargs):
 
-        template_page = __options__.get("template",
-                                        "contrib/error_page/Main/index.jade")
+        template_page = __options__.get("template", "contrib/error_page/Main/index.jade")
 
         super(cls, cls)._register(app, **kwargs)
 
@@ -79,5 +78,4 @@ class Main(Mocha):
             if renderer:
                 return renderer(error)
             else:
-                return cls.render(_template=template_page,
-                                  error=error), error.code
+                return cls.render(_template=template_page, error=error), error.code
