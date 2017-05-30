@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-CLI
-
-This allows you to create command line interface
+Manage.py is a command line utility to perform admin task
 
 """
 
 import mocha.cli
 
 
-class CLI(mocha.cli.CLI):
+class Manage(mocha.cli.Manager):
     def __init__(self, command, click):
         """
         Initiate the command line
@@ -31,6 +29,8 @@ class CLI(mocha.cli.CLI):
         :param command: copy of the cli.command
         :param click: click
         """
+
+        from mocha import models
 
         @command()
         def setup():

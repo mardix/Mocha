@@ -43,20 +43,20 @@ SKELETON_DIR = "skel"
 APPLICATION_DIR = "%s/application" % CWD
 
 
-class CLI(object):
+class Manager(object):
     """
     For command line classes in which __init__ contains all the functions to use
 
     example
 
-    class MyCLI(MochaCLI):
-        def __init__(self):
+    class Manager(cli.Manager):
+        def __init__(self, command, click):
 
-            @cli.command()
+            @command()
             def hello():
                 click.echo("Hello world")
 
-            @cli.command()
+            @command()
             @click.argument("name")
             def say_my_name(name):
                 click.echo("My name is %s" % name)
@@ -350,5 +350,5 @@ def cmd():
         print("** Missing << 'brew.py' >> @ %s" % CWD)
         print("-" * 80)
 
-    [cmd(cli.command, click) for cmd in CLI.__subclasses__()]
+    [cmd(cli.command, click) for cmd in Manager.__subclasses__()]
     cli()

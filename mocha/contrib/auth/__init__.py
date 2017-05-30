@@ -693,7 +693,8 @@ def session_get_require_password_change():
 
 
 
-class CLI(mocha.cli.CLI):
+class CLI(mocha.cli.Manager):
+
     def __init__(self, command, click):
         @command("auth:create-super-admin")
         @click.argument("email")

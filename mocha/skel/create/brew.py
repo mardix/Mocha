@@ -8,8 +8,8 @@ ________________________________________________________________________________
 from mocha import Brew
 
 # == CLI ==
-# Import your app cli. Omit if it will not be used
-import application.cli
+# Import your app manager. Omit if it will not be used
+import application.manage
 
 
 # == PROJECTS ==
