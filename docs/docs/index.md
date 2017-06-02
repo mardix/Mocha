@@ -4,6 +4,87 @@
 ![Mocha](/img/mocha.jpg)
 
 
+**Mocha** is a framework based on Flask. It creates a structure, where your endpoints are now grouped by classes,
+and methods are link to their respective templates name.
+
+
+## Decision Made for You
+
+- Smart routing: automatically generates routes based on the classes and methods in your views
+
+- Class name as the base url, ie: class UserAccount will be accessed at '/user-account'
+
+- Class methods (action) could be accessed: hello_world(self) becomes 'hello-world'
+
+- Easy rending and render decorator
+
+- Auto route can be edited with @route()
+
+- Restful: GET, POST, PUT, DELETE
+
+- REST API Ready
+
+- bcrypt is chosen as the password hasher
+
+- Session: Redis, AWS S3, Google Storage, SQLite, MySQL, PostgreSQL
+
+- Database/ORM: [Active-Alchemy](https://github.com/mardix/active-alchemy) (SQLALchemy wrapper)
+
+- ReCaptcha: [Flask-Recaptcha](https://github.com/mardix/flask-recaptcha)
+
+- CSRF on all POST
+
+- Storage: Local, S3, Google Storage [Flask-Cloudy](https://github.com/mardix/flask-cloudy)
+
+- Mailer (SES or SMTP)
+
+- Caching
+
+- Propel for deployment
+
+
+---
+
+## Packages and utilities depencies:
+
+- Flask
+- Flask-Assets
+- cssmin
+- jsmin
+- flask-recaptcha
+- flask-login
+- flask-kvsession
+- flask-s3
+- flask-mail
+- flask-caching
+- flask-cloudy
+- flask-seasurf
+- flask-babel
+- flask-cors
+- Flask-OAuthlib
+- Active-Alchemy
+- Paginator
+- six
+- passlib
+- bcrypt
+- python-slugify
+- humanize
+- redis
+- ses-mailer
+- markdown
+- inflection
+- pyyaml
+- click
+- sh
+- dicttoxml
+- arrow
+- blinker
+- itsdangerous
+- pyjade
+- requests
+
+---
+
 **Mocha** put structure in your Flask application by grouping your methods together
 under classes, and your templates relative to the path
 
@@ -28,71 +109,18 @@ Convention on where to place files, and configuration on data to set.
 
 ---
 
-[to place somewhere]
-
-Some convention
-
-
-    / root
-        |
-        -- serve.py
-        |
-        -- propel.yml
-        |
-        -- requirements.txt
-        |
-        -- application/
-            |
-            -- config.py
-            |
-            -- models.py
-            |
-            -- __init__.py
-            |
-            -- www/
-                |
-                -- views.py
-                |
-                -- __init__.py
-                |
-                -- static/
-                    |   
-                    -- css/
-                    |
-                    -- images/
-                    |
-                    -- js/
-                    |
-                    -- assets.yml
-                |
-                -- templates/
-                    |
-                    -- Index/
-                        |   
-                        -- index.html
-            |
-            -- _data/
-                |
-                -- mail-templates/
-                |
-                -- uploads/
-                
-                
-
----
-
 ## Installation
 
 The best way to install **Mocha** is to do it with pip.
 
     pip install mocha
-    
+
 As a good practice, it is best to install it into its own virtual environment.
 
 The installation will get all the necessary packages to get you going.
 
 After the installation is complete, **mocha** can be used in the
- command line to conveniently create projects, build assets, 
+ command line to conveniently create projects, build assets,
 push assets to S3, deploy application to production server and more.
 
 [Read more about Mocha command line](cli.md)
@@ -100,64 +128,11 @@ push assets to S3, deploy application to production server and more.
 On the command line run the **mocha** like below
 
     mocha
-     
+
+
 ---
 
-## Create Your First Application
- 
-To create your application, we'll use the **mocha** command. It will create
-all the necessary files to get you going.
 
-First, `cd` into the directory that will contain your application, 
-then type the command below:
-
-    mocha new-project www
-    
-Upon creation, you should see the structure below,
-where `www` name is the default name for web project, 
-but can be anything and will follow the structure below.
-
-Please notice the file `app_www.py` and the directory `/application/www`.
-
-    /
-    - app_www.py
-    |
-    - manage.py
-    |
-    - propel.yml
-    |
-    - requirements.txt
-    |
-    - application/
-        |
-        - www/
-            |
-            - static/
-                |   
-                - css/
-                |
-                - images/
-                |
-                - js/
-                |
-                - assets.yml
-            |
-            - templates/
-                |
-                - Index/
-                    |   
-                    - index.html
-            |
-            - __init__.py
-            |
-            - views.py
-        |
-        - _data/
-            |
-            - mail-templates/
-            |
-            - uploads/
-            
 
 
 - `app_www.py`: This is the project's entry point. It is used to launch the application. 

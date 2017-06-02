@@ -11,6 +11,8 @@ theme: "material" # readthedocs
 markdown_extensions:
   - admonition
   - codehilite
+  - markdown_include.include:
+      base_path: docs
 
 extra:
   palette:
@@ -20,7 +22,8 @@ extra:
 pages:
 
   - Home: index.md
-  - Quickstart: quickstart.md
+  - Setup: setup.md
+  - First App: first-app.md
   - Config: config.md
 
   - Views: views/index.md

@@ -1,8 +1,10 @@
 # Install this requirements for dev environment
 pytest
-mkdocs
 
-# comes with material
+# Documentation
+mkdocs
+markdown-include
 mkdocs-material
 pygments
 pymdown-extensions
+
