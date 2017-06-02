@@ -1,8 +1,8 @@
 # Mocha
 
-[I loving memory of Mocha. So, code up for Mocha! ]
+[
 
-[Documentation](https://mardix.github.io/mocha)
+[Documentation](https://mardix.github.io/Mocha)
 
 **Mocha** is A mid stack, batteries framework based on Flask. It adds structure 
 to your Flask application, and group the endpoints by classes instead of just 
@@ -124,7 +124,7 @@ Now Mocha has been installed, let's create our first application
 
     cd your-dir
     
-    mocha init
+    mocha :init
     
 `mocha init` setup the structure along with the necessary files to get started
  
@@ -198,14 +198,14 @@ components.
 The code below will run `npm install`, make sure `static/package.json` contains
 all the files to pull
 
-    mocha npm-install
+    mocha :install-assets
     
  
 #### Serve your first application
 
 If everything is all set, all you need to do now is run your site:
 
-    mocha serve
+    mocha :serve
     
 It will start serving your application by default at `127.0.0.1:5000`
 
@@ -213,7 +213,7 @@ Go to http://127.0.0.1:5000/
 
 ---
 
-I hope this wasn't too hard. Now Read The Docs at [http://mardix.github.io/mocha/](http://mardix.github.io/mocha/) 
+I hope this wasn't too hard. Now Read The Docs at [http://mardix.github.io/Mocha/](http://mardix.github.io/Mocha/)
 for more 
 
 Thanks, 
@@ -224,7 +224,7 @@ Mardix :)
 
 ## Read The Docs
 
-To dive into the documentation, Read the docs @ [http://mardix.github.io/mocha/](http://mardix.github.io/mocha/)
+To dive into the documentation, Read the docs @ [http://mardix.github.io/Mocha/](http://mardix.github.io/Mocha/)
 
 ---
 
