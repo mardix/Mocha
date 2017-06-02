@@ -13,7 +13,7 @@
       
         <link rel="shortcut icon" href="./assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.4">
     
     
       
@@ -21,10 +21,10 @@
       
     
     
-      <script src="./assets/javascripts/modernizr-56ade86843.js"></script>
+      <script src="./assets/javascripts/modernizr-1df76c4e58.js"></script>
     
     
-      <link rel="stylesheet" href="./assets/stylesheets/application-4d0d3f2fbf.css">
+      <link rel="stylesheet" href="./assets/stylesheets/application-e2807e330f.css">
       
         <link rel="stylesheet" href="./assets/stylesheets/application-f78e5cb881.palette.css">
       
@@ -212,15 +212,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installation" title="Installation" class="md-nav__link">
-    Installation
+  <a href="#decision-made-for-you" title="Decision Made for You" class="md-nav__link">
+    Decision Made for You
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#create-your-first-application" title="Create Your First Application" class="md-nav__link">
-    Create Your First Application
+  <a href="#packages-and-utilities-depencies" title="Packages and utilities depencies:" class="md-nav__link">
+    Packages and utilities depencies:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" title="Installation" class="md-nav__link">
+    Installation
   </a>
   
 </li>
@@ -315,8 +322,20 @@
 
 
   <li class="md-nav__item">
-    <a href="quickstart/" title="Quickstart" class="md-nav__link">
-      Quickstart
+    <a href="setup/" title="Setup" class="md-nav__link">
+      Setup
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="first-app/" title="First App" class="md-nav__link">
+      First App
     </a>
   </li>
 
@@ -400,13 +419,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
     
-    <label class="md-nav__link" for="nav-9">
+    <label class="md-nav__link" for="nav-10">
       Templates Components
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-9">
+      <label class="md-nav__title" for="nav-10">
         Templates Components
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -485,6 +504,18 @@
   <li class="md-nav__item">
     <a href="ext/" title="Extensions" class="md-nav__link">
       Extensions
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="arrow/" title="Arrow" class="md-nav__link">
+      Arrow
     </a>
   </li>
 
@@ -666,15 +697,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installation" title="Installation" class="md-nav__link">
-    Installation
+  <a href="#decision-made-for-you" title="Decision Made for You" class="md-nav__link">
+    Decision Made for You
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#create-your-first-application" title="Create Your First Application" class="md-nav__link">
-    Create Your First Application
+  <a href="#packages-and-utilities-depencies" title="Packages and utilities depencies:" class="md-nav__link">
+    Packages and utilities depencies:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" title="Installation" class="md-nav__link">
+    Installation
   </a>
   
 </li>
@@ -771,6 +809,99 @@
                 
                 <h1 id="mocha">Mocha</h1>
 <p><img alt="Mocha" src="./img/mocha.jpg" /></p>
+<p><strong>Mocha</strong> is a framework based on Flask. It creates a structure, where your endpoints are now grouped by classes,
+and methods are link to their respective templates name.</p>
+<h2 id="decision-made-for-you">Decision Made for You</h2>
+<ul>
+<li>
+<p>Smart routing: automatically generates routes based on the classes and methods in your views</p>
+</li>
+<li>
+<p>Class name as the base url, ie: class UserAccount will be accessed at '/user-account'</p>
+</li>
+<li>
+<p>Class methods (action) could be accessed: hello_world(self) becomes 'hello-world'</p>
+</li>
+<li>
+<p>Easy rending and render decorator</p>
+</li>
+<li>
+<p>Auto route can be edited with @route()</p>
+</li>
+<li>
+<p>Restful: GET, POST, PUT, DELETE</p>
+</li>
+<li>
+<p>REST API Ready</p>
+</li>
+<li>
+<p>bcrypt is chosen as the password hasher</p>
+</li>
+<li>
+<p>Session: Redis, AWS S3, Google Storage, SQLite, MySQL, PostgreSQL</p>
+</li>
+<li>
+<p>Database/ORM: <a href="https://github.com/mardix/active-alchemy">Active-Alchemy</a> (SQLALchemy wrapper)</p>
+</li>
+<li>
+<p>ReCaptcha: <a href="https://github.com/mardix/flask-recaptcha">Flask-Recaptcha</a></p>
+</li>
+<li>
+<p>CSRF on all POST</p>
+</li>
+<li>
+<p>Storage: Local, S3, Google Storage <a href="https://github.com/mardix/flask-cloudy">Flask-Cloudy</a></p>
+</li>
+<li>
+<p>Mailer (SES or SMTP)</p>
+</li>
+<li>
+<p>Caching</p>
+</li>
+<li>
+<p>Propel for deployment</p>
+</li>
+</ul>
+<hr />
+<h2 id="packages-and-utilities-depencies">Packages and utilities depencies:</h2>
+<ul>
+<li>Flask</li>
+<li>Flask-Assets</li>
+<li>cssmin</li>
+<li>jsmin</li>
+<li>flask-recaptcha</li>
+<li>flask-login</li>
+<li>flask-kvsession</li>
+<li>flask-s3</li>
+<li>flask-mail</li>
+<li>flask-caching</li>
+<li>flask-cloudy</li>
+<li>flask-seasurf</li>
+<li>flask-babel</li>
+<li>flask-cors</li>
+<li>Flask-OAuthlib</li>
+<li>Active-Alchemy</li>
+<li>Paginator</li>
+<li>six</li>
+<li>passlib</li>
+<li>bcrypt</li>
+<li>python-slugify</li>
+<li>humanize</li>
+<li>redis</li>
+<li>ses-mailer</li>
+<li>markdown</li>
+<li>inflection</li>
+<li>pyyaml</li>
+<li>click</li>
+<li>sh</li>
+<li>dicttoxml</li>
+<li>arrow</li>
+<li>blinker</li>
+<li>itsdangerous</li>
+<li>pyjade</li>
+<li>requests</li>
+</ul>
+<hr />
 <p><strong>Mocha</strong> put structure in your Flask application by grouping your methods together
 under classes, and your templates relative to the path</p>
 <p>One of the strength of <strong>Mocha</strong> is it automatically creates the route endpoint
@@ -783,55 +914,6 @@ to rapidly build Website, admin section, RESTful API and more. </p>
 <p>It's a mix of convention and configuration.</p>
 <p>Convention on where to place files, and configuration on data to set.</p>
 <hr />
-<p>[to place somewhere]</p>
-<p>Some convention</p>
-<div class="codehilite"><pre><span></span>/ root
-    |
-    -- serve.py
-    |
-    -- propel.yml
-    |
-    -- requirements.txt
-    |
-    -- application/
-        |
-        -- config.py
-        |
-        -- models.py
-        |
-        -- __init__.py
-        |
-        -- www/
-            |
-            -- views.py
-            |
-            -- __init__.py
-            |
-            -- static/
-                |   
-                -- css/
-                |
-                -- images/
-                |
-                -- js/
-                |
-                -- assets.yml
-            |
-            -- templates/
-                |
-                -- Index/
-                    |   
-                    -- index.html
-        |
-        -- _data/
-            |
-            -- mail-templates/
-            |
-            -- uploads/
-</pre></div>
-
-
-<hr />
 <h2 id="installation">Installation</h2>
 <p>The best way to install <strong>Mocha</strong> is to do it with pip.</p>
 <div class="codehilite"><pre><span></span>pip install mocha
@@ -841,7 +923,7 @@ to rapidly build Website, admin section, RESTful API and more. </p>
 <p>As a good practice, it is best to install it into its own virtual environment.</p>
 <p>The installation will get all the necessary packages to get you going.</p>
 <p>After the installation is complete, <strong>mocha</strong> can be used in the
- command line to conveniently create projects, build assets, 
+ command line to conveniently create projects, build assets,
 push assets to S3, deploy application to production server and more.</p>
 <p><a href="cli/">Read more about Mocha command line</a></p>
 <p>On the command line run the <strong>mocha</strong> like below</p>
@@ -850,60 +932,6 @@ push assets to S3, deploy application to production server and more.</p>
 
 
 <hr />
-<h2 id="create-your-first-application">Create Your First Application</h2>
-<p>To create your application, we'll use the <strong>mocha</strong> command. It will create
-all the necessary files to get you going.</p>
-<p>First, <code>cd</code> into the directory that will contain your application, 
-then type the command below:</p>
-<div class="codehilite"><pre><span></span>mocha new-project www
-</pre></div>
-
-
-<p>Upon creation, you should see the structure below,
-where <code>www</code> name is the default name for web project, 
-but can be anything and will follow the structure below.</p>
-<p>Please notice the file <code>app_www.py</code> and the directory <code>/application/www</code>.</p>
-<div class="codehilite"><pre><span></span>/
-- app_www.py
-|
-- manage.py
-|
-- propel.yml
-|
-- requirements.txt
-|
-- application/
-    |
-    - www/
-        |
-        - static/
-            |   
-            - css/
-            |
-            - images/
-            |
-            - js/
-            |
-            - assets.yml
-        |
-        - templates/
-            |
-            - Index/
-                |   
-                - index.html
-        |
-        - __init__.py
-        |
-        - views.py
-    |
-    - _data/
-        |
-        - mail-templates/
-        |
-        - uploads/
-</pre></div>
-
-
 <ul>
 <li>
 <p><code>app_www.py</code>: This is the project's entry point. It is used to launch the application. </p>
@@ -1102,7 +1130,7 @@ all pages are automatically included upon rendering.</p>
 <p>That's it!</p>
 <p>Wasn't it easy?</p>
 <hr />
-<h1 id="decision-made-for-you">Decision Made for You</h1>
+<h1 id="decision-made-for-you_1">Decision Made for You</h1>
 <ul>
 <li>
 <p>Smart routing: automatically generates routes based on the classes and methods in your views</p>
@@ -1238,13 +1266,13 @@ all pages are automatically included upon rendering.</p>
       <nav class="md-footer-nav__inner md-grid">
         
         
-          <a href="quickstart/" title="Quickstart" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="setup/" title="Setup" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Quickstart
+                Setup
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -1278,7 +1306,7 @@ all pages are automatically included upon rendering.</p>
       
     </div>
     
-      <script src="./assets/javascripts/application-6b599127bc.js"></script>
+      <script src="./assets/javascripts/application-06a3e72efd.js"></script>
       <script>app.initialize({url:{base:"."}})</script>
       
     

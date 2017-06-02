@@ -7,24 +7,24 @@
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
       
-        <link rel="canonical" href="https://mardix.github.com/mocha/quickstart/">
+        <link rel="canonical" href="https://mardix.github.com/mocha/setup/">
       
       
       
         <link rel="shortcut icon" href="../assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.4">
     
     
       
-        <title>Quickstart - Mocha</title>
+        <title>Setup - Mocha</title>
       
     
     
-      <script src="../assets/javascripts/modernizr-56ade86843.js"></script>
+      <script src="../assets/javascripts/modernizr-1df76c4e58.js"></script>
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-4d0d3f2fbf.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-e2807e330f.css">
       
         <link rel="stylesheet" href="../assets/stylesheets/application-f78e5cb881.palette.css">
       
@@ -78,7 +78,7 @@
             
               
             
-            Quickstart
+            Setup
           
         </span>
       </div>
@@ -203,10 +203,61 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
-    <a href="./" title="Quickstart" class="md-nav__link md-nav__link--active">
-      Quickstart
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Setup
+      </label>
+    
+    <a href="./" title="Setup" class="md-nav__link md-nav__link--active">
+      Setup
     </a>
     
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#install" title="Install" class="md-nav__link">
+    Install
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#init" title="Init" class="md-nav__link">
+    Init
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serve" title="Serve" class="md-nav__link">
+    Serve
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../first-app/" title="First App" class="md-nav__link">
+      First App
+    </a>
   </li>
 
     
@@ -289,13 +340,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
     
-    <label class="md-nav__link" for="nav-9">
+    <label class="md-nav__link" for="nav-10">
       Templates Components
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-9">
+      <label class="md-nav__title" for="nav-10">
         Templates Components
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -374,6 +425,18 @@
   <li class="md-nav__item">
     <a href="../ext/" title="Extensions" class="md-nav__link">
       Extensions
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../arrow/" title="Arrow" class="md-nav__link">
+      Arrow
     </a>
   </li>
 
@@ -549,6 +612,34 @@
   
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#install" title="Install" class="md-nav__link">
+    Install
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#init" title="Init" class="md-nav__link">
+    Init
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serve" title="Serve" class="md-nav__link">
+    Serve
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -560,9 +651,103 @@
               
                 
                 
-                  <h1>Quickstart</h1>
+                  <h1>Setup</h1>
                 
-                
+                <p>In here we're going to install, init and serve our <strong>Mocha</strong> application</p>
+<hr />
+<h2 id="install">Install</h2>
+<p>The best way to install <strong>Mocha</strong> is to do it with pip.</p>
+<div class="codehilite"><pre><span></span>pip install mocha
+</pre></div>
+
+
+<p>It's preferable to install your Mocha app into it's own virtual environment.</p>
+<hr />
+<h2 id="init">Init</h2>
+<p>Once installed, use the command line <code>mocha</code> to initiate the application.</p>
+<p>Make sure that you <code>cd</code> into the right directory to run the command, as it will place the data in the current working dir.</p>
+<p>So run:</p>
+<div class="codehilite"><pre><span></span><span class="n">mocha</span> <span class="o">:</span><span class="n">init</span>
+</pre></div>
+
+
+<p>It will create all the necessary files to get going, and you should see a file structure similar to the one below</p>
+<div class="codehilite"><pre><span></span>/____
+    |
+    |- brew.py
+    |
+    |- propel.yml
+    |
+    |-- requirements.txt
+    |
+    |-- /application
+        |
+        |-- config.py
+        |
+        |-- models.py
+        |
+        |-- helpers.py
+        |
+        |-- manage.py
+        |
+        |-- views/
+            |
+            |-- main.py
+        |
+        |-- templates/
+            |
+            |-- layouts/
+                |
+                |-- base.jade
+                |
+            |-- main/
+                |
+                |-- Index/
+                    |
+                    |-- index.jade
+        |
+        |-- /static/
+            |
+            |-- assets.yml
+            |
+            |-- package.json
+            |
+            |-- css/
+            |
+            |-- js/
+            |
+            |-- imgs/
+        |
+        |-- /var/
+</pre></div>
+
+
+<p>Description:</p>
+<ul>
+<li><code>brew.py</code> is the application entry point</li>
+<li><code>propel.yml</code> (optional) A deploy based config file</li>
+<li><code>requirements.txt</code> contains your requirements + mocha</li>
+<li><code>application/</code> contains the application's  models, config, helpers and manage</li>
+<li><code>application/views/</code>: contains your views modules</li>
+<li><code>application/templates/</code>: contains all templates relative to the views name</li>
+<li><code>application/static/</code>: contains all the app's assets: js, css, imgs, etc...</li>
+<li><code>application/var/</code>: contains var files: database, mail-template, uploads, etc...</li>
+</ul>
+<hr />
+<h2 id="serve">Serve</h2>
+<p>Now your Mocha app is ready to go, it's time to serve it.</p>
+<div class="codehilite"><pre><span></span><span class="n">mocha</span> <span class="o">:</span><span class="n">serve</span>
+</pre></div>
+
+
+<p>You can access by default the application at: <code>http://localhost:5000</code></p>
+<p>To serve on a different port:</p>
+<div class="codehilite"><pre><span></span><span class="n">mocha</span> <span class="o">:</span><span class="n">serve</span> <span class="o">--</span><span class="n">port</span> <span class="mi">5001</span>
+</pre></div>
+
+
+<p>-&gt; <code>http://localhost:5001</code></p>
+<hr />
                 
                   
                 
@@ -596,13 +781,13 @@
           </a>
         
         
-          <a href="../config/" title="Config" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../first-app/" title="First App" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Config
+                First App
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -636,7 +821,7 @@
       
     </div>
     
-      <script src="../assets/javascripts/application-6b599127bc.js"></script>
+      <script src="../assets/javascripts/application-06a3e72efd.js"></script>
       <script>app.initialize({url:{base:".."}})</script>
       
     
