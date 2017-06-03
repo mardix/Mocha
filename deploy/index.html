@@ -553,9 +553,36 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Deployment
+      </label>
+    
     <a href="./" title="Deployment" class="md-nav__link md-nav__link--active">
       Deployment
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-to-production" title="Deploy to Production" class="md-nav__link">
+    Deploy to Production
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -577,6 +604,20 @@
     
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-to-production" title="Deploy to Production" class="md-nav__link">
+    Deploy to Production
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -592,6 +633,25 @@
 <p>Yes, yes, deploying Python app is not as easy as let's j. </p>
 <p>So let me introduce to you <strong>Propel</strong></p>
 <p>I created </p>
+<h2 id="deploy-to-production">Deploy to Production</h2>
+<p>Now your application is ready, it is time to deploy in production.</p>
+<p>While there many other options, I'm more familiar with <a href="./">Propel</a> and Gunicorn.</p>
+<ul>
+<li>
+<p>With <a href="./">Propel</a></p>
+<div class="codehilite"><pre><span></span>propel -w
+</pre></div>
+
+
+</li>
+<li>
+<p>On Gunicorn</p>
+<div class="codehilite"><pre><span></span>gunicorn app_www:app
+</pre></div>
+
+
+</li>
+</ul>
                 
                   
                 
