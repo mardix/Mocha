@@ -327,7 +327,7 @@ widget.panel(title, class, type)
 
 {#
 paginate
-     :paginator: iterator
+     :iterator: iterator
      :endpoint:
      :prev: Text for previous button
      :next: Text for Next button
@@ -338,21 +338,21 @@ paginate
      :mobile: if True, if will show the pagination into a 'pager'
 
 #}
-{% macro paginate(paginator, endpoint=None, prev="Prev", next="Next", class=None, pager=False, mobile=True) %}
+{% macro paginator(iterator, endpoint=None, prev="Prev", next="Next", class=None, pager=False, mobile=True) %}
     {% if mobile %}
         <div class="hidden-lg hidden-md hidden-sm">
-            {{ _pagination(paginator, endpoint, prev, next, class, pager=true, **kwargs) }}
+            {{ _pagination(iterator, endpoint, prev, next, class, pager=true, **kwargs) }}
         </div>
         <div class="hidden-xs">
-            {{ _pagination(paginator, endpoint, prev, next, class, pager=false, **kwargs) }}
+            {{ _pagination(iterator, endpoint, prev, next, class, pager=false, **kwargs) }}
         </div>
     {% else %}
-        {{ _pagination(paginator, endpoint, prev, next, class, pager, **kwargs) }}
+        {{ _pagination(iterator, endpoint, prev, next, class, pager, **kwargs) }}
     {% endif %}
 
 {% endmacro %}
 
-{% macro _pagination(paginator, endpoint=None, prev="", next="", class=None, pager=False) %}
+{% macro _pagination(iterator, endpoint=None, prev="", next="", class=None, pager=False) %}
     {% if not endpoint %}
         {% set endpoint = request.endpoint %}
     {% endif %}
@@ -373,9 +373,9 @@ paginate
     <nav>
       <ul class="{{ class }}">
 
-          {%- if paginator.has_prev %}
+          {%- if iterator.has_prev %}
             <li class="previous">
-                <a href="{{ url_for(endpoint, page=paginator.prev_page_number, **kwargs) }}">
+                <a href="{{ url_for(endpoint, page=iterator.prev_page_number, **kwargs) }}">
                      {{ _prev_btn | safe }}</a>
             </li>
           {% else %}
@@ -387,9 +387,9 @@ paginate
 
             {% if not pager %}
 
-                  {%- for page in paginator.iter_pages() %}
+                  {%- for page in iterator.iter_pages() %}
                     {% if page %}
-                      {% if page != paginator.page %}
+                      {% if page != iterator.page %}
                         <li><a href="{{ url_for(endpoint, page=page, **kwargs) }}"
                          rel="me">{{ page }}</a></li>
                       {% else %}
@@ -403,9 +403,9 @@ paginate
             {% endif %}
 
 
-          {%- if paginator.has_next %}
+          {%- if iterator.has_next %}
             <li class="next">
-                <a href="{{ url_for(endpoint, page=paginator.next_page_number, **kwargs) }}">
+                <a href="{{ url_for(endpoint, page=iterator.next_page_number, **kwargs) }}">
                     {{ _next_btn | safe }}</a>
             </li>
           {% else %}
