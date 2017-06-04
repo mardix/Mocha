@@ -5,6 +5,7 @@ from . import exceptions
 from mocha import (db,
                    utils,
                    send_mail,
+                   bcrypt,
                    _)
 from mocha.exceptions import ModelError
 
@@ -92,7 +93,7 @@ class AuthUser(db.Model):
 
     @classmethod
     def encrypt_password(cls, password):
-        return utils.encrypt_string(password)
+        return bcrypt.hash(password)
 
     @classmethod
     def new(cls,
@@ -258,7 +259,7 @@ class AuthUser(db.Model):
         Check if the password matched the hash
         :returns bool:
         """
-        return utils.verify_encrypted_string(password, self.password_hash)
+        return bcrypt.verify(password, self.password_hash)
 
     def reset_secret_key(self):
         """

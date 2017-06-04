@@ -2,6 +2,7 @@ import inspect
 from mocha import (register_package,
                    config,
                    decorators as h_deco,
+                   render,
                    abort
                    )
 from mocha.core import (set_view_attr,
@@ -52,7 +53,7 @@ def admin(f):
 
         set_view_attr(f, "nav_tags", [ADMIN_TAG])
         layout = config("ADMIN_LAYOUT") or ADMIN_LAYOUT
-        return h_deco.template(layout=layout)(f)
+        return render.template(layout=layout)(f)
 
     else:
         set_view_attr(f, "nav_visible", False)

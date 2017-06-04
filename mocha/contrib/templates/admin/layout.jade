@@ -26,9 +26,7 @@ html(lang="en")
                 .col-md-12
                     + widget.flashed_messages()
 
-
-
-            if request and  "auth.Login:" in request.endpoint
+            if request and request.endpoint and "auth.Login:" in request.endpoint
                 .row
                     .col-md-6.col-md-offset-3
                         - include __template__

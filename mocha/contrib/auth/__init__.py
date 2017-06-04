@@ -150,8 +150,7 @@ def get_jwt_secret():
     Get the JWT secret
     :return: str
     """
-    secret_key = __options__.get("jwt_secret") or config(
-        "JWT_SECRET") or config("SECRET_KEY")
+    secret_key = __options__.get("jwt_secret") or config("JWT_SECRET") or config("SECRET_KEY")
     if not secret_key:
         raise exceptions.AuthError("Missing config JWT/SECRET_KEY")
     return secret_key
@@ -254,8 +253,7 @@ def get_user_by_jwt(token=None):
 
     if not token:
         if not 'Authorization' in request.headers:
-            raise exceptions.AuthError(
-                "Missing Authorization Bearer in headers")
+            raise exceptions.AuthError("Missing Authorization Bearer in headers")
         data = request.headers['Authorization'].encode('ascii', 'ignore')
         token = str.replace(str(data), 'Bearer ', '').strip()
 
@@ -692,7 +690,6 @@ def session_get_require_password_change():
 # CLI
 
 
-
 class CLI(mocha.cli.Manager):
 
     def __init__(self, command, click):
@@ -707,8 +704,10 @@ class CLI(mocha.cli.Manager):
             print("Email: %s" % email)
             try:
                 password = get_random_password()
-                user = create_user(username=email, password=password,
-                                   first_name="SuperAdmin", role="Superadmin")
+                user = create_user(username=email,
+                                   password=password,
+                                   first_name="SuperAdmin",
+                                   role="Superadmin")
                 user.update(require_password_change=True)
 
                 print("Password: %s" % password)
@@ -730,7 +729,6 @@ class CLI(mocha.cli.Manager):
 
                 if not ul:
                     raise Exception("Email '%s' doesn't exist" % email)
-                print(ul.email)
                 password = get_random_password()
                 ul.change_password(password)
                 ul.update(require_password_change=True)

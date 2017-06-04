@@ -33,7 +33,6 @@ import uuid
 from six import string_types
 from slugify import slugify
 from werkzeug.utils import import_string
-from passlib.hash import bcrypt as crypt_engine
 from distutils.dir_util import (copy_tree as copy_dir,
                                 remove_tree as remove_dir,
                                 mkpath as make_dirs)
@@ -141,20 +140,6 @@ def in_any_list(items1, items2):
     return any(i in items2 for i in items1)
 
 
-def encrypt_string(string):
-    """
-    Encrypt a string
-    """
-    return crypt_engine.encrypt(string)
-
-
-def verify_encrypted_string(string, encrypted_string):
-    """
-    Verify an encrypted string
-    """
-    return crypt_engine.verify(string, encrypted_string)
-
-
 def generate_random_string(length=8):
     """
     Generate a random string
@@ -170,42 +155,6 @@ def generate_random_hash(size=32):
     :return: string
     """
     return os.urandom(size//2).encode('hex')
-
-
-def how_old(dob):
-    """
-    Calculate the age
-    :param dob: datetime object
-    :return: int
-    """
-    today = datetime.date.today()
-    return today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
-
-
-def is_port_open(port, host="127.0.0.1"):
-    """
-    Check if a port is open
-    :param port:
-    :param host:
-    :return bool:
-    """
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    try:
-        s.connect((host, int(port)))
-        s.shutdown(2)
-        return True
-    except Exception as e:
-        return False
-
-
-def create_uri(host, user=None, password=None, port=None, path=None, scheme="http"):
-    port = ":%s" % port if port else ""
-    path = "/%s" % path if path else ""
-    user_info = ""
-    if user or password:
-        user_info = "%s:%s@" % (user or "", password or "")
-    return "{scheme}://{user_info}{host}{port}{path}".format(
-        scheme=scheme, host=host, user_info=user_info,port=port, path=path)
 
 
 class dict_dot(dict):
@@ -241,6 +190,31 @@ class dict_dot(dict):
             return default
 
 
+def list_replace(subject_list, replacement, string):
+    """
+    To replace a list of items by a single replacement
+    :param subject_list: list
+    :param replacement: string
+    :param string: string
+    :return: string
+    """
+    for s in subject_list:
+        string = string.replace(s, replacement)
+    return string
+
+
+def dict_replace(subject_dict, string):
+    """
+    Replace a dict map, key to its value in the stirng
+    :param subject_dict: dict
+    :param string: string
+    :return: string
+    """
+    for i, j in subject_dict.items():
+        string = string.replace(i, j)
+    return string
+
+
 def sign_jwt(data, secret_key, expires_in, salt=None, **kw):
     """
     To create a signed JWT
@@ -256,7 +230,6 @@ def sign_jwt(data, secret_key, expires_in, salt=None, **kw):
                                                      salt=salt,
                                                       **kw)
     return s.dumps(data)
-
 
 
 def unsign_jwt(token, secret_key, salt=None, **kw):
@@ -315,7 +288,6 @@ def sign_url_safe(data, secret_key, expires_in=None, salt=None, **kw):
     return s.dumps(data)
 
 
-
 def unsign_url_safe(token, secret_key, salt=None, **kw):
     """
     To sign url safe data.
@@ -342,7 +314,6 @@ def unsign_url_safe(token, secret_key, salt=None, **kw):
         return s.loads(token)
 
 
-
 def sign_data(data, secret_key, expires_in=None, salt=None, **kw):
     if expires_in:
         pass
@@ -357,16 +328,17 @@ def unsign_data(data, secret_key, salt=None, **kw):
 
 # ------------------------------------------------------------------------------
 
+
 def to_json(d):
     """
     Convert data to json. It formats datetime/arrow time
     :param d: dict or list
     :return: json data
     """
-    return json.dumps(d, cls=_DatetimeEncoder)
+    return json.dumps(d, cls=_MochaJSONEncoder)
 
 
-class _DatetimeEncoder(json.JSONEncoder):
+class _MochaJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, arrow.Arrow):
             return obj.for_json()
@@ -438,27 +410,43 @@ def get_decorators_list(method):
     return kls.parse()
 
 
-def list_replace(subject_list, replacement, string):
+# ------------------------------------------------------------------------------
+
+# DEPRECATED
+
+def is_port_open(port, host="127.0.0.1"):
     """
-    To replace a list of items by a single replacement
-    :param subject_list: list
-    :param replacement: string
-    :param string: string
-    :return: string
+    Check if a port is open
+    :param port:
+    :param host:
+    :return bool:
     """
-    for s in subject_list:
-        string = string.replace(s, replacement)
-    return string
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
+        s.connect((host, int(port)))
+        s.shutdown(2)
+        return True
+    except Exception as e:
+        return False
 
 
-def dict_replace(subject_dict, string):
+def create_uri(host, user=None, password=None, port=None, path=None, scheme="http"):
+    port = ":%s" % port if port else ""
+    path = "/%s" % path if path else ""
+    user_info = ""
+    if user or password:
+        user_info = "%s:%s@" % (user or "", password or "")
+    return "{scheme}://{user_info}{host}{port}{path}".format(
+        scheme=scheme, host=host, user_info=user_info,port=port, path=path)
+
+
+def how_old(dob):
     """
-    Replace a dict map, key to its value in the stirng
-    :param subject_dict: dict
-    :param string: string
-    :return: string
+    Calculate the age
+    :param dob: datetime object
+    :return: int
     """
-    for i, j in subject_dict.items():
-        string = string.replace(i, j)
-    return string
+    today = datetime.date.today()
+    return today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
+
 

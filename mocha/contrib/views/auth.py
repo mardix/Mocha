@@ -31,7 +31,8 @@ from mocha import (Mocha,
                    url_for,
                    session,
                    upload_file,
-                   delete_file
+                   delete_file,
+                   render,
                    )
 
 import mocha.contrib
@@ -83,7 +84,7 @@ def main(**kwargs):
     nav_kwargs = kwargs.get("nav_menu", {})
     verify_email = options.get("verify_email") or False
 
-    # @h_deco.nav_title(
+    # @render.nav(
     #     title=nav_kwargs.pop("title", "My Account") or "My Account",
     #     visible=is_authenticated,
     #     css_id=nav_kwargs.pop("css_id", "auth-account-menu"),
@@ -101,8 +102,7 @@ class Login(Mocha):
 
         __options__.setdefault("login_view", "main.Index:index")
         __options__.setdefault("logout_view", "main.Index:index")
-        __options__.setdefault("login_message",
-                               "Please log in to access this page.")
+        __options__.setdefault("login_message", "Please log in to access this page.")
         __options__.setdefault("login_message_category", "info")
         __options__.setdefault("allow_login", True)
         __options__.setdefault("allow_registration", True)
@@ -135,7 +135,7 @@ class Login(Mocha):
         nav.setdefault("title", _("Account"))
         nav["visible"] = not_authenticated
 
-        h_deco.nav_title.add(nav.pop("title"), cls, **nav)
+        render.nav.add(nav.pop("title"), cls, **nav)
 
         # Route
         kwargs["base_route"] = __options__.get("login.route", "/")
@@ -146,16 +146,15 @@ class Login(Mocha):
         # Login Manager
         login_manager.login_view = "auth.Login:login"
         login_manager.login_message = __options__.get("login_message")
-        login_manager.login_message_category = __options__.get(
-            "login_message_category")
+        login_manager.login_message_category = __options__.get("login_message_category")
 
         super(cls, cls)._register(app, **kwargs)
 
         app.config["CONTRIB_AUTH_ADMIN_DATE_FORMAT"] = "MM/DD/YYYY hh:mm a"
 
-    @h_deco.nav_title("Login", visible=not_authenticated)
-    @h_deco.accept_post_get
-    @h_deco.template("contrib/auth/Login/login.jade")
+    @render.nav("Login", visible=not_authenticated)
+    @request.post_get
+    @render.template("contrib/auth/Login/login.jade")
     @deco.logout_user
     def login(self):
         if not __options__.get("allow_login"):
@@ -166,8 +165,7 @@ class Login(Mocha):
             password = request.form.get("password", "").strip()
             try:
                 if not username or not password:
-                    raise mocha_exc.AppError(
-                        "Email/Username or Password is empty")
+                    raise mocha_exc.AppError("Email/Username or Password is empty")
 
                 user = authenticate(username=username, password=password)
                 if not user:
@@ -180,8 +178,7 @@ class Login(Mocha):
                 #     session_set_require_password_change(True)
                 # return redirect(views.auth.Account.account_settings, edit_password=1)
 
-                return redirect(
-                    request.form.get("next") or __options__.get("login_view"))
+                return redirect(request.form.get("next") or __options__.get("login_view"))
 
             except exceptions.VerifyEmailError as ve:
                 return redirect(self.login, username=username, v="1")
@@ -198,20 +195,18 @@ class Login(Mocha):
             "username": request.args.get("username"),
             "login_url_next": request.args.get("next", ""),
             "allow_registration": __options__.get("allow_registration"),
-            "show_verification_message": True if request.args.get(
-                "v") == "1" else False
+            "show_verification_message": True if request.args.get("v") == "1" else False
         }
 
-    @h_deco.nav_title("Register", visible=not_authenticated())
-    @h_deco.accept_post_get
+    @render.nav("Register", visible=not_authenticated())
+    @request.post_get
     @deco.logout_user
-    @h_deco.template("contrib/auth/Login/register.jade")
+    @render.template("contrib/auth/Login/register.jade")
     def register(self):
         """ Registration """
 
         if not __options__.get("allow_registration"):
-            abort(403,
-                  "Registration is not allowed. Contact admin if it's a mistake")
+            abort(403, "Registration is not allowed. Contact admin if it's a mistake")
 
         page_attr("Register")
 
@@ -223,8 +218,7 @@ class Login(Mocha):
                 email = request.form.get("email", "").strip()
                 username = request.form.get("username", "").strip()
                 password = request.form.get("password", "").strip()
-                password_confirm = request.form.get("password_confirm",
-                                                    "").strip()
+                password_confirm = request.form.get("password_confirm", "").strip()
                 first_name = request.form.get("first_name", "").strip()
                 last_name = request.form.get("last_name", "").strip()
 
@@ -237,8 +231,7 @@ class Login(Mocha):
                 # Require username and email
                 if __options__.get("registration_username"):
                     if "@" in username:
-                        raise exceptions.AuthError(
-                            _("Username can't be an email"))
+                        raise exceptions.AuthError(_("Username can't be an email"))
                     if not utils.is_email_valid(email):
                         raise exceptions.AuthError(_("Invalid email address"))
                     login_method = "username"
@@ -275,8 +268,7 @@ class Login(Mocha):
 
                 if __options__.get("require_email_verification"):
                     user.send_welcome_email(view_class=self)
-                    flash_success(
-                        _("Please check your email. We've sent you a message"))
+                    flash_success(_("Please check your email. We've sent you a message"))
 
                 return redirect(
                     request.form.get("next") or __options__.get("login_view"))
@@ -315,10 +307,10 @@ class Login(Mocha):
                                       social_id=oauth_session.get("user_id"))
         delete_oauth_session()
 
-    @h_deco.nav_title("Lost Password")
-    @h_deco.accept_post_get
+    @render.nav("Lost Password")
+    @request.post_get
     @deco.logout_user
-    @h_deco.template("contrib/auth/Login/lost_password.jade")
+    @render.template("contrib/auth/Login/lost_password.jade")
     def lost_password(self):
 
         if not __options__.get("allow_login"):
@@ -332,18 +324,16 @@ class Login(Mocha):
             if user:
                 user = UserModel(user)
                 user.send_password_reset(view_class=self)
-                flash_success(
-                    "A new password has been sent to '%s'" % user.email)
+                flash_success("A new password has been sent to '%s'" % user.email)
                 return redirect(self.login)
             else:
                 flash_error("Invalid login")
                 return redirect(self.lost_password)
 
-    @h_deco.nav_title("Reset Password", visible=False)
-    @h_deco.route("/reset-password/<action_token>/<signed_data>/",
-                  methods=["POST", "GET"])
+    @render.nav("Reset Password", visible=False)
+    @request.route("/reset-password/<action_token>/<signed_data>/", methods=["POST", "GET"])
     @deco.logout_user
-    @h_deco.template("contrib/auth/Login/reset_password.jade")
+    @render.template("contrib/auth/Login/reset_password.jade")
     def reset_password(self, action_token, signed_data):
         """Reset the user password. It was triggered by LOST-PASSWORD """
         try:
@@ -376,9 +366,9 @@ class Login(Mocha):
         return redirect(self.login)
 
     @deco.login_not_required
-    @h_deco.route("/verify-email/<action_token>/<signed_data>/")
+    @request.route("/verify-email/<action_token>/<signed_data>/")
     @deco.logout_user
-    @h_deco.template("contrib/auth/Login/verify_email.jade")
+    @render.template("contrib/auth/Login/verify_email.jade")
     def verify_email(self, action_token, signed_data):
         """ Verify email account, in which a link was sent to """
         try:
@@ -399,10 +389,10 @@ class Login(Mocha):
             flash_error("Verification Failed!")
         return redirect(self.login)
 
-    @h_deco.nav_title("Confirm Email", visible=False)
-    @h_deco.accept_post_get
+    @render.nav("Confirm Email", visible=False)
+    @request.post_get
     @deco.logout_user
-    @h_deco.template("contrib/auth/Login/reset_email_verification.jade")
+    @render.template("contrib/auth/Login/reset_email_verification.jade")
     def request_email_verification(self):
         """"""
         if not __options__.get("verify_email"):
@@ -428,16 +418,15 @@ class Login(Mocha):
             "email": request.args.get("email"),
         }
 
-    @h_deco.nav_title("Logout", visible=False)
-    @h_deco.accept_get
+    @render.nav("Logout", visible=False)
+    @request.get
     @deco.logout_user
     def logout(self):
         session_set_require_password_change(False)
         return redirect(__options__.get("logout_view") or self.login)
 
-    @h_deco.render_json
-    @h_deco.route("/oauth-connect/<provider>/<action>/",
-                  methods=["GET", "POST"])
+    @render.json
+    @request.route("/oauth-connect/<provider>/<action>/", methods=["GET", "POST"])
     def oauth_connect(self, provider, action):
         """
         This endpoint doesn't check if user is logged in, because it has two functions
@@ -494,7 +483,6 @@ class Login(Mocha):
             return client.authorize(callback=authorized_url)
         elif action == "authorized":
             resp = client.authorized_response()
-            print(resp)
             if resp is None:
                 pass
             elif isinstance(resp, OAuthException):
@@ -578,7 +566,7 @@ class Account(Mocha):
             title = custom_nav
 
         # Set the nav title
-        h_deco.nav_title.add(title, cls, **nav)
+        render.nav.add(title, cls, **nav)
 
         # Route
         kwargs["base_route"] = __options__.get("account.route", "/account/")
@@ -591,17 +579,17 @@ class Account(Mocha):
         if not current_user.password_matched(password):
             raise exceptions.AuthError("Invalid password")
 
-    @h_deco.nav_title("Logout", endpoint="auth.Login:logout", order=100)
+    @render.nav("Logout", endpoint="auth.Login:logout", order=100)
     def _(self):
         pass
 
-    @h_deco.nav_title("Account Settings", order=1)
-    @h_deco.template("contrib/auth/Account/account_settings.jade")
+    @render.nav("Account Settings", order=1)
+    @render.template("contrib/auth/Account/account_settings.jade")
     def account_settings(self):
         page_attr("Account Info")
         return {}
 
-    @h_deco.accept_post
+    @request.post
     def change_username(self):
         """Update the login email"""
         try:
@@ -618,7 +606,7 @@ class Account(Mocha):
         redirect_url = request.form.get("redirect") or self.account_settings
         return redirect(redirect_url)
 
-    @h_deco.accept_post
+    @request.post
     def change_email(self):
         """Update the login email"""
         try:
@@ -635,7 +623,7 @@ class Account(Mocha):
         redirect_url = request.form.get("redirect") or self.account_settings
         return redirect(redirect_url)
 
-    @h_deco.accept_post
+    @request.post
     def change_password(self):
         """Change password """
         try:
@@ -655,7 +643,7 @@ class Account(Mocha):
         redirect_url = request.form.get("redirect") or self.account_settings
         return redirect(redirect_url)
 
-    @h_deco.accept_post
+    @request.post
     def update_info(self):
         """Update basic account info"""
         try:
@@ -699,16 +687,16 @@ class Account(Mocha):
         redirect_url = request.form.get("redirect") or self.account_settings
         return redirect(redirect_url)
 
-    @h_deco.nav_title("Setup Login", visible=False)
-    @h_deco.accept_post_get
-    @h_deco.template("contrib/auth/Account/setup_login.jade")
+    @render.nav("Setup Login", visible=False)
+    @request.post_get
+    @render.template("contrib/auth/Account/setup_login.jade")
     def setup_login(self):
         return
         user_login = current_user.user_login("email")
         if user_login:
             return redirect(self.account_settings)
 
-        if request.method == "POST":
+        if request.IS_POST:
             try:
                 email = request.form.get("email")
                 password = request.form.get("password")
@@ -747,7 +735,7 @@ class Admin(Mocha):
         nav.setdefault("order", 100)
         nav["visible"] = visible_to_managers
         title = nav.pop("title") or _("User Admin")
-        h_deco.nav_title.add(title, cls, **nav)
+        render.nav.add(title, cls, **nav)
 
         # Route
         kwargs["base_route"] = __options__.get("admin.route", "/admin/users/")
@@ -768,22 +756,20 @@ class Admin(Mocha):
             .order_by(models.AuthUserRole.level.desc())
         return [(r.id, r.name.upper()) for r in _r]
 
-    @h_deco.nav_title("All Users")
-    @h_deco.template("contrib/auth/Admin/index.jade")
+    @render.nav("All Users")
+    @render.template("contrib/auth/Admin/index.jade")
     def index(self):
 
         page_attr("All Users")
 
-        include_deleted = True if request.args.get(
-            "include-deleted") == "y" else False
+        include_deleted = True if request.args.get("include-deleted") == "y" else False
         username = request.args.get("username")
         name = request.args.get("name")
         email = request.args.get("email")
         role = request.args.get("role")
         sorting = request.args.get("sorting", "first_name__asc")
         users = models.AuthUser.query(include_deleted=include_deleted)
-        users = users.join(models.AuthUserRole).filter(
-            models.AuthUserRole.level <= current_user.role.level)
+        users = users.join(models.AuthUserRole).filter(models.AuthUserRole.level <= current_user.role.level)
 
         if username:
             users = users.filter(models.AuthUser.username.contains(username))
@@ -820,11 +806,8 @@ class Admin(Mocha):
                     sorting_options=sorting,
                     users=users,
                     search_query={
-                        "include-deleted": request.args.get("include-deleted",
-                                                            "n"),
-                        "role": int(
-                            request.args.get("role")) if request.args.get(
-                            "role") else "",
+                        "include-deleted": request.args.get("include-deleted", "n"),
+                        "role": int(request.args.get("role")) if request.args.get("role") else "",
                         "status": request.args.get("status"),
                         "name": request.args.get("name", ""),
                         "username": request.args.get("username", ""),
@@ -833,8 +816,8 @@ class Admin(Mocha):
                         }
                     )
 
-    @h_deco.nav_title("User Info", visible=False)
-    @h_deco.template("contrib/auth/Admin/info.jade")
+    @render.nav("User Info", visible=False)
+    @render.template("contrib/auth/Admin/info.jade")
     def info(self, id):
         page_attr("User Info")
         user = models.AuthUser.get(id, include_deleted=True)
@@ -849,7 +832,7 @@ class Admin(Mocha):
             "user_roles_options": self._user_roles_options()
         }
 
-    @h_deco.accept_post
+    @request.post
     def action(self):
         id = request.form.get("id")
         action = request.form.get("action")
@@ -912,8 +895,7 @@ class Admin(Mocha):
 
             elif action == "change-password":
                 password = request.form.get("password", "").strip()
-                password_confirm = request.form.get("password_confirm",
-                                                    "").strip()
+                password_confirm = request.form.get("password_confirm", "").strip()
                 if password != password_confirm:
                     raise exceptions.AuthError("Invalid passwords")
                 user.change_password(password)
@@ -942,7 +924,7 @@ class Admin(Mocha):
             flash_error(ae.message)
         return redirect(self.info, id=id)
 
-    @h_deco.accept_post
+    @request.post
     def create(self):
         try:
 
@@ -978,16 +960,16 @@ class Admin(Mocha):
 
         return redirect(self.index)
 
-    @h_deco.nav_title("User Roles", order=2)
-    @h_deco.accept_post_get
-    @h_deco.template("contrib/auth/Admin/roles.jade")
+    @render.nav("User Roles", order=2)
+    @request.post_get
+    @render.template("contrib/auth/Admin/roles.jade")
     def roles(self):
         """
         Only admin and super admin can add/remove roles
         RESTRICTED ROLES CAN'T BE CHANGED
         """
         roles_max_range = 11
-        if request.method == "POST":
+        if request.IS_POST:
             try:
                 id = request.form.get("id")
                 name = request.form.get("name")

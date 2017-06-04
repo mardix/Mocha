@@ -206,6 +206,13 @@ class BaseConfig(object):
     #: It contains common properties that can passed into the upload function
     #: ie: upload_file("profile-image", file)
     STORAGE_UPLOAD_FILE_PROPS = {
+        # To upload regular images
+        "image": {
+            "extensions": ["jpg", "png", "gif", "jpeg"],
+            "public": True
+        },
+
+        # To upload profile image
         "profile-image": {
             "prefix": "profile-image/",
             "extensions": ["jpg", "png", "gif", "jpeg"],

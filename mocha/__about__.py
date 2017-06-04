@@ -15,7 +15,7 @@ __all__ = [
 ]
 
 __title__ = "Mocha"
-__version__ = "0.6.0"
+__version__ = "0.7.0"
 __summary__ = "A mid stack Flask based framework that put structure in the " \
               "file system. Features: Caching, Mailing, Storage, CSRF, recaptcha, Cors. " \
               "Supports HTML, Markdown and Jade " \

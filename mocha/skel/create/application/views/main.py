@@ -16,6 +16,7 @@ from mocha import (Mocha,
                    models,
                    utils,
                    paginate,
+                   render,
                    decorators as deco
                    )
 
@@ -24,8 +25,7 @@ from mocha import (Mocha,
 
 
 class Index(Mocha):
-
-    @deco.nav_title("Home", order=1)
+    @render.nav("Home", order=1)
     def index(self):
         page_attr(title="Hello View!")
         return

@@ -17,6 +17,8 @@ from mocha import (Mocha,
                    page_attr,
                    redirect,
                    decorators as deco,
+                   db,
+                   render,
                    exceptions)
 
 import mocha.contrib
@@ -41,7 +43,7 @@ class Main(Mocha):
         nav.setdefault("visible", True)
         nav.setdefault("order", 100)
         title = nav.pop("title")
-        deco.nav_title.add(title, cls.page, **nav)
+        render.nav.add(title, cls.page, **nav)
 
         # route
         kwargs["base_route"] = __options__.get("route", "/contact/")
@@ -55,19 +57,18 @@ class Main(Mocha):
 
         @app.before_first_request
         def setup():
-            pass
-            # if app.db:
-            #     try:
-            #         app_data.set(APP_DATA_KEY, data, init=True)
-            #     except Exception as ex:
-            #         logging.fatal("mocha.contrib.app_data has not been setup. Need to run `mocha :dbsync`")
-            #         abort(500)
+            if db._IS_OK_:
+                try:
+                    app_data.set(APP_DATA_KEY, data, init=True)
+                except Exception as ex:
+                    logging.fatal("mocha.contrib.app_data has not been setup. Need to run `mocha :dbsync`")
+                    abort(500)
 
         # Call the register
         super(cls, cls)._register(app, **kwargs)
 
-    @deco.route("/", methods=["GET", "POST"])
-    @deco.template("contrib/contact_us/Main/page.jade")
+    @request.route("/", methods=["GET", "POST"])
+    @render.template("contrib/contact_us/Main/page.jade")
     def page(self):
 
         recipients = app_data.get(APP_DATA_KEY, "recipients") \
@@ -133,12 +134,12 @@ class Main(Mocha):
         }
 
 
-@deco.nav_title("Contact Us")
+@render.nav("Contact Us")
 @mocha.contrib.admin
 class Admin(Mocha):
-    @deco.route("/contact")
-    @deco.nav_title("Settings")
-    @deco.template("contrib/contact_us/Admin/index.jade")
+    @request.route("/contact")
+    @render.nav("Settings")
+    @render.template("contrib/contact_us/Admin/index.jade")
     def index(self):
         adata = app_data.get(APP_DATA_KEY)
         page_attr("Contact Us Settings")

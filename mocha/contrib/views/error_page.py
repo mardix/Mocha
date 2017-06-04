@@ -24,7 +24,7 @@ renderer = None
 """
 Example:
 
-@render_as_json
+@render.json
 def my_error(e):
     return {
         "error": True,
@@ -40,8 +40,6 @@ class Main(Mocha):
     def _register(cls, app, **kwargs):
 
         template_page = __options__.get("template", "contrib/error_page/Main/index.jade")
-
-        super(cls, cls)._register(app, **kwargs)
 
         @app.errorhandler(400)
         @app.errorhandler(401)
@@ -67,7 +65,6 @@ class Main(Mocha):
 
             # if isinstance(error, SQLAlchemyError):
             #     error = SQLAlchemyHTTPException(error)
-
             # we'll log non 4** errors
             if int(error.code // 100) != 4:
                 _error = str(error)
@@ -78,4 +75,6 @@ class Main(Mocha):
             if renderer:
                 return renderer(error)
             else:
-                return cls.render(_template=template_page, error=error), error.code
+                return cls.render({"error": error}, _template=template_page)
+
+        super(cls, cls)._register(app, **kwargs)

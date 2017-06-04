@@ -19,7 +19,7 @@ class MochaDB(active_alchemy.ActiveAlchemy):
         self.Model = active_alchemy.declarative_base(cls=active_alchemy.Model, name='Model')
         self.BaseModel = active_alchemy.declarative_base(cls=active_alchemy.BaseModel, name='BaseModel')
         self._initialized = False
-        self.ok__ = False
+        self._IS_OK_ = False
 
     def connect__(self, uri, app):
         self.uri = uri
@@ -33,7 +33,7 @@ class MochaDB(active_alchemy.ActiveAlchemy):
         )
 
         self._initialized = True
-        self.ok__ = True
+        self._IS_OK_ = True
         self.connector = None
         self._engine_lock = active_alchemy.threading.Lock()
         self.session = active_alchemy._create_scoped_session(self, query_cls=active_alchemy.BaseQuery)

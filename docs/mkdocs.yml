@@ -28,6 +28,13 @@ pages:
 
   - Views:
     - Views: views/index.md
+    - Route: views/route.md
+    - Request: views/request.md
+    - Redirect: views/redirect.md
+    - Render: views/render.md
+    - Url_For: views/url_for.md
+    - Abort: views/abort.md
+    - Session & Flash: views/session-flash.md
     - Decorators: views/decorators.md
     - Helpers: views/helpers.md
 
