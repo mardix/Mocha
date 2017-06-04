@@ -5,7 +5,7 @@ site_url: "https://mardix.github.com/mocha"
 copyright: 'Copyright &copy; 2016 - 2017++ Mardix'
 
 repo_url: https://github.com/mardix/mocha
-repo_name: "Mocha"
+repo_name: "mocha"
 theme: "material" # readthedocs
 
 markdown_extensions:
@@ -26,25 +26,33 @@ pages:
   - First App: first-app.md
   - Config: config.md
 
-  - Views: views/index.md
-  - "Views: Decorators": views/decorators.md
-  - "Views: Helpers": views/helpers.md
+  - Views:
+    - Views: views/index.md
+    - Decorators: views/decorators.md
+    - Helpers: views/helpers.md
 
-  - Templates: templates/index.md
-  - "Templates: Filters": templates/filters.md
-
-  - Templates Components:
+  - Templates:
+    - Templates: templates/index.md
+    - Filters: templates/filters.md
     - Forms: templates/forms.md
     - Widgets: templates/widgets.md
     - Navs: templates/navs.md
 
-  - Models: models.md
   - Assets: assets.md
-  - Extensions: ext.md
-  - Arrow: arrow.md
+  - Models: models.md
+
   - Utils: utils.md
   - Pagination: pagination.md
   - Signals: signals.md
+
+  - Arrow: ext/arrow.md
+  - Bcrypt: ext/bcrypt.md
+  - Cache: ext/cache.md
+  - Storage: ext/storage.md
+  - CSRF: ext/csrf.md
+  - Mail: ext/mail.md
+  - Recaptcha: ext/recaptcha.md
+
   - Logging: logging.md
 
   - Contrib: contrib/index.md

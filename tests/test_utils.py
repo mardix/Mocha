@@ -1,6 +1,6 @@
 
 import functools
-import harambe.utils as utils
+import mocha.utils as utils
 
 
 def test_encrypted_string():

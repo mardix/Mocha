@@ -16,6 +16,7 @@ import flask_mail
 import flask_s3
 import flask_babel
 from flask_babel import lazy_gettext as _
+from passlib.hash import bcrypt as passhash
 from . import (Mocha,
                init_app,
                utils,
@@ -33,6 +34,7 @@ __all__ = ["cache",
            "delete_file",
            "recaptcha",
            "csrf",
+           "bcrypt",
            "send_mail",
            "paginate",
            "_",
@@ -59,6 +61,7 @@ def _setup(app):
             msg = "Missing config key value: %s " % k
             logging.warning(msg)
 
+init_app(_setup)
 
 # ------------------------------------------------------------------------------
 
@@ -110,6 +113,7 @@ def _session(app):
     if store:
         flask_kvsession.KVSessionExtension(store, app)
 
+init_app(_session)
 # ------------------------------------------------------------------------------
 # Mailer
 class _Mailer(object):
@@ -231,6 +235,25 @@ class _Mailer(object):
         else:
             raise exceptions.MochaError("Invalid mail provider. Must be 'SES' or 'SMTP'")
 
+mail = _Mailer()
+init_app(mail.init_app)
+
+def send_mail(template, to, **kwargs):
+    """
+    Alias to mail.send(), but makes template required
+    ie: send_mail("welcome-to-the-site.txt", "user@email.com")
+    :param template: 
+    :param to:
+    :param kwargs:
+    :return:
+    """
+
+    def cb():
+        return mail.send(to=to, template=template, **kwargs)
+
+    return signals.send_mail(cb, data={"to": to, "template": template, "kwargs": kwargs})
+
+
 # ------------------------------------------------------------------------------
 
 # Assets Delivery
@@ -259,12 +282,15 @@ class _AssetsDelivery(flask_s3.FlaskS3):
 
             super(self.__class__, self).init_app(app)
 
+assets_delivery = _AssetsDelivery()
+init_app(assets_delivery.init_app)
+
 # ------------------------------------------------------------------------------
 
 # Set CORS
 def set_cors_config(app):
     """
-    Flask-Core (3.x.x) extension set the config as CORS_*,
+    Flask-Cors (3.x.x) extension set the config as CORS_*,
      But we'll hold the config in CORS key.
      This function will convert them to CORS_* values
     :param app:
@@ -276,33 +302,43 @@ def set_cors_config(app):
             if _ not in app.config:
                 app.config[_] = v
 
-# ------------------------------------------------------------------------------
-
-
-init_app(_setup)
-
-init_app(_session)
-
-# CORS
 init_app(set_cors_config)
 
-# Mail
-mail = _Mailer()
-init_app(mail.init_app)
-
-
-def send_mail(template, to, **kwargs):
+# ------------------------------------------------------------------------------
+# BCRYPT
+class Bcrypt(object):
     """
-    Alias to mail.send(), but makes template required
-    ie: send_mail("welcome-to-the-site.txt", "user@email.com")
-    :param template: 
-    :param to:
-    :param kwargs:
-    :return:
+
+    https://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html
+
+    CONFIG 
+        BCRYPT_ROUNDS = 12  # salt string
+        BCRYPT_SALT= None #
+        BCRYPT_IDENT = '2b'
+
     """
-    def cb():
-        return mail.send(to=to, template=template, **kwargs)
-    return signals.send_mail(cb, data={"to": to, "template": template, "kwargs": kwargs})
+
+    def __init__(self, app=None):
+        self.config = {
+            "rounds": 12
+        }
+        if app is not None:
+            self.init_app(app)
+
+    def init_app(self, app):
+        self.config = app.config.get_namespace("BCRYPT_")
+
+    def hash(self, string):
+        return passhash.using(**self.config).hash(string)
+
+    def verify(self, string, hash):
+        return passhash.verify(string, hash)
+
+bcrypt = Bcrypt()
+init_app(bcrypt.init_app)
+
+# ------------------------------------------------------------------------------
+
 
 
 # Cache
@@ -352,7 +388,6 @@ def upload_file(_props_key, file, **kw):
 def delete_file(fileobj):
     if not isinstance(fileobj, (flask_cloudy.Object, mocha_db.StorageObject)):
         raise TypeError("Invalid file type. Must be of flask_cloudy.Object")
-
     return signals.delete_file(lambda: fileobj.delete())
 
 
@@ -363,10 +398,6 @@ init_app(recaptcha.init_app)
 # CSRF
 csrf = flask_seasurf.SeaSurf()
 init_app(csrf.init_app)
-
-# Assets delivery
-assets_delivery = _AssetsDelivery()
-init_app(assets_delivery.init_app)
 
 
 def paginate(iter, **kwargs):

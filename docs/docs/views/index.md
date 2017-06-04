@@ -1,6 +1,8 @@
 
-# Views
 
+Location: `/application/views`
+
+---
 
 Examples
 

@@ -4,23 +4,70 @@ Extensions are some flask extensions that are already loaded in your application
 for you to use. They can be configured through their native configuration or 
 through Mocha config.
 
+---
+
+## bcrypt
+
+`bcrypt` from the `passlib` library is used to hash and verify password.
+
+
+#### Import
+
+    from mocha import bcrypt
+
+#### Hash password
+
+Hash a password for storage
+
+    my_string_pass = "mypass123"
+    my_hash = bcrypt.hash(my_string_pass)
+
+#### Verify password
+
+Verify a password by using the string provided to hash, and the hash that was created previously. It returns a bool.
+
+    bcrypt.verify(my_string_pass, my_hash)
+
+
+#### Config
+
+`bcrypt` can be used with no configuration as it will fall back to its default. But if you want you can have the following
+config
+
+    BCRYPT_SALT = ""
+
+    BCRYPT_ROUNDS = 12
+
+    BCRYPT_INDENT = ""
+
 
 ---
 
-## upload
-
-
----
 
 ## cache 
 
-**cache** exposes a caching mechanism for your application's views.
+`flask_cache` is used to cache data. It allows to use different backend, ie: Redis, Memcache, etc.
+
+
+#### Import
 
     from mocha import cache
 
-**Configuration**
 
-    #: Flask-Cache is used to caching
+#### Decorator
+
+    from mocha import Mocha, cache
+
+    class Index(Mocha):
+
+        @cache.cached(3600)
+        def index(self):
+            return {
+
+            }
+
+
+#### Config
 
     #: CACHE_TYPE
     #: The type of cache to use
@@ -35,30 +82,46 @@ through Mocha config.
     #: CACHE_DIR
     #: Directory to store cache if CACHE_TYPE is filesystem, it will
     CACHE_DIR = ""
-    
-
-**Example**
-
-    class Index(Mocha):
-        
-        @cache.cached(60*60)
-        def index(self):
-            pass
 
  
-Extension: [flask-cache](https://github.com/thadeusb/flask-cache)
+Extension: [flask-cache](https://github.com/sh4nks/flask-caching)
 
 ---
 
 
 ## mail
 
-**mail** exposes an interface to send email via SMTP or AWS SES.
+Mail exposes an interface to send email via SMTP or AWS SES.
 
- 
-    from mocha import mail
 
-**Configuration**
+#### Import
+
+    from mocha import send_mail
+
+#### Send Mail
+
+Send mail helps you quickly send emails.
+
+    template = ""
+    to = "me@email.com"
+
+    send_email(template=template, to=to)
+
+#### Mail signals observer
+
+    from mocha import signals
+
+    @signals.send_email.observe
+    def my_email_observer():
+        pass
+
+
+#### Mail interface
+
+    from mocha.ext import mail
+
+
+#### Config
 
     # AWS SES
     # To use AWS SES to send email
@@ -127,12 +190,33 @@ Extension: [flask-mail](https://github.com/mattupstate/flask-mail)
 
 ## recaptcha 
 
-**ReCaptcha** implements the Google recaptcha in your application. 
+Recaptcha implements the Google recaptcha in your application.
+
+#### Import
 
     from mocha import recaptcha
     
 
-**Configuration**
+#### Implement in Jinja
+
+To include the recaptcha in your template add the code below
+
+    {{ recaptcha }}
+
+
+#### Verify code
+
+
+    class Index(Mocha):
+
+        def send_data(self):
+            if recaptcha.verify():
+                # everythings is ok
+            else:
+                # FAILED
+
+
+#### Config
 
     #: Flask-Recaptcha
     #: Register your application at https://www.google.com/recaptcha/admin
@@ -146,27 +230,6 @@ Extension: [flask-mail](https://github.com/mattupstate/flask-mail)
     #: RECAPTCHA_SECRET_KEY
     RECAPTCHA_SECRET_KEY = ""
 
-**Jinja Code**
-
-To include the recaptcha in your template add the code below
-
-    {{ recaptcha }}
-
-**Verify Code**
-
-    class Index(Mocha):
-        
-        def index(self):
-            pass
-            
-        @post
-        def send_data(self):
-            if recaptcha.verify():
-                # SUCCESS
-            else:
-                # FAILED
-            
-**About**
 
 Extension: [flask-recaptcha](https://github.com/mardix/flask-recaptcha)
 
@@ -175,12 +238,15 @@ To register your application go [https://www.google.com/recaptcha/admin](https:/
 ---
 
 
-## csrf 
+## csrf
 
 **csrf** prevents cross-site request forgery (CSRF) on your application
 
+#### Import
+
     from mocha import csrf
-    
+
+
 Automatically all POST, UPDATE methods will require a CSRF token, unless explicitly exempt.
 
 To exempt and endpoint, jus add the decorator `csrf.exempt`
@@ -189,8 +255,7 @@ To exempt and endpoint, jus add the decorator `csrf.exempt`
         
         def index(self):
             pass
-            
-        @post()
+
         @csrf.exempt
         def exempted_post(self):
             pass
@@ -201,6 +266,20 @@ To exempt and endpoint, jus add the decorator `csrf.exempt`
             
 In the example above, when posting to `/exempted-post/` it will not require the CSRF token,
 however `/save-data/` requires it. 
+
+
+
+#### Config
+
+        CSRF_COOKIE_NAME  # _csrf_token
+        CSRF_HEADER_NAME  # X-CSRFToken
+        CSRF_DISABLE
+        CSRF_COOKIE_TIMEOUT
+        CSRF_COOKIE_SECURE
+        CSRF_COOKIE_HTTPONLY
+        CSRF_COOKIE_DOMAIN
+        CSRF_CHECK_REFERER
+        SEASURF_INCLUDE_OR_EXEMPT_VIEWS
 
 
 **About**
@@ -230,9 +309,18 @@ Allows you to to access, upload, download, save and delete files on cloud
 storage providers such as: AWS S3, Google Storage, Microsoft Azure,
 Rackspace Cloudfiles, and even Local file system
 
+#### Import
+
     from mocha import storage
 
-### Configuration
+
+#### Upload File
+
+
+#### Delete File
+
+
+#### Config
 
 Edit the keys below in your config class file:
 

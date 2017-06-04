@@ -387,11 +387,7 @@ Becomes
 
 - Caching
 
-- Default Layout
 
-- Admin interface
-
-- Multi application
 
 - JWT
 
@@ -407,10 +403,73 @@ Becomes
 
 - Markdown
 
+
+
+- Propel for deployment
+
+
+
+- Smart routing: automatically generates routes based on the classes and methods in your views
+
+- Class name as the base url, ie: class UserAccount will be accessed at '/user-account'
+
+- Class methods (action) could be accessed: hello_world(self) becomes 'hello-world'
+
+- Smart Rendering without adding any blocks in your templates
+
+- Auto rendering by returning a dict or None
+
+- Use Jade (Pug) template by default, but you can also use HTML.
+
+- Templates are mapped as the model in the class the $module/$class/$method.jade
+
+- Markdown ready: Along with Jade and HTML, it can also properly parse Markdown
+
+- Auto route can be edited with @route()
+
+- Restful: GET, POST, PUT, DELETE
+
+- REST API Ready
+
+- `bcrypt` is chosen as the password hasher
+
+- Session: Redis, AWS S3, Google Storage, SQLite, MySQL, PostgreSQL
+
+- ORM: [Active-Alchemy](https://github.com/mardix/active-alchemy) (SQLALchemy wrapper)
+
+- ReCaptcha: [Flask-Recaptcha](https://github.com/mardix/flask-recaptcha)
+
+- Arrow for dates
+
+- Active-Alchemy for database and dates are saved as Arrow object
+
+- All dates are by default UTC
+
+- Date can be presented in specific timezone
+
+- CSRF on all POST
+
+- Storage: Local, S3, Google Storage [Flask-Cloudy](https://github.com/mardix/flask-cloudy)
+
+- Mailer (SES or SMTP)
+
+- Caching
+
+- Signals to dispatch messages and data to other part of the application
+
+- JWT
+
+- Default Layout
+
+- Admin interface
+
+- Multi application
+
 - Web Assets
 
 - Propel for deployment
 
+- Decorators, lots of decorators
 
 ---
 

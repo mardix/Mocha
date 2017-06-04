@@ -1,5 +1,9 @@
 
 
+Location: `/application/templates`
+
+---
+
 ## Structure
 
 ## Layouts
