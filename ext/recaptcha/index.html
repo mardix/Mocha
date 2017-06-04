@@ -7,7 +7,7 @@
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
       
-        <link rel="canonical" href="https://mardix.github.com/mocha/contrib/contact-page/">
+        <link rel="canonical" href="https://mardix.github.com/mocha/ext/recaptcha/">
       
       
       
@@ -17,7 +17,7 @@
     
     
       
-        <title>Contact Page - Mocha</title>
+        <title>Recaptcha - Mocha</title>
       
     
     
@@ -78,7 +78,7 @@
             
               
             
-            Contact Page
+            Recaptcha
           
         </span>
       </div>
@@ -521,7 +521,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../ext/arrow/" title="Arrow" class="md-nav__link">
+    <a href="../arrow/" title="Arrow" class="md-nav__link">
       Arrow
     </a>
   </li>
@@ -533,7 +533,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../ext/bcrypt/" title="Bcrypt" class="md-nav__link">
+    <a href="../bcrypt/" title="Bcrypt" class="md-nav__link">
       Bcrypt
     </a>
   </li>
@@ -545,7 +545,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../ext/cache/" title="Cache" class="md-nav__link">
+    <a href="../cache/" title="Cache" class="md-nav__link">
       Cache
     </a>
   </li>
@@ -557,7 +557,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../ext/storage/" title="Storage" class="md-nav__link">
+    <a href="../storage/" title="Storage" class="md-nav__link">
       Storage
     </a>
   </li>
@@ -569,7 +569,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../ext/csrf/" title="CSRF" class="md-nav__link">
+    <a href="../csrf/" title="CSRF" class="md-nav__link">
       CSRF
     </a>
   </li>
@@ -581,7 +581,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../ext/mail/" title="Mail" class="md-nav__link">
+    <a href="../mail/" title="Mail" class="md-nav__link">
       Mail
     </a>
   </li>
@@ -591,11 +591,64 @@
       
       
 
+  
 
-  <li class="md-nav__item">
-    <a href="../../ext/recaptcha/" title="Recaptcha" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Recaptcha
+      </label>
+    
+    <a href="./" title="Recaptcha" class="md-nav__link md-nav__link--active">
       Recaptcha
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#import" title="Import" class="md-nav__link">
+    Import
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implement-in-jinja" title="Implement in Jinja" class="md-nav__link">
+    Implement in Jinja
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-code" title="Verify code" class="md-nav__link">
+    Verify code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#config" title="Config" class="md-nav__link">
+    Config
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
     
@@ -617,7 +670,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../" title="Contrib" class="md-nav__link">
+    <a href="../../contrib/" title="Contrib" class="md-nav__link">
       Contrib
     </a>
   </li>
@@ -629,7 +682,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../auth/" title="Auth" class="md-nav__link">
+    <a href="../../contrib/auth/" title="Auth" class="md-nav__link">
       Auth
     </a>
   </li>
@@ -641,7 +694,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../admin/" title="Admin" class="md-nav__link">
+    <a href="../../contrib/admin/" title="Admin" class="md-nav__link">
       Admin
     </a>
   </li>
@@ -651,56 +704,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
-        Contact Page
-      </label>
-    
-    <a href="./" title="Contact Page" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../../contrib/contact-page/" title="Contact Page" class="md-nav__link">
       Contact Page
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#contact-page" title="Contact Page" class="md-nav__link">
-    Contact Page
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mochacontribviewscontact_page" title="mocha.contrib.views.contact_page" class="md-nav__link">
-    mocha.contrib.views.contact_page
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
     
@@ -710,7 +718,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../error-page/" title="Error Page" class="md-nav__link">
+    <a href="../../contrib/error-page/" title="Error Page" class="md-nav__link">
       Error Page
     </a>
   </li>
@@ -722,7 +730,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../maintenance-page/" title="Error Page" class="md-nav__link">
+    <a href="../../contrib/maintenance-page/" title="Error Page" class="md-nav__link">
       Error Page
     </a>
   </li>
@@ -783,22 +791,30 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#contact-page" title="Contact Page" class="md-nav__link">
-    Contact Page
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mochacontribviewscontact_page" title="mocha.contrib.views.contact_page" class="md-nav__link">
-    mocha.contrib.views.contact_page
+  <a href="#import" title="Import" class="md-nav__link">
+    Import
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#implement-in-jinja" title="Implement in Jinja" class="md-nav__link">
+    Implement in Jinja
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-code" title="Verify code" class="md-nav__link">
+    Verify code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#config" title="Config" class="md-nav__link">
+    Config
+  </a>
   
 </li>
       
@@ -817,42 +833,48 @@
               
                 
                 
-                  <h1>Contact Page</h1>
+                  <h1>Recaptcha</h1>
                 
-                <h2 id="contact-page">Contact Page</h2>
-<h3 id="mochacontribviewscontact_page">mocha.contrib.views.contact_page</h3>
-<p>Adds a contact page interface.</p>
-<p><strong>Installation</strong></p>
-<div class="codehilite"><pre><span></span>CONTACT = (&quot;mocha.contrib.views.contact_page&quot;, {
-    &quot;route&quot;: &quot;/contact/&quot;,
-    &quot;nav&quot;: {
-        &quot;title&quot;: &quot;Contact&quot;,
-        &quot;order&quot;: 100
-    }
-    &quot;recipients&quot;: &quot;recipients@email.com&quot;,
-    &quot;success_message&quot;: &quot;The message to show when the email is sent successfully&quot;,
-    &quot;title&quot;: &quot;Contact Us&quot;,
-    &quot;return_to&quot;: &quot;/&quot;
-})
-
-INSTALLED_APPS: [
-    CONTACT
-]
+                <p>Recaptcha implements the Google recaptcha in your application.</p>
+<h4 id="import">Import</h4>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">mocha</span> <span class="kn">import</span> <span class="n">recaptcha</span>
 </pre></div>
 
 
-<p><strong>Options</strong></p>
-<div class="codehilite"><pre><span></span>- `recipients`: The email address to send the message to
-
-- `return_to`: The view endpoint or url to return to
-
-- `title`: The page title
-
-- `success_message`: The message to show when the email is sent successfully
+<h4 id="implement-in-jinja">Implement in Jinja</h4>
+<p>To include the recaptcha in your template add the code below</p>
+<div class="codehilite"><pre><span></span><span class="cp">{{</span> <span class="nv">recaptcha</span> <span class="cp">}}</span><span class="x"></span>
 </pre></div>
 
 
-<hr />
+<h4 id="verify-code">Verify code</h4>
+<div class="codehilite"><pre><span></span><span class="kr">class</span> <span class="nx">Index</span><span class="p">(</span><span class="nx">Mocha</span><span class="p">)</span><span class="o">:</span>
+
+    <span class="nx">def</span> <span class="nx">send_data</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">if</span> <span class="nx">recaptcha</span><span class="p">.</span><span class="nx">verify</span><span class="p">()</span><span class="o">:</span>
+            <span class="err">#</span> <span class="nx">everythings</span> <span class="nx">is</span> <span class="nx">ok</span>
+        <span class="k">else</span><span class="o">:</span>
+            <span class="err">#</span> <span class="nx">FAILED</span>
+</pre></div>
+
+
+<h4 id="config">Config</h4>
+<div class="codehilite"><pre><span></span>#: Flask-Recaptcha
+#: Register your application at https://www.google.com/recaptcha/admin
+
+#: RECAPTCHA_ENABLED
+RECAPTCHA_ENABLED = True
+
+#: RECAPTCHA_SITE_KEY
+RECAPTCHA_SITE_KEY = &quot;&quot;
+
+#: RECAPTCHA_SECRET_KEY
+RECAPTCHA_SECRET_KEY = &quot;&quot;
+</pre></div>
+
+
+<p>Extension: <a href="https://github.com/mardix/flask-recaptcha">flask-recaptcha</a></p>
+<p>To register your application go <a href="https://www.google.com/recaptcha/admin">https://www.google.com/recaptcha/admin</a></p>
                 
                   
                 
@@ -871,7 +893,7 @@ INSTALLED_APPS: [
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../admin/" title="Admin" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../mail/" title="Mail" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -880,19 +902,19 @@ INSTALLED_APPS: [
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Admin
+                Mail
               </span>
             </div>
           </a>
         
         
-          <a href="../error-page/" title="Error Page" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../../logging/" title="Logging" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Error Page
+                Logging
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

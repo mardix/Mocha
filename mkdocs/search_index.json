@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/", 
-            "text": "Mocha\n\n\n\n\n\n \nA batteries included, front-end loaded, web and Restful framework built on Flask.\n\n \n\n\n\n\nMocha helps you build and structure your application, where your endpoints are natively created from your view names.\n\n\nIf you already know Flask, you pretty much know 95% of Mocha.\n\n\n\n\nQuick Start\n\n\nInstall\n\n\npip install mocha\n\n\n\n\n\nSetup\n\n\nmocha\n \n:\ninit\n\n\n\n\n\n\nServe\n\n\nmocha\n \n:\nserve\n\n\n\n\n\n\n\n\nFeatures\n\n\nClass based views\n\n\nMocha groups your views together by class. The class name becomes the base route of all the methods.\nMocha expects the methods to return dict.\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \nreturn\n \n{\n\n            \nname\n:\n \nMocha\n,\n\n            \nversion\n:\n \n1.0\n\n        \n}\n\n\n    \ndef\n \nhello_world\n(\nself\n):\n\n        \nreturn\n \n{\n\n            \nhello\n:\n \nworld\n\n        \n}\n\n\n\nclass\n \nDocument\n(\nMocha\n):\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \nreturn\n\n\n    \ndef\n \nabout\n(\nself\n):\n\n        \nreturn\n\n\n\n\n\n\n\n\nSmart Routing\n\n\nSmart routing is created by using the class name and the method name. Class or method named \nIndex\n or \nindex\n respectively,\nwill become the root; otherwise the class name will be the base root name, and all of its methods will be prefixed with it.\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \n# -\n http://127.0.0.1/\n\n\n        \nreturn\n \n{\n\n            \nname\n:\n \nMocha\n,\n\n            \nversion\n:\n \n1.0\n\n        \n}\n\n\n    \ndef\n \nhello_world\n(\nself\n):\n\n        \n# -\n http://127.0.0.1/hello-world\n\n\n        \nreturn\n \n{\n\n            \nhello\n:\n \nworld\n\n        \n}\n\n\n\nclass\n \nAccount\n(\nMocha\n):\n\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \n# -\n http://127.0.0.1/account\n\n\n        \nreturn\n \n{\n\n            \nname\n:\n \nMocha\n,\n\n            \nversion\n:\n \n1.0\n\n        \n}\n\n\n    \ndef\n \ninfo\n(\nself\n):\n\n        \n# -\n http://127.0.0.1/account/info\n\n\n        \nreturn\n \n{\n\n            \nname\n:\n \nMardix\n\n        \n}\n\n\n\nclass\n \nDocument\n(\nMocha\n):\n\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \n# -\n http://127.0.0.1/document/\n\n\n        \nreturn\n \n{\n\n            \ndocs\n:\n \n[\n\n\n            \n]\n\n        \n}\n\n\n    \ndef\n \nget\n(\nself\n,\n \nid\n):\n\n        \n# -\n http://127.0.0.1/document/1234\n\n        \nreturn\n \n{\n\n            \ntitle\n:\n \nDoc title\n\n        \n}\n\n\n\n\n\n\n\n\nCustom Route\n\n\nJust like Flask, you can use the \nmocha.route\n decorator for custom routes. If the the class is decorated, all the\nthe methods will inherit the parent route.\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n,\n \ndecorators\n \nas\n \ndeco\n\n\n\n@deco.route\n(\n/the-great-catalog\n)\n\n\nclass\n \nCatalog\n(\nMocha\n):\n\n\n    \n@deco.route\n(\n/list/\n)\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \n# -\n http://127.0.0.1/the-great-catalog/lists\n\n\n        \nreturn\n \n{\n\n            \nmy_collections\n:\n \n[\n\n                \n{\n\n                    \nid\n:\n \n123\n,\n\n                    \n...\n\n                \n},\n\n                \n...\n\n            \n]\n\n        \n}\n\n\n\n\n\n\n\n\nRESTful\n\n\nMocha has some reserved methods name: \nget\n, \npost\n, \nput\n, \ndelete\n, \nupdate\n. They required the \nrequest.method\n  to be\nthe same as the name. By default all other methods are \nGET\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \n# -\n http://127.0.0.1/\n\n\n        \nreturn\n \n{\n\n            \nname\n:\n \nMocha\n,\n\n            \nversion\n:\n \n1.0\n\n        \n}\n\n\n    \ndef\n \nget\n(\nself\n,\n \nid\n):\n\n        \n# Accepts only GET method\n\n        \n# GET http://127.0.0.1/894\n\n\n        \nreturn\n \n{\n\n        \n}\n\n\n    \ndef\n \npost\n(\nself\n,\n \nid\n):\n\n        \n# Accept only POST method\n\n        \n# POST http://127.0.0.1/894\n\n        \n# do something in post\n\n\n    \ndef\n \ndelete\n(\nself\n,\n \nid\n):\n\n        \n# Accept only DELETE method\n\n        \n# DELETE http://127.0.0.1/894\n\n        \n# do something in delete\n\n\n    \ndef\n \nput\n(\nself\n,\n \nid\n):\n\n        \n# Accept only PUT\n\n\n\n\n\n\n\n\nMultiple renders: JSON, XML\n\n\nYou can quickly render your views to json or xml. By default it's HTML\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n,\n \ndecorators\n \nas\n \ndeco\n\n\n\n@deco.render_json\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \nreturn\n \n{\n\n            \nname\n:\n \nMocha\n,\n\n            \nversion\n:\n \n1.0\n\n        \n}\n\n\n    \ndef\n \nhello_world\n(\nself\n):\n\n        \nreturn\n \n{\n\n            \nhello\n:\n \nworld\n\n        \n}\n\n\n\nclass\n \nCatalog\n(\nMocha\n):\n\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \nreturn\n \n{\n\n            \nmy_collections\n:\n \n[\n\n                \n{\n\n                    \nid\n:\n \n123\n,\n\n                    \n...\n\n                \n},\n\n                \n...\n\n            \n]\n\n        \n}\n\n\n\n\n\n\n\n\nBuilt-in Nav Title\n\n\nAs you are creating your views, you can also build the navigation menu, by using \n@decorators.nav_title\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n,\n \ndecorators\n \nas\n \ndeco\n\n\n\n@deco.nav_title\n(\nThe Great Catalog\n)\n\n\nclass\n \nCatalog\n(\nMocha\n):\n\n\n    \n@deco.nav_title\n(\nAll\n)\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \nreturn\n \n{\n\n            \nmy_collections\n:\n \n[\n\n                \n{\n\n                    \nid\n:\n \n123\n,\n\n                    \n...\n\n                \n},\n\n                \n...\n\n            \n]\n\n        \n}\n\n\n\n\n\n\n\n\nAdmin\n\n\nMocha allows you to quickly turn your views into restricted admin area.\n\n\nAccessing \nhttp://127.0.0.1/admin/catalog\n will require you to login\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n,\n \ndecorators\n \nas\n \ndeco\n\n\nimport\n \nmocha.contrib\n\n\n\n@deco.nav_title\n(\nCatalog\n)\n\n\n@deco.route\n(\n/admin/catalog\n)\n\n\n@mocha.contrib.admin\n\n\nclass\n \nCatalogAdmin\n(\nMocha\n):\n\n\n    \n@deco.nav_title\n(\nAll\n)\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \nreturn\n \n{\n\n            \nmy_collections\n:\n \n[\n\n                \n{\n\n                    \nid\n:\n \n123\n,\n\n                    \n...\n\n                \n},\n\n                \n...\n\n            \n]\n\n        \n}\n\n\n\n\n\n\n\n\nInterceptors\n\n\nSometimes you may want to do something before or after request, Mocha helps you with that.\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \ndef\n \nbefore_request\n(\nself\n,\n \nname\n,\n \n*\nargs\n,\n \n**\nkwargs\n):\n\n        \npass\n\n\n    \ndef\n \nafter_request\n(\nself\n,\n \nname\n,\n \nresponse\n):\n\n\n        \nreturn\n \nresponse\n\n\n\n\n\n\n\n\nJade markup\n\n\nFor aesthetic reason, Mocha uses by default Jade (now Pug) template. This can switched if you want to use HTML file only\n\n\n.row\n\n    \n.col-md-12\n\n        \nh1.text-center\n\n            \n|\n \nHello\n \nMocha\n\n\n\n\n\n\nBecomes\n\n\ndiv\n \nclass=\nrow\n\n    \ndiv\n \nclass=\ncol-md-12\n\n        \nh1\n \nclass=\ntext-center\n\n            Hello Mocha\n        \n/h1\n\n    \n/div\n\n\n/div\n\n\n\n\n\n\n\n\nMarkdown friendly\n\n\n\n\nBuilt-in contrib\n\n\n\n\n\n\nUser Auth : It allows to authenticate users into the application. Contains the following pages:\n\n\n\n\nlogin\n\n\nsignup\n\n\nlost-password\n\n\naccount-settings\n\n\nadmin interface\n\n\n\n\n\n\n\n\nContact Us\n\n\n\n\n\n\nError: Error pages\n\n\n\n\n\n\nAdmin Interface: Create authenticated admin area\n\n\n\n\n\n\nMaintenance page: To turn the site on and off\n\n\n\n\n\n\n\n\nFeatures List\n\n\n\n\n\n\nSmart routing: automatically generates routes based on the classes and methods in your views\n\n\n\n\n\n\nClass name as the base url, ie: class UserAccount will be accessed at '/user-account'\n\n\n\n\n\n\nClass methods (action) could be accessed: hello_world(self) becomes 'hello-world'\n\n\n\n\n\n\nEasy rending and render decorator\n\n\n\n\n\n\nAuto route can be edited with @route()\n\n\n\n\n\n\nRestful: GET, POST, PUT, DELETE\n\n\n\n\n\n\nREST API Ready\n\n\n\n\n\n\nJade as default template language\n\n\n\n\n\n\nMarkdown friendly. Inclusion of a markdown file will turn into HTML\n\n\n\n\n\n\nbcrypt\n is chosen as the password hasher\n\n\n\n\n\n\nSession: Redis, AWS S3, Google Storage, SQLite, MySQL, PostgreSQL\n\n\n\n\n\n\nDatabase/ORM: \nActive-Alchemy\n (SQLALchemy wrapper)\n\n\n\n\n\n\nReCaptcha: \nFlask-Recaptcha\n\n\n\n\n\n\nCSRF on all POST\n\n\n\n\n\n\nStorage: Local, S3, Google Storage \nFlask-Cloudy\n\n\n\n\n\n\nMailer (SES or SMTP)\n\n\n\n\n\n\nArrow for date and time\n\n\n\n\n\n\nCaching\n\n\n\n\n\n\nDefault Layout\n\n\n\n\n\n\nAdmin interface\n\n\n\n\n\n\nMulti application\n\n\n\n\n\n\nJWT\n\n\n\n\n\n\nPagination\n\n\n\n\n\n\nSignals\n\n\n\n\n\n\nFontawesome\n\n\n\n\n\n\nBootstrap 3\n\n\n\n\n\n\nBootswatch\n\n\n\n\n\n\nMarkdown\n\n\n\n\n\n\nWeb Assets\n\n\n\n\n\n\nPropel for deployment\n\n\n\n\n\n\n\n\nPackages and utilities depencies:\n\n\n\n\nFlask\n\n\nFlask-Assets\n\n\ncssmin\n\n\njsmin\n\n\nflask-recaptcha\n\n\nflask-login\n\n\nflask-kvsession\n\n\nflask-s3\n\n\nflask-mail\n\n\nflask-caching\n\n\nflask-cloudy\n\n\nflask-seasurf\n\n\nflask-babel\n\n\nflask-cors\n\n\nFlask-OAuthlib\n\n\nActive-Alchemy\n\n\nPaginator\n\n\nsix\n\n\npasslib\n\n\nbcrypt\n\n\npython-slugify\n\n\nhumanize\n\n\nredis\n\n\nses-mailer\n\n\nmarkdown\n\n\ninflection\n\n\npyyaml\n\n\nclick\n\n\nsh\n\n\ndicttoxml\n\n\narrow\n\n\nblinker\n\n\nitsdangerous\n\n\npyjade\n\n\nrequests\n\n\n\n\n\n\nCredits: Flask, Flask-Classy", 
+            "text": "Mocha\n\n\n\n\n\n \nA batteries included, front-end loaded, web and Restful framework built on Flask.\n\n \n\n\n\n\nMocha helps you build and structure your application, where your endpoints are natively created from your view names.\n\n\nIf you already know Flask, you pretty much know 95% of Mocha.\n\n\n\n\nQuick Start\n\n\nInstall\n\n\npip install mocha\n\n\n\n\n\nSetup\n\n\nmocha\n \n:\ninit\n\n\n\n\n\n\nServe\n\n\nmocha\n \n:\nserve\n\n\n\n\n\n\n\n\nFeatures\n\n\nClass based views\n\n\nMocha groups your views together by class. The class name becomes the base route of all the methods.\nMocha expects the methods to return dict.\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \nreturn\n \n{\n\n            \nname\n:\n \nMocha\n,\n\n            \nversion\n:\n \n1.0\n\n        \n}\n\n\n    \ndef\n \nhello_world\n(\nself\n):\n\n        \nreturn\n \n{\n\n            \nhello\n:\n \nworld\n\n        \n}\n\n\n\nclass\n \nDocument\n(\nMocha\n):\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \nreturn\n\n\n    \ndef\n \nabout\n(\nself\n):\n\n        \nreturn\n\n\n\n\n\n\n\n\nSmart Routing\n\n\nSmart routing is created by using the class name and the method name. Class or method named \nIndex\n or \nindex\n respectively,\nwill become the root; otherwise the class name will be the base root name, and all of its methods will be prefixed with it.\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \n# -\n http://127.0.0.1/\n\n\n        \nreturn\n \n{\n\n            \nname\n:\n \nMocha\n,\n\n            \nversion\n:\n \n1.0\n\n        \n}\n\n\n    \ndef\n \nhello_world\n(\nself\n):\n\n        \n# -\n http://127.0.0.1/hello-world\n\n\n        \nreturn\n \n{\n\n            \nhello\n:\n \nworld\n\n        \n}\n\n\n\nclass\n \nAccount\n(\nMocha\n):\n\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \n# -\n http://127.0.0.1/account\n\n\n        \nreturn\n \n{\n\n            \nname\n:\n \nMocha\n,\n\n            \nversion\n:\n \n1.0\n\n        \n}\n\n\n    \ndef\n \ninfo\n(\nself\n):\n\n        \n# -\n http://127.0.0.1/account/info\n\n\n        \nreturn\n \n{\n\n            \nname\n:\n \nMardix\n\n        \n}\n\n\n\nclass\n \nDocument\n(\nMocha\n):\n\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \n# -\n http://127.0.0.1/document/\n\n\n        \nreturn\n \n{\n\n            \ndocs\n:\n \n[\n\n\n            \n]\n\n        \n}\n\n\n    \ndef\n \nget\n(\nself\n,\n \nid\n):\n\n        \n# -\n http://127.0.0.1/document/1234\n\n        \nreturn\n \n{\n\n            \ntitle\n:\n \nDoc title\n\n        \n}\n\n\n\n\n\n\n\n\nCustom Route\n\n\nJust like Flask, you can use the \nmocha.route\n decorator for custom routes. If the the class is decorated, all the\nthe methods will inherit the parent route.\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n,\n \ndecorators\n \nas\n \ndeco\n\n\n\n@deco.route\n(\n/the-great-catalog\n)\n\n\nclass\n \nCatalog\n(\nMocha\n):\n\n\n    \n@deco.route\n(\n/list/\n)\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \n# -\n http://127.0.0.1/the-great-catalog/lists\n\n\n        \nreturn\n \n{\n\n            \nmy_collections\n:\n \n[\n\n                \n{\n\n                    \nid\n:\n \n123\n,\n\n                    \n...\n\n                \n},\n\n                \n...\n\n            \n]\n\n        \n}\n\n\n\n\n\n\n\n\nRESTful\n\n\nMocha has some reserved methods name: \nget\n, \npost\n, \nput\n, \ndelete\n, \nupdate\n. They required the \nrequest.method\n  to be\nthe same as the name. By default all other methods are \nGET\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \n# -\n http://127.0.0.1/\n\n\n        \nreturn\n \n{\n\n            \nname\n:\n \nMocha\n,\n\n            \nversion\n:\n \n1.0\n\n        \n}\n\n\n    \ndef\n \nget\n(\nself\n,\n \nid\n):\n\n        \n# Accepts only GET method\n\n        \n# GET http://127.0.0.1/894\n\n\n        \nreturn\n \n{\n\n        \n}\n\n\n    \ndef\n \npost\n(\nself\n,\n \nid\n):\n\n        \n# Accept only POST method\n\n        \n# POST http://127.0.0.1/894\n\n        \n# do something in post\n\n\n    \ndef\n \ndelete\n(\nself\n,\n \nid\n):\n\n        \n# Accept only DELETE method\n\n        \n# DELETE http://127.0.0.1/894\n\n        \n# do something in delete\n\n\n    \ndef\n \nput\n(\nself\n,\n \nid\n):\n\n        \n# Accept only PUT\n\n\n\n\n\n\n\n\nMultiple renders: JSON, XML\n\n\nYou can quickly render your views to json or xml. By default it's HTML\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n,\n \ndecorators\n \nas\n \ndeco\n\n\n\n@deco.render_json\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \nreturn\n \n{\n\n            \nname\n:\n \nMocha\n,\n\n            \nversion\n:\n \n1.0\n\n        \n}\n\n\n    \ndef\n \nhello_world\n(\nself\n):\n\n        \nreturn\n \n{\n\n            \nhello\n:\n \nworld\n\n        \n}\n\n\n\nclass\n \nCatalog\n(\nMocha\n):\n\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \nreturn\n \n{\n\n            \nmy_collections\n:\n \n[\n\n                \n{\n\n                    \nid\n:\n \n123\n,\n\n                    \n...\n\n                \n},\n\n                \n...\n\n            \n]\n\n        \n}\n\n\n\n\n\n\n\n\nBuilt-in Nav Title\n\n\nAs you are creating your views, you can also build the navigation menu, by using \n@decorators.nav_title\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n,\n \ndecorators\n \nas\n \ndeco\n\n\n\n@deco.nav_title\n(\nThe Great Catalog\n)\n\n\nclass\n \nCatalog\n(\nMocha\n):\n\n\n    \n@deco.nav_title\n(\nAll\n)\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \nreturn\n \n{\n\n            \nmy_collections\n:\n \n[\n\n                \n{\n\n                    \nid\n:\n \n123\n,\n\n                    \n...\n\n                \n},\n\n                \n...\n\n            \n]\n\n        \n}\n\n\n\n\n\n\n\n\nAdmin\n\n\nMocha allows you to quickly turn your views into restricted admin area.\n\n\nAccessing \nhttp://127.0.0.1/admin/catalog\n will require you to login\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n,\n \ndecorators\n \nas\n \ndeco\n\n\nimport\n \nmocha.contrib\n\n\n\n@deco.nav_title\n(\nCatalog\n)\n\n\n@deco.route\n(\n/admin/catalog\n)\n\n\n@mocha.contrib.admin\n\n\nclass\n \nCatalogAdmin\n(\nMocha\n):\n\n\n    \n@deco.nav_title\n(\nAll\n)\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \nreturn\n \n{\n\n            \nmy_collections\n:\n \n[\n\n                \n{\n\n                    \nid\n:\n \n123\n,\n\n                    \n...\n\n                \n},\n\n                \n...\n\n            \n]\n\n        \n}\n\n\n\n\n\n\n\n\nInterceptors\n\n\nSometimes you may want to do something before or after request, Mocha helps you with that.\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \ndef\n \nbefore_request\n(\nself\n,\n \nname\n,\n \n*\nargs\n,\n \n**\nkwargs\n):\n\n        \npass\n\n\n    \ndef\n \nafter_request\n(\nself\n,\n \nname\n,\n \nresponse\n):\n\n\n        \nreturn\n \nresponse\n\n\n\n\n\n\n\n\nJade markup\n\n\nFor aesthetic reason, Mocha uses by default Jade (now Pug) template. This can switched if you want to use HTML file only\n\n\n.row\n\n    \n.col-md-12\n\n        \nh1.text-center\n\n            \n|\n \nHello\n \nMocha\n\n\n\n\n\n\nBecomes\n\n\ndiv\n \nclass=\nrow\n\n    \ndiv\n \nclass=\ncol-md-12\n\n        \nh1\n \nclass=\ntext-center\n\n            Hello Mocha\n        \n/h1\n\n    \n/div\n\n\n/div\n\n\n\n\n\n\n\n\nMarkdown friendly\n\n\n\n\nBuilt-in contrib\n\n\n\n\n\n\nUser Auth : It allows to authenticate users into the application. Contains the following pages:\n\n\n\n\nlogin\n\n\nsignup\n\n\nlost-password\n\n\naccount-settings\n\n\nadmin interface\n\n\n\n\n\n\n\n\nContact Us\n\n\n\n\n\n\nError: Error pages\n\n\n\n\n\n\nAdmin Interface: Create authenticated admin area\n\n\n\n\n\n\nMaintenance page: To turn the site on and off\n\n\n\n\n\n\n\n\nFeatures List\n\n\n\n\n\n\nSmart routing: automatically generates routes based on the classes and methods in your views\n\n\n\n\n\n\nClass name as the base url, ie: class UserAccount will be accessed at '/user-account'\n\n\n\n\n\n\nClass methods (action) could be accessed: hello_world(self) becomes 'hello-world'\n\n\n\n\n\n\nEasy rending and render decorator\n\n\n\n\n\n\nAuto route can be edited with @route()\n\n\n\n\n\n\nRestful: GET, POST, PUT, DELETE\n\n\n\n\n\n\nREST API Ready\n\n\n\n\n\n\nJade as default template language\n\n\n\n\n\n\nMarkdown friendly. Inclusion of a markdown file will turn into HTML\n\n\n\n\n\n\nbcrypt\n is chosen as the password hasher\n\n\n\n\n\n\nSession: Redis, AWS S3, Google Storage, SQLite, MySQL, PostgreSQL\n\n\n\n\n\n\nDatabase/ORM: \nActive-Alchemy\n (SQLALchemy wrapper)\n\n\n\n\n\n\nReCaptcha: \nFlask-Recaptcha\n\n\n\n\n\n\nCSRF on all POST\n\n\n\n\n\n\nStorage: Local, S3, Google Storage \nFlask-Cloudy\n\n\n\n\n\n\nMailer (SES or SMTP)\n\n\n\n\n\n\nArrow for date and time\n\n\n\n\n\n\nCaching\n\n\n\n\n\n\nJWT\n\n\n\n\n\n\nPagination\n\n\n\n\n\n\nSignals\n\n\n\n\n\n\nFontawesome\n\n\n\n\n\n\nBootstrap 3\n\n\n\n\n\n\nBootswatch\n\n\n\n\n\n\nMarkdown\n\n\n\n\n\n\nPropel for deployment\n\n\n\n\n\n\nSmart routing: automatically generates routes based on the classes and methods in your views\n\n\n\n\n\n\nClass name as the base url, ie: class UserAccount will be accessed at '/user-account'\n\n\n\n\n\n\nClass methods (action) could be accessed: hello_world(self) becomes 'hello-world'\n\n\n\n\n\n\nSmart Rendering without adding any blocks in your templates\n\n\n\n\n\n\nAuto rendering by returning a dict or None\n\n\n\n\n\n\nUse Jade (Pug) template by default, but you can also use HTML.\n\n\n\n\n\n\nTemplates are mapped as the model in the class the $module/$class/$method.jade\n\n\n\n\n\n\nMarkdown ready: Along with Jade and HTML, it can also properly parse Markdown\n\n\n\n\n\n\nAuto route can be edited with @route()\n\n\n\n\n\n\nRestful: GET, POST, PUT, DELETE\n\n\n\n\n\n\nREST API Ready\n\n\n\n\n\n\nbcrypt\n is chosen as the password hasher\n\n\n\n\n\n\nSession: Redis, AWS S3, Google Storage, SQLite, MySQL, PostgreSQL\n\n\n\n\n\n\nORM: \nActive-Alchemy\n (SQLALchemy wrapper)\n\n\n\n\n\n\nReCaptcha: \nFlask-Recaptcha\n\n\n\n\n\n\nArrow for dates\n\n\n\n\n\n\nActive-Alchemy for database and dates are saved as Arrow object\n\n\n\n\n\n\nAll dates are by default UTC\n\n\n\n\n\n\nDate can be presented in specific timezone\n\n\n\n\n\n\nCSRF on all POST\n\n\n\n\n\n\nStorage: Local, S3, Google Storage \nFlask-Cloudy\n\n\n\n\n\n\nMailer (SES or SMTP)\n\n\n\n\n\n\nCaching\n\n\n\n\n\n\nSignals to dispatch messages and data to other part of the application\n\n\n\n\n\n\nJWT\n\n\n\n\n\n\nDefault Layout\n\n\n\n\n\n\nAdmin interface\n\n\n\n\n\n\nMulti application\n\n\n\n\n\n\nWeb Assets\n\n\n\n\n\n\nPropel for deployment\n\n\n\n\n\n\nDecorators, lots of decorators\n\n\n\n\n\n\n\n\nPackages and utilities depencies:\n\n\n\n\nFlask\n\n\nFlask-Assets\n\n\ncssmin\n\n\njsmin\n\n\nflask-recaptcha\n\n\nflask-login\n\n\nflask-kvsession\n\n\nflask-s3\n\n\nflask-mail\n\n\nflask-caching\n\n\nflask-cloudy\n\n\nflask-seasurf\n\n\nflask-babel\n\n\nflask-cors\n\n\nFlask-OAuthlib\n\n\nActive-Alchemy\n\n\nPaginator\n\n\nsix\n\n\npasslib\n\n\nbcrypt\n\n\npython-slugify\n\n\nhumanize\n\n\nredis\n\n\nses-mailer\n\n\nmarkdown\n\n\ninflection\n\n\npyyaml\n\n\nclick\n\n\nsh\n\n\ndicttoxml\n\n\narrow\n\n\nblinker\n\n\nitsdangerous\n\n\npyjade\n\n\nrequests\n\n\n\n\n\n\nCredits: Flask, Flask-Classy", 
             "title": "Home"
         }, 
         {
@@ -92,7 +92,7 @@
         }, 
         {
             "location": "/#features-list", 
-            "text": "Smart routing: automatically generates routes based on the classes and methods in your views    Class name as the base url, ie: class UserAccount will be accessed at '/user-account'    Class methods (action) could be accessed: hello_world(self) becomes 'hello-world'    Easy rending and render decorator    Auto route can be edited with @route()    Restful: GET, POST, PUT, DELETE    REST API Ready    Jade as default template language    Markdown friendly. Inclusion of a markdown file will turn into HTML    bcrypt  is chosen as the password hasher    Session: Redis, AWS S3, Google Storage, SQLite, MySQL, PostgreSQL    Database/ORM:  Active-Alchemy  (SQLALchemy wrapper)    ReCaptcha:  Flask-Recaptcha    CSRF on all POST    Storage: Local, S3, Google Storage  Flask-Cloudy    Mailer (SES or SMTP)    Arrow for date and time    Caching    Default Layout    Admin interface    Multi application    JWT    Pagination    Signals    Fontawesome    Bootstrap 3    Bootswatch    Markdown    Web Assets    Propel for deployment", 
+            "text": "Smart routing: automatically generates routes based on the classes and methods in your views    Class name as the base url, ie: class UserAccount will be accessed at '/user-account'    Class methods (action) could be accessed: hello_world(self) becomes 'hello-world'    Easy rending and render decorator    Auto route can be edited with @route()    Restful: GET, POST, PUT, DELETE    REST API Ready    Jade as default template language    Markdown friendly. Inclusion of a markdown file will turn into HTML    bcrypt  is chosen as the password hasher    Session: Redis, AWS S3, Google Storage, SQLite, MySQL, PostgreSQL    Database/ORM:  Active-Alchemy  (SQLALchemy wrapper)    ReCaptcha:  Flask-Recaptcha    CSRF on all POST    Storage: Local, S3, Google Storage  Flask-Cloudy    Mailer (SES or SMTP)    Arrow for date and time    Caching    JWT    Pagination    Signals    Fontawesome    Bootstrap 3    Bootswatch    Markdown    Propel for deployment    Smart routing: automatically generates routes based on the classes and methods in your views    Class name as the base url, ie: class UserAccount will be accessed at '/user-account'    Class methods (action) could be accessed: hello_world(self) becomes 'hello-world'    Smart Rendering without adding any blocks in your templates    Auto rendering by returning a dict or None    Use Jade (Pug) template by default, but you can also use HTML.    Templates are mapped as the model in the class the $module/$class/$method.jade    Markdown ready: Along with Jade and HTML, it can also properly parse Markdown    Auto route can be edited with @route()    Restful: GET, POST, PUT, DELETE    REST API Ready    bcrypt  is chosen as the password hasher    Session: Redis, AWS S3, Google Storage, SQLite, MySQL, PostgreSQL    ORM:  Active-Alchemy  (SQLALchemy wrapper)    ReCaptcha:  Flask-Recaptcha    Arrow for dates    Active-Alchemy for database and dates are saved as Arrow object    All dates are by default UTC    Date can be presented in specific timezone    CSRF on all POST    Storage: Local, S3, Google Storage  Flask-Cloudy    Mailer (SES or SMTP)    Caching    Signals to dispatch messages and data to other part of the application    JWT    Default Layout    Admin interface    Multi application    Web Assets    Propel for deployment    Decorators, lots of decorators", 
             "title": "Features List"
         }, 
         {
@@ -157,133 +157,313 @@
         }, 
         {
             "location": "/config/", 
-            "text": "At root of \n/app\n directory contains \nconfig.py\n. This is where most of the\nconfiguration reside\n\n\nMocha uses class-based configuration\n\n\nBy default it is expecting a config class \nDev\n, but can be change by setting\na environment variable: \nenv=prod\n or \nenv=stage", 
+            "text": "Location: \n/application/config.py\n.\n\n\n\n\nMocha uses class-based configuration, and the config will be loaded upon startup.\n\n\nclass\n \nBaseConfig\n(\nobject\n)\n:\n\n    \n\n\n    Base Configuration.\n\n\n    \n\n\n    \nAPPLICATION_NAME\n \n=\n \nMocha\n\n\n    \nAPPLICATION_URL\n \n=\n \n\n\n    \nAPPLICATION_VERSION\n \n=\n \n0.0.1\n\n\n    \nGOOGLE_ANALYTICS_ID\n \n=\n \n\n\n    \nADMIN_EMAIL\n \n=\n \nNone\n\n\n    \nCONTACT_EMAIL\n \n=\n \nNone\n\n\n    \nPAGINATION_PER_PAGE\n \n=\n \n20\n\n\n    \n...\n\n\n\n\nclass\n \nDev\n(\nBaseConfig\n)\n:\n\n    \n\n\n    Config for development environment\n\n\n    \n\n    \nSERVER_NAME\n \n=\n \nNone\n\n    \nDEBUG\n \n=\n \nTrue\n\n    \nSECRET_KEY\n \n=\n \nPLEASE CHANGE ME\n\n\n\n\nclass\n \nProd\n(\nBaseConfig\n)\n:\n\n    \n\n\n    Config for Production environment\n\n\n    \n\n    \nSERVER_NAME\n \n=\n \nabc.com\n\n    \nDEBUG\n \n=\n \nFalse\n\n    \nSECRET_KEY\n \n=\n \nMy Prod Secret\n\n    \nCOMPRESS_HTML\n \n=\n \nTrue\n\n\n\n\n\n\nIt is recommended to have a base class, \nBaseConfig\n, and your environment classes \nDev\n, \nProd\n which are subclasses\nof the \nBaseConfig\n, this way they can share some common config.\n\n\nThe environment classes will be loaded on Mocha startup. By default, and in development, Mocha will attempt to load\n the \nDev\n if one isn't provided.\n\n\nTo switch to a different config, you have to set the environment variable\n\n\nenv=prod mocha :serve\n\n\n\n\n\nor to set the application along with the environment\n\n\napp=main:prod mocha :serve\n\n\n\n\n\nThe code above will load the \nProd\n config.\n\n\nOne main advantage of having your config like that, is that you have the ability of using different config for different\nenvironment, could be for testing, prod, dev, etc.", 
             "title": "Config"
         }, 
         {
             "location": "/views/", 
-            "text": "Views\n\n\nExamples\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \nreturn", 
+            "text": "Location: \n/application/views\n\n\n\n\nExamples\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \nreturn", 
             "title": "Views"
         }, 
         {
-            "location": "/views/#views", 
-            "text": "Examples  from   mocha   import   Mocha  class   Index ( Mocha ): \n     def   index ( self ): \n         return", 
-            "title": "Views"
-        }, 
-        {
-            "location": "/views/decorators/", 
-            "text": "Decorators\n\n\nMocha exposes decorators to simplify your app development\n\n\nFor convenience, we are going to use the same decora\n\n\nImport\n\n\nfrom\n \nmocha\n \nimport\n \ndecorators\n \nas\n \ndeco\n\n\n\n\n\n\nThis will allow you to explicitely call the decorators in a similar as:\n\n\n@deco.route\n\n\n\n\n\n\n\nRoute\n\n\nAllows you to apply a route on a view class or a single method\n\n\nClass based route\n\n\nWhen applied to a view class, all methods will be prefixed with the toute\n\n\nThe following code will use the \n/account/\n route, and \n/account/hello\n\n\n@deco\n.\nroute\n(\n/account/\n)\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \npass\n\n\n    \ndef\n \nhello\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\nMethod based route\n\n\nMethod based route only applies the route to the method.\n\n\nThe code below will expose \n/hello-world\n. By default \nIndex\n and \nindex\n will\nreference to the root, unless a route is applied\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \npass\n\n\n    \n@deco\n.\nroute\n(\nhello-world\n)\n\n    \ndef\n \nhello\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\nCombined Class and Method Based\n\n\nYou can combine both class and method based.\n\n\nThe code below will now be accessed at: \n/account/\n, \n/account/hello-world\n\n\n@deco\n.\nroute\n(\n/account/\n)\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \npass\n\n\n    \n@deco\n.\nroute\n(\n/hello-world\n)\n\n    \ndef\n \nhello\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\n\n\nMethods\n\n\nThe method decorators help specify what methods the views will accept.\nMultiple methods can be applied.\n\n\nSince Mocha allows you to write API endpoints\n(thanks mainly to Flask), the methods below can make your endpoints RESTful.\n\n\naccept_get\n\n\nAccepts GET method. By default, all endpoints are GET.\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@deco\n.\naccept_get\n\n    \ndef\n \nhello\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\naccept_post\n\n\nAccepts POST method.\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@deco\n.\naccept_post\n\n    \ndef\n \nsave_data\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\naccept_post_get\n\n\nAccepts POST \n GET method.\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@deco\n.\naccept_post_get\n\n    \ndef\n \nmy_thing\n(\nself\n)\n:\n\n        \nif\n \nrequest\n.\nmethod\n \n==\n \nPOST\n:\n\n            \n#\n \ndo\n \nsome\n \npost\n \nstuff\n \nin\n \nhere\n\n            \n#\n \nreturn\n \na\n \nredirect\n \nor\n \nsomething\n \nelse\n\n            \npass\n\n\n        \n#\n \nbelow\n \nwill\n \nproceed\n \nfor\n \nGET\n,\n \nsince\n \nthe\n \nPOST\n \nreturn\n \nsomething\n\n        \nname\n \n=\n \nMocha\n\n        \nreturn\n \n{\nname\n:\n \nname\n}\n\n\n\n\n\n\naccept_delete\n\n\nAccepts DELETE method.\n\n\naccept_put\n\n\nAccepts PUT method.\n\n\naccept_options\n\n\nAccepts OPTIONS method.\n\n\nCombining methods\n\n\nYou can combine multiple methods\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@deco\n.\naccept_post\n\n    \n@deco\n.\naccept_put\n\n    \n@deco\n.\naccept_delete\n\n    \ndef\n \nsave_data\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\n\n\nRender Format\n\n\nBy default, the responses will render normal HTML. But if you want to return\nJSON, or XML data, the methods below will conveniently help you do that.\n\n\nN.B.: The methods must return DICT for them to benefit from multiple response format\n\n\nrender_json\n\n\nIt return a dict into JSON. Good for API endpoint.\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@deco\n.\nrender_json\n\n    \ndef\n \nmy_data\n(\nself\n)\n:\n\n        \nreturn\n \n{\n\n            \nname\n:\n \nMocha\n,\n\n            \nversion\n:\n \nxxx\n\n        \n}\n\n\n\n\n\n\nrender_jsonp\n\n\nIt return a dict into JSON for JSONP.\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@deco\n.\nrender_jsonp\n\n    \ndef\n \nmy_data\n(\nself\n)\n:\n\n        \nreturn\n \n{\n\n            \nname\n:\n \nMocha\n,\n\n            \nversion\n:\n \nxxx\n\n        \n}\n\n\n\n\n\n\nrender_xml\n\n\nIt return a dict into XML.\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@deco\n.\nrender_xml\n\n    \ndef\n \nmy_data\n(\nself\n)\n:\n\n        \nreturn\n \n{\n\n            \nname\n:\n \nMocha\n,\n\n            \nversion\n:\n \nxxx\n\n        \n}\n\n\n\n\n\n\nhtml\n\n\nThere is no decorator for HTML, as it will fall back to it if a view is not decorated\nwith \nrender_json\n or \nrender_xml\n\n\n\n\nTemplate\n\n\nThis decorator allows you to change the view template or layout\n\n\nIt can be applied on both class based or method based\n\n\nParams:\n\n\ntemplate(page, markup=\"jade\")\n\n\n\n\npage: the path of the new layout or template\n\n\nmarkup: the markup to use for all pages: \njade\n or \nhtml\n\n\n\n\nClass based\n\n\nThis will change the default layout to another one.\n\n\n@deco\n.\ntemplate\n(\n/layouts/my-new-layouts.jade\n)\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \nreturn\n\n\n    \ndef\n \nhello\n(\nself\n)\n:\n\n        \nreturn\n\n\n\n\n\n\nMethod based\n\n\nBy default the template for method is based on its name, to use a different\ntemplate, specify the full path\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \nreturn\n\n\n    \n@deco\n.\ntemplate\n(\n/my-path/new-world.html\n,\n \nmarkup\n=\nhtml\n)\n\n    \ndef\n \nhello\n(\nself\n)\n:\n\n        \nreturn\n\n\n\n\n\n\n\n\nCache\n\n\nFlask-Caching is used for caching\n\n\ncache\n\n\nfrom\n \nmocha.ext\n \nimport\n \ncache\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \n@cache.cached\n(\n500\n)\n\n    \ndef\n \nmy_cache_view\n(\nself\n):\n\n        \nreturn\n\n\n\n\n\n\nmemoize\n\n\n\n\nCSRF\n\n\nAll POST methods are required to receive \n_csrf_token\n from the application.\n\n\nIt it fails, the user will not be able to use it.\n\n\nexempt_csrf\n\n\nIn some cases you will want to bypass a POST method CSRF check, to do, we\nhave to exempt that method\n\n\nfrom\n \nmocha.ext\n \nimport\n \ncsrf\n\n\nimport\n \nmocha.decorators\n \nas\n \ndeco\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \n@csrf.exempt\n\n    \n@deco.accept_post\n\n    \ndef\n \nmy_exempted_csrf_post\n(\nself\n):\n\n        \nreturn\n\n\n\n\n\n\n\n\nnav_menu\n\n\n@nav_menu\n creates a \nnavigation menu\n for UI\n\n\nfrom\n \nmocha\n \nimport\n \nnav_menu\n\n\n\n\n\n\nview_parser\n\n\n@view_parser\n\n\nfrom\n \nmocha\n \nimport\n \nview_parser", 
-            "title": "Views: Decorators"
-        }, 
-        {
-            "location": "/views/decorators/#decorators", 
-            "text": "Mocha exposes decorators to simplify your app development  For convenience, we are going to use the same decora", 
-            "title": "Decorators"
-        }, 
-        {
-            "location": "/views/decorators/#import", 
-            "text": "from   mocha   import   decorators   as   deco   This will allow you to explicitely call the decorators in a similar as:  @deco.route", 
-            "title": "Import"
-        }, 
-        {
-            "location": "/views/decorators/#route", 
-            "text": "Allows you to apply a route on a view class or a single method", 
+            "location": "/views/route/", 
+            "text": "Allows you to apply a route on a view class or a single method\n\n\n\n\nImport\n\n\nfrom\n \nmocha\n \nimport\n \nrequest\n\n\n\n\n\n\n\n\nClass based\n\n\nWhen applied to a view class, all methods will be prefixed with the toute\n\n\nThe following code will use the \n/account/\n route, and \n/account/hello\n\n\n@request\n.\nroute\n(\n/account/\n)\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \npass\n\n\n    \ndef\n \nhello\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\n\n\nMethod based\n\n\nMethod based route only applies the route to the method.\n\n\nThe code below will expose \n/hello-world\n. By default \nIndex\n and \nindex\n will\nreference to the root, unless a route is applied\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \npass\n\n\n    \n@request\n.\nroute\n(\nhello-world\n)\n\n    \ndef\n \nhello\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\n\n\nClass and Method\n\n\nYou can combine both class and method based.\n\n\nThe code below will now be accessed at: \n/account/\n, \n/account/hello-world\n\n\n@request\n.\nroute\n(\n/account/\n)\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \npass\n\n\n    \n@request\n.\nroute\n(\n/hello-world\n)\n\n    \ndef\n \nhello\n(\nself\n)\n:\n\n        \npass", 
             "title": "Route"
         }, 
         {
-            "location": "/views/decorators/#class-based-route", 
-            "text": "When applied to a view class, all methods will be prefixed with the toute  The following code will use the  /account/  route, and  /account/hello  @deco . route ( /account/ )  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         pass \n\n     def   hello ( self ) : \n         pass", 
-            "title": "Class based route"
+            "location": "/views/route/#import", 
+            "text": "from   mocha   import   request", 
+            "title": "Import"
         }, 
         {
-            "location": "/views/decorators/#method-based-route", 
-            "text": "Method based route only applies the route to the method.  The code below will expose  /hello-world . By default  Index  and  index  will\nreference to the root, unless a route is applied  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         pass \n\n     @deco . route ( hello-world ) \n     def   hello ( self ) : \n         pass", 
-            "title": "Method based route"
+            "location": "/views/route/#class-based", 
+            "text": "When applied to a view class, all methods will be prefixed with the toute  The following code will use the  /account/  route, and  /account/hello  @request . route ( /account/ )  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         pass \n\n     def   hello ( self ) : \n         pass", 
+            "title": "Class based"
         }, 
         {
-            "location": "/views/decorators/#combined-class-and-method-based", 
-            "text": "You can combine both class and method based.  The code below will now be accessed at:  /account/ ,  /account/hello-world  @deco . route ( /account/ )  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         pass \n\n     @deco . route ( /hello-world ) \n     def   hello ( self ) : \n         pass", 
-            "title": "Combined Class and Method Based"
+            "location": "/views/route/#method-based", 
+            "text": "Method based route only applies the route to the method.  The code below will expose  /hello-world . By default  Index  and  index  will\nreference to the root, unless a route is applied  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         pass \n\n     @request . route ( hello-world ) \n     def   hello ( self ) : \n         pass", 
+            "title": "Method based"
         }, 
         {
-            "location": "/views/decorators/#methods", 
-            "text": "The method decorators help specify what methods the views will accept.\nMultiple methods can be applied.  Since Mocha allows you to write API endpoints\n(thanks mainly to Flask), the methods below can make your endpoints RESTful.", 
+            "location": "/views/route/#class-and-method", 
+            "text": "You can combine both class and method based.  The code below will now be accessed at:  /account/ ,  /account/hello-world  @request . route ( /account/ )  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         pass \n\n     @request . route ( /hello-world ) \n     def   hello ( self ) : \n         pass", 
+            "title": "Class and Method"
+        }, 
+        {
+            "location": "/views/request/", 
+            "text": "request\n is a proxy to \nflask.request\n object, with some additional decorators and attributes\n\n\n\n\nImport\n\n\nfrom\n \nmocha\n \nimport\n \nrequest\n\n\n\n\n\n\n\n\nMethods\n\n\nget\n\n\n@request.get\n set a view to accept only GET method\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@request\n.\nget\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \n#\n \ndo\n \nsomething\n\n\n\n\n\n\n\n\npost\n\n\n@request.post\n set  a view to accept only POST method\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@request\n.\npost\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \n#\n \ndo\n \nsomething\n\n\n\n\n\n\n\n\nput\n\n\n@request.put\n set  a view to accept only PUT method\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@request\n.\nput\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \n#\n \ndo\n \nsomething\n\n\n\n\n\n\n\n\ndelete\n\n\n@request.delete\n set  a view to accept only DELETE method\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@request\n.\ndelete\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \n#\n \ndo\n \nsomething\n\n\n\n\n\n\n\n\nall\n\n\n@request.all\n set a view to accept only ALL methods.\n\n\nIt will accept: GET, POST, PUT, DELETE, OPTIONS\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@request\n.\nall\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \n#\n \ndo\n \nsomething\n\n\n\n\n\n\nCombine\n\n\nAn alternative to @all is to use all methods as\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@request\n.\nget\n\n    \n@request\n.\npost\n\n    \n@request\n.\nput\n\n    \n@request\n.\ndelete\n\n    \n@request\n.\noptions\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \n#\n \ndo\n \nsomething\n\n\n\n\n\n\n\n\nTest Method\n\n\nUsually if a view method accept more than one request method, it is best to test for the method\n\n\nIS_GET\n\n\nrequest.IS_GET\n tests if the request method is GET\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \nif\n \nrequest\n.\nIS_GET\n:\n\n            \n#\n \ndo\n \nsomething\n\n\n\n\n\n\nIt is equivalent to \nrequest.method == 'GET'\n\n\n\n\nIS_POST\n\n\nrequest.IS_GET\n tests if the request method is POST\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \nif\n \nrequest\n.\nIS_POST\n:\n\n            \n#\n \ndo\n \nsomething\n\n\n\n\n\n\nIt is equivalent to \nrequest.method == 'POST'\n\n\n\n\nSame as above for PUT and DELETE\n\n\nIS_PUT\n\n\nIS_DELETE\n\n\n\n\nArgs \n Forms\n\n\nThis is already part of Flask. It is added as a reference\n\n\nargs\n\n\nrequest.args.get\n lets you get the query vars\n\n\n#\n \nhttp\n:\n//127.0.0.1/?name=Mocha\n\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \nname\n \n=\n \nrequest\n.\nargs\n.\nget\n(\nname\n)\n\n\n\n\n\n\nform\n\n\nrequest.form.get\n lets you get the data that was sent in a post form\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \nname\n \n=\n \nrequest\n.\nform\n.\nget\n(\nname\n)\n\n\n\n\n\n\ngetlist\n\n\nrequest.form.getlist\n returns a list of all the items with the same name that was posted in a form\n\n\ninput\n \ntype\n=\ncheckbox\n \nname\n=\noptions\n \nvalue\n=\napple\n\n\ninput\n \ntype\n=\ncheckbox\n \nname\n=\noptions\n \nvalue\n=\norange\n\n\ninput\n \ntype\n=\ncheckbox\n \nname\n=\noptions\n \nvalue\n=\ngrapes\n\n\n\n\n\n\nPython\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \nmy_options\n \n=\n \nrequest\n.\nform\n.\ngetlist\n(\noptions\n)\n\n\n\n\n\n\nfiles.get\n\n\nrequest.files.get\n allow you to retrieve a file that was uploaded\n\n\nHTML\n\n\ninput\n \ntype\n=\nfile\n \nname\n=\nfile\n\n\n\n\n\n\nPython\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \nfile\n \n=\n \nrequest\n.\nfiles\n.\nget\n(\nfile\n)\n\n\n\n\n\n\nfiles.getlist\n\n\nrequest.files.getlist\n allow you to retrieve multiple files uploaded with the same name\n\n\nHTML\n\n\ninput\n \ntype\n=\nfile\n \nname\n=\nfile\n\n\ninput\n \ntype\n=\nfile\n \nname\n=\nfile\n\n\ninput\n \ntype\n=\nfile\n \nname\n=\nfile\n\n\n\n\n\n\nPython\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \nfiles\n \n=\n \nrequest\n.\nfiles\n.\ngetlist\n(\nfile\n)\n\n\n\n\n\n\nSave uploaded file\n\n\nHere's a snippet on how to upload a file.\n\n\nfrom\n \nmocha\n \nimport\n \nrequest\n,\n \nupload_file\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \n@request.post\n\n    \ndef\n \nupload_file\n(\nself\n):\n\n        \nimage_file\n \n=\n \nrequest\n.\nfiles\n.\nget\n(\nfile\n)\n\n        \nupload_file\n(\nimage\n,\n \nfile\n)", 
+            "title": "Request"
+        }, 
+        {
+            "location": "/views/request/#import", 
+            "text": "from   mocha   import   request", 
+            "title": "Import"
+        }, 
+        {
+            "location": "/views/request/#methods", 
+            "text": "", 
             "title": "Methods"
         }, 
         {
-            "location": "/views/decorators/#accept_get", 
-            "text": "Accepts GET method. By default, all endpoints are GET.  class   Index ( Mocha ) : \n\n     @deco . accept_get \n     def   hello ( self ) : \n         pass", 
-            "title": "accept_get"
+            "location": "/views/request/#get", 
+            "text": "@request.get  set a view to accept only GET method  class   Index ( Mocha ) : \n\n     @request . get \n     def   index ( self ) : \n         #   do   something", 
+            "title": "get"
         }, 
         {
-            "location": "/views/decorators/#accept_post", 
-            "text": "Accepts POST method.  class   Index ( Mocha ) : \n\n     @deco . accept_post \n     def   save_data ( self ) : \n         pass", 
-            "title": "accept_post"
+            "location": "/views/request/#post", 
+            "text": "@request.post  set  a view to accept only POST method  class   Index ( Mocha ) : \n\n     @request . post \n     def   index ( self ) : \n         #   do   something", 
+            "title": "post"
         }, 
         {
-            "location": "/views/decorators/#accept_post_get", 
-            "text": "Accepts POST   GET method.  class   Index ( Mocha ) : \n\n     @deco . accept_post_get \n     def   my_thing ( self ) : \n         if   request . method   ==   POST : \n             #   do   some   post   stuff   in   here \n             #   return   a   redirect   or   something   else \n             pass \n\n         #   below   will   proceed   for   GET ,   since   the   POST   return   something \n         name   =   Mocha \n         return   { name :   name }", 
-            "title": "accept_post_get"
+            "location": "/views/request/#put", 
+            "text": "@request.put  set  a view to accept only PUT method  class   Index ( Mocha ) : \n\n     @request . put \n     def   index ( self ) : \n         #   do   something", 
+            "title": "put"
         }, 
         {
-            "location": "/views/decorators/#accept_delete", 
-            "text": "Accepts DELETE method.", 
-            "title": "accept_delete"
+            "location": "/views/request/#delete", 
+            "text": "@request.delete  set  a view to accept only DELETE method  class   Index ( Mocha ) : \n\n     @request . delete \n     def   index ( self ) : \n         #   do   something", 
+            "title": "delete"
         }, 
         {
-            "location": "/views/decorators/#accept_put", 
-            "text": "Accepts PUT method.", 
-            "title": "accept_put"
+            "location": "/views/request/#all", 
+            "text": "@request.all  set a view to accept only ALL methods.  It will accept: GET, POST, PUT, DELETE, OPTIONS  class   Index ( Mocha ) : \n\n     @request . all \n     def   index ( self ) : \n         #   do   something", 
+            "title": "all"
         }, 
         {
-            "location": "/views/decorators/#accept_options", 
-            "text": "Accepts OPTIONS method.", 
-            "title": "accept_options"
+            "location": "/views/request/#combine", 
+            "text": "An alternative to @all is to use all methods as  class   Index ( Mocha ) : \n\n     @request . get \n     @request . post \n     @request . put \n     @request . delete \n     @request . options \n     def   index ( self ) : \n         #   do   something", 
+            "title": "Combine"
         }, 
         {
-            "location": "/views/decorators/#combining-methods", 
-            "text": "You can combine multiple methods  class   Index ( Mocha ) : \n\n     @deco . accept_post \n     @deco . accept_put \n     @deco . accept_delete \n     def   save_data ( self ) : \n         pass", 
-            "title": "Combining methods"
+            "location": "/views/request/#test-method", 
+            "text": "Usually if a view method accept more than one request method, it is best to test for the method", 
+            "title": "Test Method"
         }, 
         {
-            "location": "/views/decorators/#render-format", 
+            "location": "/views/request/#is_get", 
+            "text": "request.IS_GET  tests if the request method is GET  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         if   request . IS_GET : \n             #   do   something   It is equivalent to  request.method == 'GET'", 
+            "title": "IS_GET"
+        }, 
+        {
+            "location": "/views/request/#is_post", 
+            "text": "request.IS_GET  tests if the request method is POST  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         if   request . IS_POST : \n             #   do   something   It is equivalent to  request.method == 'POST'   Same as above for PUT and DELETE", 
+            "title": "IS_POST"
+        }, 
+        {
+            "location": "/views/request/#is_put", 
+            "text": "", 
+            "title": "IS_PUT"
+        }, 
+        {
+            "location": "/views/request/#is_delete", 
+            "text": "", 
+            "title": "IS_DELETE"
+        }, 
+        {
+            "location": "/views/request/#args-forms", 
+            "text": "This is already part of Flask. It is added as a reference", 
+            "title": "Args &amp; Forms"
+        }, 
+        {
+            "location": "/views/request/#args", 
+            "text": "request.args.get  lets you get the query vars  #   http : //127.0.0.1/?name=Mocha  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         name   =   request . args . get ( name )", 
+            "title": "args"
+        }, 
+        {
+            "location": "/views/request/#form", 
+            "text": "request.form.get  lets you get the data that was sent in a post form  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         name   =   request . form . get ( name )", 
+            "title": "form"
+        }, 
+        {
+            "location": "/views/request/#getlist", 
+            "text": "request.form.getlist  returns a list of all the items with the same name that was posted in a form  input   type = checkbox   name = options   value = apple  input   type = checkbox   name = options   value = orange  input   type = checkbox   name = options   value = grapes   Python  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         my_options   =   request . form . getlist ( options )", 
+            "title": "getlist"
+        }, 
+        {
+            "location": "/views/request/#filesget", 
+            "text": "request.files.get  allow you to retrieve a file that was uploaded  HTML  input   type = file   name = file   Python  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         file   =   request . files . get ( file )", 
+            "title": "files.get"
+        }, 
+        {
+            "location": "/views/request/#filesgetlist", 
+            "text": "request.files.getlist  allow you to retrieve multiple files uploaded with the same name  HTML  input   type = file   name = file  input   type = file   name = file  input   type = file   name = file   Python  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         files   =   request . files . getlist ( file )", 
+            "title": "files.getlist"
+        }, 
+        {
+            "location": "/views/request/#save-uploaded-file", 
+            "text": "Here's a snippet on how to upload a file.  from   mocha   import   request ,   upload_file  class   Index ( Mocha ): \n\n     @request.post \n     def   upload_file ( self ): \n         image_file   =   request . files . get ( file ) \n         upload_file ( image ,   file )", 
+            "title": "Save uploaded file"
+        }, 
+        {
+            "location": "/views/redirect/", 
+            "text": "As it is in Flask, \nredirect\n just redirects to another endpoint or url. However, Mocha put a little bit of\nconvenience in, by doing self reference or\n\n\nImport\n\n\nfrom\n \nmocha\n \nimport\n \nredirect\n\n\n\n\n\n\nUsage\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \npass\n\n\n    \ndef\n \npost\n(\nself\n)\n:\n\n        \nreturn\n \nredirect\n(\nself\n.\nindex\n)\n\n\n\n\n\n\nWith other views\n\n\nIf you will be redirecting in views that are not in the same module, yo will need to import the \nviews\n object along\nwith redirect\n\n\nfrom\n \nmocha\n \nimport\n \nredirect\n,\n \nviews\n\n\n\n\n\n\nUsage\n\n\n# views/main.py\n\n\n\nfrom\n \nmocha\n \nimport\n \nredirect\n,\n \nviews\n,\n \nrequest\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \n@request.post\n\n    \ndef\n \nsave_data\n():\n\n        \nreturn\n \nredirect\n(\nviews\n.\naccount\n.\nIndex\n.\ninfo\n)\n\n\n\n\n\n\n-\n\n\n#\n \nviews\n/\naccount\n.\npy\n\n\n\n@request\n.\nroute\n(\n/account\n)\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \npass\n\n\n    \ndef\n \ninfo\n(\nself\n)\n:\n\n        \npass", 
+            "title": "Redirect"
+        }, 
+        {
+            "location": "/views/redirect/#import", 
+            "text": "from   mocha   import   redirect", 
+            "title": "Import"
+        }, 
+        {
+            "location": "/views/redirect/#usage", 
+            "text": "class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         pass \n\n     def   post ( self ) : \n         return   redirect ( self . index )", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/views/redirect/#with-other-views", 
+            "text": "If you will be redirecting in views that are not in the same module, yo will need to import the  views  object along\nwith redirect  from   mocha   import   redirect ,   views", 
+            "title": "With other views"
+        }, 
+        {
+            "location": "/views/redirect/#usage_1", 
+            "text": "# views/main.py  from   mocha   import   redirect ,   views ,   request  class   Index ( Mocha ): \n\n     @request.post \n     def   save_data (): \n         return   redirect ( views . account . Index . info )   -  #   views / account . py  @request . route ( /account )  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         pass \n\n     def   info ( self ) : \n         pass", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/views/render/", 
+            "text": "This module contains decorators that will alter the rendering of the view. It can change the response, or add\nnew elements on the page, ie: \njson\n will turn the endpoint into a json response, while \ntemplate\n will change the\ndefault template page to display, and \nnav\n will create a menu title.\n\n\n\n\nImport\n\n\nfrom\n \nmocha\n \nimport\n \nrender\n\n\n\n\n\n\n\n\nResponse\n\n\nBy default, the responses will render normal HTML. But if you want to return\nJSON, or XML data, the methods below will conveniently help you do that.\n\n\nN.B.: The methods must return DICT for them to benefit from multiple response format\n\n\njson\n\n\nIt return a dict into JSON. Good for API endpoint.\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@render\n.\njson\n\n    \ndef\n \nmy_data\n(\nself\n)\n:\n\n        \nreturn\n \n{\n\n            \nname\n:\n \nMocha\n,\n\n            \nversion\n:\n \nxxx\n\n        \n}\n\n\n\n\n\n\njsonp\n\n\nIt return a dict into JSON for JSONP.\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@render\n.\njsonp\n\n    \ndef\n \nmy_data\n(\nself\n)\n:\n\n        \nreturn\n \n{\n\n            \nname\n:\n \nMocha\n,\n\n            \nversion\n:\n \nxxx\n\n        \n}\n\n\n\n\n\n\nxml\n\n\nIt return a dict into XML.\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@render\n.\nxml\n\n    \ndef\n \nmy_data\n(\nself\n)\n:\n\n        \nreturn\n \n{\n\n            \nname\n:\n \nMocha\n,\n\n            \nversion\n:\n \nxxx\n\n        \n}\n\n\n\n\n\n\nhtml\n\n\nThere is no decorator for HTML, as it will fall back to it if a view is not decorated\nwith \njson\n or \nxml\n\n\nTemplate\n\n\nThis decorator allows you to change the view template or layout\n\n\nIt can be applied on both class based or method based\n\n\nParams:\n\n\ntemplate(page, markup=\"jade\")\n\n\n\n\npage: the path of the new layout or template\n\n\nmarkup: the markup to use for all pages: \njade\n or \nhtml\n\n\n\n\nClass based\n\n\nThis will change the default layout to another one.\n\n\n@render\n.\ntemplate\n(\n/layouts/my-new-layouts.jade\n)\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \nreturn\n\n\n    \ndef\n \nhello\n(\nself\n)\n:\n\n        \nreturn\n\n\n\n\n\n\nMethod based\n\n\nBy default the template for method is based on its name, to use a different\ntemplate, specify the full path\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \nreturn\n\n\n    \n@render\n.\ntemplate\n(\n/my-path/new-world.html\n,\n \nmarkup\n=\nhtml\n)\n\n    \ndef\n \nhello\n(\nself\n)\n:\n\n        \nreturn\n\n\n\n\n\n\nNavigation", 
+            "title": "Render"
+        }, 
+        {
+            "location": "/views/render/#import", 
+            "text": "from   mocha   import   render", 
+            "title": "Import"
+        }, 
+        {
+            "location": "/views/render/#response", 
             "text": "By default, the responses will render normal HTML. But if you want to return\nJSON, or XML data, the methods below will conveniently help you do that.  N.B.: The methods must return DICT for them to benefit from multiple response format", 
-            "title": "Render Format"
+            "title": "Response"
         }, 
         {
-            "location": "/views/decorators/#render_json", 
-            "text": "It return a dict into JSON. Good for API endpoint.  class   Index ( Mocha ) : \n\n     @deco . render_json \n     def   my_data ( self ) : \n         return   { \n             name :   Mocha , \n             version :   xxx \n         }", 
-            "title": "render_json"
+            "location": "/views/render/#json", 
+            "text": "It return a dict into JSON. Good for API endpoint.  class   Index ( Mocha ) : \n\n     @render . json \n     def   my_data ( self ) : \n         return   { \n             name :   Mocha , \n             version :   xxx \n         }", 
+            "title": "json"
         }, 
         {
-            "location": "/views/decorators/#render_jsonp", 
-            "text": "It return a dict into JSON for JSONP.  class   Index ( Mocha ) : \n\n     @deco . render_jsonp \n     def   my_data ( self ) : \n         return   { \n             name :   Mocha , \n             version :   xxx \n         }", 
-            "title": "render_jsonp"
+            "location": "/views/render/#jsonp", 
+            "text": "It return a dict into JSON for JSONP.  class   Index ( Mocha ) : \n\n     @render . jsonp \n     def   my_data ( self ) : \n         return   { \n             name :   Mocha , \n             version :   xxx \n         }", 
+            "title": "jsonp"
         }, 
         {
-            "location": "/views/decorators/#render_xml", 
-            "text": "It return a dict into XML.  class   Index ( Mocha ) : \n\n     @deco . render_xml \n     def   my_data ( self ) : \n         return   { \n             name :   Mocha , \n             version :   xxx \n         }", 
-            "title": "render_xml"
+            "location": "/views/render/#xml", 
+            "text": "It return a dict into XML.  class   Index ( Mocha ) : \n\n     @render . xml \n     def   my_data ( self ) : \n         return   { \n             name :   Mocha , \n             version :   xxx \n         }", 
+            "title": "xml"
         }, 
         {
-            "location": "/views/decorators/#html", 
-            "text": "There is no decorator for HTML, as it will fall back to it if a view is not decorated\nwith  render_json  or  render_xml", 
+            "location": "/views/render/#html", 
+            "text": "There is no decorator for HTML, as it will fall back to it if a view is not decorated\nwith  json  or  xml", 
             "title": "html"
         }, 
         {
-            "location": "/views/decorators/#template", 
+            "location": "/views/render/#template", 
             "text": "This decorator allows you to change the view template or layout  It can be applied on both class based or method based  Params:  template(page, markup=\"jade\")   page: the path of the new layout or template  markup: the markup to use for all pages:  jade  or  html", 
             "title": "Template"
         }, 
         {
-            "location": "/views/decorators/#class-based", 
-            "text": "This will change the default layout to another one.  @deco . template ( /layouts/my-new-layouts.jade )  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         return \n\n     def   hello ( self ) : \n         return", 
+            "location": "/views/render/#class-based", 
+            "text": "This will change the default layout to another one.  @render . template ( /layouts/my-new-layouts.jade )  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         return \n\n     def   hello ( self ) : \n         return", 
             "title": "Class based"
         }, 
         {
-            "location": "/views/decorators/#method-based", 
-            "text": "By default the template for method is based on its name, to use a different\ntemplate, specify the full path  class   Index ( Mocha ) : \n\n\n     def   index ( self ) : \n         return \n\n     @deco . template ( /my-path/new-world.html ,   markup = html ) \n     def   hello ( self ) : \n         return", 
+            "location": "/views/render/#method-based", 
+            "text": "By default the template for method is based on its name, to use a different\ntemplate, specify the full path  class   Index ( Mocha ) : \n\n\n     def   index ( self ) : \n         return \n\n     @render . template ( /my-path/new-world.html ,   markup = html ) \n     def   hello ( self ) : \n         return", 
             "title": "Method based"
+        }, 
+        {
+            "location": "/views/render/#navigation", 
+            "text": "", 
+            "title": "Navigation"
+        }, 
+        {
+            "location": "/views/url_for/", 
+            "text": "url_for\n use a view endpoint to create a full url\n\n\nMocha adds a little flavor in it, to reference other views by their reference.\n\n\nImport\n\n\nfrom\n \nmocha\n \nimport\n \nurl_for\n\n\n\n\n\n\nUsage\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \ndoc_1_url\n \n=\n \nurl_for\n(\nself\n.\ndoc\n,\n \nid\n=\n1\n)\n\n        \nfull_url_account_info\n \n=\n \nurl_for\n(\nviews\n.\naccount\n.\nIndex\n.\ninfo\n,\n \n_external\n=\nTrue\n)\n\n\n        \nreturn\n \n{\n\n            \nurls\n:\n \n{\n\n                \ndoc_1\n:\n \ndoc_1_url\n,\n\n                \nfull_url\n:\n \nfull_url_account_info\n\n            \n}\n\n        \n}\n\n\n\n    \ndef\n \ndoc\n(\nself\n,\n \nid\n)\n:\n\n        \npass", 
+            "title": "Url_For"
+        }, 
+        {
+            "location": "/views/url_for/#import", 
+            "text": "from   mocha   import   url_for", 
+            "title": "Import"
+        }, 
+        {
+            "location": "/views/url_for/#usage", 
+            "text": "class   Index ( Mocha ) : \n     def   index ( self ) : \n         doc_1_url   =   url_for ( self . doc ,   id = 1 ) \n         full_url_account_info   =   url_for ( views . account . Index . info ,   _external = True ) \n\n         return   { \n             urls :   { \n                 doc_1 :   doc_1_url , \n                 full_url :   full_url_account_info \n             } \n         } \n\n\n     def   doc ( self ,   id ) : \n         pass", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/views/abort/", 
+            "text": "", 
+            "title": "Abort"
+        }, 
+        {
+            "location": "/views/session-flash/", 
+            "text": "Session\n\n\nMocha natively uses Flask session, with the addition of having the ability to use as backend either: Redis, Memcache, S3, CloudStorage\n\n\nConfig\n\n\n#: SESSION\n#: Flask-KVSession is used to save the user\ns session\n#: Set the SESSION_URL by using these examples below to set KVSession\n#: To use local session, just set SESSION_URL to None\n#:\n#: Redis: redis://username:password@host:6379/db\n#: S3: s3://username:password@s3.aws.amazon.com/bucket\n#: Google Storage: google_storage://username:password@cloud.google.com/bucket\n#: SQL: postgresql://username:password@host:3306/db\n#:      mysql+pysql://username:password@host:3306/db\n#:      sqlite://\n#: Memcached: memcache://host:port\n#:\nSESSION_URL = None\n\n\n\n\n\nUsage\n\n\nfrom\n \nmocha\n \nimport\n \nsession\n\n\n\n\n\n\n\n\nFlash\n\n\nThe Flash provides single-use string storage. It useful for implementing the Post/Redirect/Get pattern, or for transient\n\"Operation Successful!\" or \"Operation Failed!\" messages\n\n\nYou can import the \nflash\n as is, but for convenience, we provided some special message pattern:\n\n\nflash_info\n, \nflash_success\n, \nflash_error\n to indicate a info, success and error message respectively.\n\n\nFlash Message\n\n\nImport\n\n\nfrom\n \nmocha\n \nimport\n \nflash_info\n,\n \nflash_success\n,\n \nflash_error\n\n\n\n\n\n\nUsage\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \nflash_info\n(\nYou need to provide your account info\n)\n\n        \nreturn\n\n\n    \ndef\n \npost\n(\nself\n)\n:\n\n        \ntry\n:\n\n            \n#\n \ndo\n \nsomething\n\n            \nflash_success\n(\nAccount info saved successfully!\n)\n\n        \nexcept\n \nException\n \nas\n \nex\n:\n            \nflash_error\n(\nAn error occured while saving your info\n)\n\n\n        \nreturn\n \nredirect\n(\nself\n.\nindex\n)\n\n\n\n\n\n\n\n\nFlash Data\n\n\nSame as flash message, you can also flash data\n\n\nImport\n\n\nfrom\n \nmocha\n \nimport\n \nflash_data\n,\n \nget_flash_data\n\n\n\n\n\n\nUsage\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \nflash_data\n({\ntemp\n:\n \n70\n})\n\n\n\n    \ndef\n \nget\n(\nself\n,\n \nid\n)\n:\n\n        \ntemp\n \n=\n \nget_flash_data\n().\nget\n(\ntemp\n)", 
+            "title": "Session & Flash"
+        }, 
+        {
+            "location": "/views/session-flash/#session", 
+            "text": "Mocha natively uses Flask session, with the addition of having the ability to use as backend either: Redis, Memcache, S3, CloudStorage", 
+            "title": "Session"
+        }, 
+        {
+            "location": "/views/session-flash/#config", 
+            "text": "#: SESSION\n#: Flask-KVSession is used to save the user s session\n#: Set the SESSION_URL by using these examples below to set KVSession\n#: To use local session, just set SESSION_URL to None\n#:\n#: Redis: redis://username:password@host:6379/db\n#: S3: s3://username:password@s3.aws.amazon.com/bucket\n#: Google Storage: google_storage://username:password@cloud.google.com/bucket\n#: SQL: postgresql://username:password@host:3306/db\n#:      mysql+pysql://username:password@host:3306/db\n#:      sqlite://\n#: Memcached: memcache://host:port\n#:\nSESSION_URL = None", 
+            "title": "Config"
+        }, 
+        {
+            "location": "/views/session-flash/#usage", 
+            "text": "from   mocha   import   session", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/views/session-flash/#flash", 
+            "text": "The Flash provides single-use string storage. It useful for implementing the Post/Redirect/Get pattern, or for transient\n\"Operation Successful!\" or \"Operation Failed!\" messages  You can import the  flash  as is, but for convenience, we provided some special message pattern:  flash_info ,  flash_success ,  flash_error  to indicate a info, success and error message respectively.", 
+            "title": "Flash"
+        }, 
+        {
+            "location": "/views/session-flash/#flash-message", 
+            "text": "", 
+            "title": "Flash Message"
+        }, 
+        {
+            "location": "/views/session-flash/#import", 
+            "text": "from   mocha   import   flash_info ,   flash_success ,   flash_error", 
+            "title": "Import"
+        }, 
+        {
+            "location": "/views/session-flash/#usage_1", 
+            "text": "class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         flash_info ( You need to provide your account info ) \n         return \n\n     def   post ( self ) : \n         try : \n             #   do   something \n             flash_success ( Account info saved successfully! ) \n         except   Exception   as   ex :\n             flash_error ( An error occured while saving your info ) \n\n         return   redirect ( self . index )", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/views/session-flash/#flash-data", 
+            "text": "Same as flash message, you can also flash data", 
+            "title": "Flash Data"
+        }, 
+        {
+            "location": "/views/session-flash/#import_1", 
+            "text": "from   mocha   import   flash_data ,   get_flash_data", 
+            "title": "Import"
+        }, 
+        {
+            "location": "/views/session-flash/#usage_2", 
+            "text": "class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         flash_data ({ temp :   70 }) \n\n\n     def   get ( self ,   id ) : \n         temp   =   get_flash_data (). get ( temp )", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/views/decorators/", 
+            "text": "Decorators\n\n\nMocha exposes decorators to simplify your app development\n\n\n\n\nRender\n\n\n\n\n\n\nCache\n\n\nFlask-Caching is used for caching\n\n\ncache\n\n\nfrom\n \nmocha.ext\n \nimport\n \ncache\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \n@cache.cached\n(\n500\n)\n\n    \ndef\n \nmy_cache_view\n(\nself\n):\n\n        \nreturn\n\n\n\n\n\n\nmemoize\n\n\n\n\nCSRF\n\n\nAll POST methods are required to receive \n_csrf_token\n from the application.\n\n\nIt it fails, the user will not be able to use it.\n\n\nexempt_csrf\n\n\nIn some cases you will want to bypass a POST method CSRF check, to do, we\nhave to exempt that method\n\n\nfrom\n \nmocha.ext\n \nimport\n \ncsrf\n\n\nimport\n \nmocha.decorators\n \nas\n \ndeco\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \n@csrf.exempt\n\n    \n@deco.accept_post\n\n    \ndef\n \nmy_exempted_csrf_post\n(\nself\n):\n\n        \nreturn\n\n\n\n\n\n\n\n\nnav_menu\n\n\n@nav_menu\n creates a \nnavigation menu\n for UI\n\n\nfrom\n \nmocha\n \nimport\n \nnav_menu\n\n\n\n\n\n\nview_parser\n\n\n@view_parser\n\n\nfrom\n \nmocha\n \nimport\n \nview_parser", 
+            "title": "Decorators"
+        }, 
+        {
+            "location": "/views/decorators/#decorators", 
+            "text": "Mocha exposes decorators to simplify your app development", 
+            "title": "Decorators"
+        }, 
+        {
+            "location": "/views/decorators/#render", 
+            "text": "", 
+            "title": "Render"
         }, 
         {
             "location": "/views/decorators/#cache", 
@@ -322,13 +502,8 @@
         }, 
         {
             "location": "/views/helpers/", 
-            "text": "About\n\n\nUtils are functions or objects that are exposed to the applications. They can be shortcuts, \nor from Flask itself. Some of them may extend some functionalities. \n\n\nconfig\n\n\n\n\npage_attr\n\n\n\n\nurl_for\n\n\n\n\nredirect\n\n\nRedirect the request to another url. It adds an extra functionality by passing \nthe a class method\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n,\n \nredirect\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \npass\n\n\n    \ndef\n \nhello\n(\nself\n):\n\n        \nreturn\n \nredirect\n(\nself\n.\nindex\n)\n\n\n\n\n\n\n\n\nrequest\n\n\nThis return the basic \nflask request\n object\n\n\nsession\n\n\nflash_success\n\n\nflash_error\n\n\nflash_info\n\n\nflash_data\n\n\nget_flash_data\n\n\nabort\n\n\nsend_mail\n\n\nget_env\n\n\nset_env\n\n\nget_env_app\n\n\nget_env_config\n\n\nmodels\n\n\nviews\n\n\nregister_package\n\n\ninit_app\n\n\nimport_module\n\n\nregister_models\n\n\nsend_mail\n\n\nupload\n\n\nstorage", 
-            "title": "Views: Helpers"
-        }, 
-        {
-            "location": "/views/helpers/#about", 
-            "text": "Utils are functions or objects that are exposed to the applications. They can be shortcuts, \nor from Flask itself. Some of them may extend some functionalities.", 
-            "title": "About"
+            "text": "Utils are functions or objects that are exposed to the applications. They can be shortcuts, \nor from Flask itself. Some of them may extend some functionalities. \n\n\nconfig\n\n\n\n\npage_attr\n\n\nsend_mail\n\n\nget_env\n\n\nset_env\n\n\nget_env_app\n\n\nget_env_config\n\n\nmodels\n\n\nviews\n\n\nregister_package\n\n\ninit_app\n\n\nimport_module\n\n\nregister_models\n\n\nsend_mail\n\n\nupload\n\n\nstorage", 
+            "title": "Helpers"
         }, 
         {
             "location": "/views/helpers/#config", 
@@ -339,56 +514,6 @@
             "location": "/views/helpers/#page_attr", 
             "text": "", 
             "title": "page_attr"
-        }, 
-        {
-            "location": "/views/helpers/#url_for", 
-            "text": "", 
-            "title": "url_for"
-        }, 
-        {
-            "location": "/views/helpers/#redirect", 
-            "text": "Redirect the request to another url. It adds an extra functionality by passing \nthe a class method  from   mocha   import   Mocha ,   redirect  class   Index ( Mocha ): \n\n     def   index ( self ): \n         pass \n\n     def   hello ( self ): \n         return   redirect ( self . index )", 
-            "title": "redirect"
-        }, 
-        {
-            "location": "/views/helpers/#request", 
-            "text": "This return the basic  flask request  object", 
-            "title": "request"
-        }, 
-        {
-            "location": "/views/helpers/#session", 
-            "text": "", 
-            "title": "session"
-        }, 
-        {
-            "location": "/views/helpers/#flash_success", 
-            "text": "", 
-            "title": "flash_success"
-        }, 
-        {
-            "location": "/views/helpers/#flash_error", 
-            "text": "", 
-            "title": "flash_error"
-        }, 
-        {
-            "location": "/views/helpers/#flash_info", 
-            "text": "", 
-            "title": "flash_info"
-        }, 
-        {
-            "location": "/views/helpers/#flash_data", 
-            "text": "", 
-            "title": "flash_data"
-        }, 
-        {
-            "location": "/views/helpers/#get_flash_data", 
-            "text": "", 
-            "title": "get_flash_data"
-        }, 
-        {
-            "location": "/views/helpers/#abort", 
-            "text": "", 
-            "title": "abort"
         }, 
         {
             "location": "/views/helpers/#send_mail", 
@@ -462,7 +587,7 @@
         }, 
         {
             "location": "/templates/", 
-            "text": "Structure\n\n\nLayouts\n\n\nPages", 
+            "text": "Location: \n/application/templates\n\n\n\n\nStructure\n\n\nLayouts\n\n\nPages", 
             "title": "Templates"
         }, 
         {
@@ -483,7 +608,7 @@
         {
             "location": "/templates/filters/", 
             "text": "Mocha\n also has some convenient filter to use in your template\n\n\nlink_for\n\n\nlink_for\n creates an link tag base on endpoint\n\n\n{{\n \nlink_for\n(\nIndex:about_us\n)\n \n}}\n\n\n\n\n\n\nThe code above would result into a link similar to this \n\n\na\n \nhref=\n/about-us\nAbout Us\n/a\n\n\n\n\n\n\nBased on a view like this\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@nav_menu\n(\nAbout Us\n)\n\n    \ndef\n \nabout_us\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\ndate\n\n\ndate\n : To format a date based on the \nDATE_FORMAT\n in your config file\n\n\n{{\n \nvar_date\n \n|\n \ndate\n \n}}\n\n\n\n\n\n\ndate_time\n\n\ndate_time\n : To format a date based on the \nDATE_TIME_FORMAT\n in your config file\n\n\n{{\n \nvar_date\n \n|\n \ndate_time\n \n}}\n\n\n\n\n\n\nformat_datetime\n\n\nformat_datetime(format)\n : To format a date \n\n\n{{\n \nvar_date\n \n|\n \nformat_datetime\n(\nMM/DD/YYYY\n)\n \n}}\n\n\n\n\n\n\ndate_since\n\n\ndate_since\n :Show the date ago: show Today, Yesterday, July 27 (without year in same year), July 15 2014 \n\n\n{{\n \nvar_date\n \n|\n \ndate_since\n \n}}\n\n\n\n\n\n\ntime_since\n\n\ntime_since\n : To show the time ago: 3 min ago, 2 days ago, 1 year 7 days ago \n\n\n{{\n \nvar_date\n \n|\n \ntime_since\n \n}}\n\n\n\n\n\n\nimg_src\n\n\nimg_src\n: Generate an \n tag\n\n\n{{\n \nimage_url\n \n|\n \nimg_src\n \n}}\n\n\n\n\n\n\noembed\n\n\noembed\n: To generate an oembed tag. Mocha will load the content via JS\n\n\n{{\n \nurl\n \n|\n \noembed\n \n}}\n\n\n\n\n\n\nstatic\n\n\nstatic\n: Generates a a url for static file\n\n\nimg src=\n{{\n \nfile.jpg\n \n|\n \nstatic\n \n}}\n\n\n\n\n\n\nslugify\n\n\nslugify\n : \n\n\n{{\n \nvarname\n \n|\n \nslugify\n \n}}\n\n\n\n\n\n\nmarkdown\n\n\nmarkdown\n Transform a markdown text to safe html\n\n\n{{\n \nvar_markdown_content\n \n|\n \nmarkdown\n \n}}\n\n\n\n\n\n\nmarkdown_toc\n\n\nmarkdown_toc\n From the markdown content, generate the table of content\n\n\n{{\n \nvar_markdown_content\n \n|\n \nmarkdown_toc\n \n}}\n\n\n\n\n\n\n\n\nMacros\n\n\nForms\n\n\nForms expose forms fields.\n\n\n{\n%\n \nimport\n \nMocha/macros/forms.html\n \nas\n \nforms\n \nwith\n \ncontext\n \n%\n}\n\n\n\n\n\n\nforms.get\n\n\nCreate a GET form\n\n\nTo create a get form:\n\n{% call forms.get(request.endpoint) %}\n\n\n{% endcall %}\n\n\n\n\n\nforms.post\n\n\nCreate a POST form\n\n\nTo create a post form, which will automatically include the `csrf_token` to prevent cross-site request forgery.\n\n{% call forms.post(request.endpoint) %}\n\n\n{% endcall %}\n\n\n\n\n\nforms.upload\n\n\nCreate a UPLOAD form\n\n\nTo create a post form but with the ability to upload file, which will automatically include the `csrf_token` to prevent cross-site request forgery.\n\n{% call forms.upload(request.endpoint) %}\n\n\n{% endcall %}\n\n\n\n\n\nforms.input\n\n\n{{\n \nform.input\n(\nlabel\n=\nEnter your name\n,\n \nname\n=\nname\n,\n \nvalue\n=\n,\n \nplaceholder\n=\nEnter Name\n)\n \n}}\n\n\n\n\n\n\nforms.hidden\n\n\nforms.select\n\n\nforms.radio\n\n\nforms.checkbox\n\n\nforms.textarea\n\n\nforms.button\n\n\nforms.recaptcha\n\n\nIt creates the RECAPTCHA input \n\n\n{{\n \nforms.recaptcha\n()\n \n}}\n\n\n\n\n\n\nforms.examples\n\n\n{%\n \ncall\n \nforms.post\n(\nrequest.endpoint\n)\n \n%}\n\n\n\n    \n{{\n \nforms.input\n(\nlabel\n=\nName\n,\n \nname\n=\nname\n)\n \n}}\n\n\n    \n{{\n \nforms.input\n(\nlabel\n=\nCity\n,\n \nname\n=\ncity\n)\n \n}}\n\n\n    \n{{\n \nforms.radio\n(\nlabel\n=\nFavorite Colod\n,\n \nname\n=\nfav_color\n,\n \noptions\n=[(\nblue\n,\n \nBlue\n),\n \n(\nred\n,\n \nRed\n)])\n \n}}\n\n\n\n    \n{{\n \nforms.input\n(\nlabel\n=\nUpload Image\n,\n \nname\n=\nfile\n,\n \ntype\n=\nfile\n)\n \n}}\n\n\n\n    \n{{\n \nform.button\n(\ntype\n=\nsubmit\n)\n \n}}\n\n\n\n{%\n \nendcall\n \n%}\n\n\n\n\n\n\n\n\nWidget\n\n\nWidget exposes some bootstrap widget \n\n\n{\n%\n \nimport\n \nMocha/macros/forms.widget\n \nas\n \nwidget\n \nwith\n \ncontext\n \n%\n}\n\n\n\n\n\n\n\n\nMenu\n\n\n{\n%\n \nimport\n \nMocha/macros/menu.html\n \nas\n \nmenu\n \nwith\n \ncontext\n \n%\n}", 
-            "title": "Templates: Filters"
+            "title": "Filters"
         }, 
         {
             "location": "/templates/filters/#link_for", 
@@ -671,13 +796,13 @@
             "title": "Navs"
         }, 
         {
-            "location": "/models/", 
-            "text": "Models\n\n\n\n\nConfiguration\n\n\n\n\ndb\n\n\n\n\nmodel\n\n\n\n\nTypes\n\n\n\n\nSpecial Types\n\n\nBeside the default SQLAlchemy column types,\n\n\nSQLAlchemy-Utils\n\n\n\n\nDateTime\n\n\nAlias to ArrowType, which provides way of saving \nArrow\n objects into database.\nIt automatically changes Arrow objects to datetime objects on the way in and\ndatetime objects back to Arrow objects on the way out (when querying database).\n\n\nExample\n\n\nfrom\n \nmocha\n \nimport\n \ndb\n\n\n\nclass\n \nArticle\n(\ndb\n.\nModel\n):\n\n    \ntitle\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nString\n(\n255\n))\n\n    \npublished_at\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nDateTime\n)\n\n\n\n\n\n\n Create \n\n\nfrom\n \nmocha\n \nimport\n \nutc_now\n,\n \nmodels\n\n\n\nmodels\n.\nArticle\n.\ncreate\n(\ntitle\n=\nHi\n,\n \npublished_at\n=\nutc_now\n)\n\n\n\n\n\n\n Read \n\n\nfrom\n \nmocha\n \nimport\n \nmodels\n\n\n\narticle\n \n=\n \nmodels\n.\nArticle\n.\nget\n(\n1\n)\n\n\n\narticle\n.\ncreated_at\n \n=\n \narticle\n.\ncreated_at\n.\nreplace\n(\nhours\n=-\n1\n)\n\n\n\narticle\n.\ncreated_at\n.\nhumanize\n()\n\n\n# \nan hour ago\n\n\n\n\n\n\n Links \n\n\nArrowType\n\n\nArrow\n\n\nArrow Tokens\n\n\n\n\nStorageObjectType\n\n\nStorageObjectType offers way of saving \nStorage.Object\n data structures to database.\nIt automatically changes Arrow objects to JSON objects on the way in and\n\nStorage.Object\n objects back on the way out (when querying database).\n\n\nExample\n\n\nfrom\n \nmocha\n \nimport\n \ndb\n\n\n\nclass\n \nArticle\n(\ndb\n.\nModel\n):\n\n    \ntitle\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nString\n(\n255\n))\n\n    \npublished_at\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nDateTime\n)\n\n    \nimage\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nStorageObjectType\n)\n\n\n\n\n\n\n Create \n\n\nfrom\n \nmocha\n \nimport\n \nutc_now\n,\n \nmodels\n,\n \nupload_file\n\n\n\nimage_file\n \n=\n \nfile/xyz.jpg\n\n\nimage\n \n=\n \nupload_file\n(\nimage_file\n)\n\n\n\nmodels\n.\nArticle\n.\ncreate\n(\ntitle\n=\nHi\n,\n \npublished_at\n=\nutc_now\n,\n \nimage\n=\nimage\n)\n\n\n\n\n\n\n Read \n\n\nfrom\n \nmocha\n \nimport\n \nmodels\n\n\n\narticle\n \n=\n \nmodels\n.\nArticle\n.\nget\n(\n1\n)\n\n\n\narticle\n.\nimage\n.\nurl\n\n\narticle\n.\nimage\n.\nsize\n\n\narticle\n.\nimage\n.\ndownload\n()\n\n\n\n\n\n\n\n\nEmailType\n\n\nProvides a way for storing emails in a lower case.\n\n\nExample\n\n\nfrom\n \nmocha\n \nimport\n \ndb\n\n\n\nclass\n \nArticle\n(\ndb\n.\nModel\n):\n\n    \ntitle\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nString\n(\n255\n))\n\n    \npublished_at\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nDateTime\n)\n\n    \nemail\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nEmailType\n)\n\n\n\n\n\n\nLink: \nEmailType\n\n\n\n\nJSONType\n\n\nJSONType offers way of saving JSON data structures to database.\nOn PostgreSQL the underlying implementation of this data type is \u2018json\u2019\nwhile on other databases its simply \u2018text\u2019.\n\n\nExample\n\n\nfrom\n \nmocha\n \nimport\n \ndb\n\n\n\nclass\n \nArticle\n(\ndb\n.\nModel\n):\n\n    \ntitle\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nString\n(\n255\n))\n\n    \npublished_at\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nDateTime\n)\n\n    \ndata\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nJSONType\n)\n\n\n\n\n\n\n Create \n\n\nfrom\n \nmocha\n \nimport\n \nmodels\n,\n \nutc_now\n\n\n\nmodels\n.\nArticle\n.\ncreate\n(\ntitle\n=\nHello\n,\n\n                      \npublished_at\n=\nutc_now\n,\n\n                      \ndata\n=\n{\n\n                        \nreference\n:\n \nblah\n,\n\n                        \ntags\n:\n \n[\nA\n,\n \nB\n,\n \nC\n]\n\n                      \n})\n\n\n\n\n\n\n Read \n\n\narticle = models.Article.get(1)\n\narticle.data.get(\nreference\n)\n# blah\n\narticle.data.get(\ntags\n)\n# [\nA\n, \nB\n, \nC\n]\n\narticle.data.get(\nlocation\n, \nCharlotte\n)\n# Charlotte\n\n\n\n\n\nLink: \nJSONType\n\n\n\n\nGeneric Types\n\n\n\n\nSQLAlchemy-Utils Types\n\n\nIf you want to use the other types from\n\nSQLAlchemy-Utils\n\n\n\n\nArrowType\n\n\nChoiceType\n\n\nColorType\n\n\nCountryType\n\n\nCurrencyType\n\n\nEmailType\n\n\nEncryptedType\n\n\nJSONType\n\n\nLocaleType\n\n\nLtreeType\n\n\nIPAddressType\n\n\nPasswordType\n\n\nPhoneNumberType\n\n\nScalarListType\n\n\nTimezoneType\n\n\nTSVectorType\n\n\nURLType\n\n\nUUIDType\n\n\nWeekDaysType", 
-            "title": "Models"
+            "location": "/assets/", 
+            "text": "Location: \n/application/static", 
+            "title": "Assets"
         }, 
         {
-            "location": "/models/#models", 
-            "text": "", 
+            "location": "/models/", 
+            "text": "Location: \n/application/models.py\n\n\n\n\nConfiguration\n\n\n\n\ndb\n\n\n\n\nmodel\n\n\n\n\nTypes\n\n\n\n\nSpecial Types\n\n\nBeside the default SQLAlchemy column types,\n\n\nSQLAlchemy-Utils\n\n\n\n\nDateTime\n\n\nAlias to ArrowType, which provides way of saving \nArrow\n objects into database.\nIt automatically changes Arrow objects to datetime objects on the way in and\ndatetime objects back to Arrow objects on the way out (when querying database).\n\n\nExample\n\n\nfrom\n \nmocha\n \nimport\n \ndb\n\n\n\nclass\n \nArticle\n(\ndb\n.\nModel\n):\n\n    \ntitle\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nString\n(\n255\n))\n\n    \npublished_at\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nDateTime\n)\n\n\n\n\n\n\n Create \n\n\nfrom\n \nmocha\n \nimport\n \nutc_now\n,\n \nmodels\n\n\n\nmodels\n.\nArticle\n.\ncreate\n(\ntitle\n=\nHi\n,\n \npublished_at\n=\nutc_now\n)\n\n\n\n\n\n\n Read \n\n\nfrom\n \nmocha\n \nimport\n \nmodels\n\n\n\narticle\n \n=\n \nmodels\n.\nArticle\n.\nget\n(\n1\n)\n\n\n\narticle\n.\ncreated_at\n \n=\n \narticle\n.\ncreated_at\n.\nreplace\n(\nhours\n=-\n1\n)\n\n\n\narticle\n.\ncreated_at\n.\nhumanize\n()\n\n\n# \nan hour ago\n\n\n\n\n\n\n Links \n\n\nArrowType\n\n\nArrow\n\n\nArrow Tokens\n\n\n\n\nStorageObjectType\n\n\nStorageObjectType offers way of saving \nStorage.Object\n data structures to database.\nIt automatically changes Arrow objects to JSON objects on the way in and\n\nStorage.Object\n objects back on the way out (when querying database).\n\n\nExample\n\n\nfrom\n \nmocha\n \nimport\n \ndb\n\n\n\nclass\n \nArticle\n(\ndb\n.\nModel\n):\n\n    \ntitle\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nString\n(\n255\n))\n\n    \npublished_at\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nDateTime\n)\n\n    \nimage\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nStorageObjectType\n)\n\n\n\n\n\n\n Create \n\n\nfrom\n \nmocha\n \nimport\n \nutc_now\n,\n \nmodels\n,\n \nupload_file\n\n\n\nimage_file\n \n=\n \nfile/xyz.jpg\n\n\nimage\n \n=\n \nupload_file\n(\nimage_file\n)\n\n\n\nmodels\n.\nArticle\n.\ncreate\n(\ntitle\n=\nHi\n,\n \npublished_at\n=\nutc_now\n,\n \nimage\n=\nimage\n)\n\n\n\n\n\n\n Read \n\n\nfrom\n \nmocha\n \nimport\n \nmodels\n\n\n\narticle\n \n=\n \nmodels\n.\nArticle\n.\nget\n(\n1\n)\n\n\n\narticle\n.\nimage\n.\nurl\n\n\narticle\n.\nimage\n.\nsize\n\n\narticle\n.\nimage\n.\ndownload\n()\n\n\n\n\n\n\n\n\nEmailType\n\n\nProvides a way for storing emails in a lower case.\n\n\nExample\n\n\nfrom\n \nmocha\n \nimport\n \ndb\n\n\n\nclass\n \nArticle\n(\ndb\n.\nModel\n):\n\n    \ntitle\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nString\n(\n255\n))\n\n    \npublished_at\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nDateTime\n)\n\n    \nemail\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nEmailType\n)\n\n\n\n\n\n\nLink: \nEmailType\n\n\n\n\nJSONType\n\n\nJSONType offers way of saving JSON data structures to database.\nOn PostgreSQL the underlying implementation of this data type is \u2018json\u2019\nwhile on other databases its simply \u2018text\u2019.\n\n\nExample\n\n\nfrom\n \nmocha\n \nimport\n \ndb\n\n\n\nclass\n \nArticle\n(\ndb\n.\nModel\n):\n\n    \ntitle\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nString\n(\n255\n))\n\n    \npublished_at\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nDateTime\n)\n\n    \ndata\n \n=\n \ndb\n.\nColumn\n(\ndb\n.\nJSONType\n)\n\n\n\n\n\n\n Create \n\n\nfrom\n \nmocha\n \nimport\n \nmodels\n,\n \nutc_now\n\n\n\nmodels\n.\nArticle\n.\ncreate\n(\ntitle\n=\nHello\n,\n\n                      \npublished_at\n=\nutc_now\n,\n\n                      \ndata\n=\n{\n\n                        \nreference\n:\n \nblah\n,\n\n                        \ntags\n:\n \n[\nA\n,\n \nB\n,\n \nC\n]\n\n                      \n})\n\n\n\n\n\n\n Read \n\n\narticle = models.Article.get(1)\n\narticle.data.get(\nreference\n)\n# blah\n\narticle.data.get(\ntags\n)\n# [\nA\n, \nB\n, \nC\n]\n\narticle.data.get(\nlocation\n, \nCharlotte\n)\n# Charlotte\n\n\n\n\n\nLink: \nJSONType\n\n\n\n\nGeneric Types\n\n\n\n\nSQLAlchemy-Utils Types\n\n\nIf you want to use the other types from\n\nSQLAlchemy-Utils\n\n\n\n\nArrowType\n\n\nChoiceType\n\n\nColorType\n\n\nCountryType\n\n\nCurrencyType\n\n\nEmailType\n\n\nEncryptedType\n\n\nJSONType\n\n\nLocaleType\n\n\nLtreeType\n\n\nIPAddressType\n\n\nPasswordType\n\n\nPhoneNumberType\n\n\nScalarListType\n\n\nTimezoneType\n\n\nTSVectorType\n\n\nURLType\n\n\nUUIDType\n\n\nWeekDaysType", 
             "title": "Models"
         }, 
         {
@@ -734,76 +859,6 @@
             "location": "/models/#sqlalchemy-utils-types", 
             "text": "If you want to use the other types from SQLAlchemy-Utils   ArrowType  ChoiceType  ColorType  CountryType  CurrencyType  EmailType  EncryptedType  JSONType  LocaleType  LtreeType  IPAddressType  PasswordType  PhoneNumberType  ScalarListType  TimezoneType  TSVectorType  URLType  UUIDType  WeekDaysType", 
             "title": "SQLAlchemy-Utils Types"
-        }, 
-        {
-            "location": "/assets/", 
-            "text": "", 
-            "title": "Assets"
-        }, 
-        {
-            "location": "/ext/", 
-            "text": "Extensions\n\n\nExtensions are some flask extensions that are already loaded in your application \nfor you to use. They can be configured through their native configuration or \nthrough Mocha config.\n\n\n\n\nupload\n\n\n\n\ncache\n\n\ncache\n exposes a caching mechanism for your application's views.\n\n\nfrom\n \nmocha\n \nimport\n \ncache\n\n\n\n\n\n\nConfiguration\n\n\n#: Flask-Cache is used to caching\n\n#: CACHE_TYPE\n#: The type of cache to use\n#: null, simple, redis, filesystem,\nCACHE_TYPE = \nsimple\n\n\n#: CACHE_REDIS_URL\n#: If CHACHE_TYPE is \nredis\n, set the redis uri\n#: redis://username:password@host:port/db\nCACHE_REDIS_URL = \n\n\n#: CACHE_DIR\n#: Directory to store cache if CACHE_TYPE is filesystem, it will\nCACHE_DIR = \n\n\n\n\n\n\nExample\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \n@cache\n.\ncached\n(\n60\n*\n60\n)\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\nExtension: \nflask-cache\n\n\n\n\nmail\n\n\nmail\n exposes an interface to send email via SMTP or AWS SES.\n\n\nfrom\n \nmocha\n \nimport\n \nmail\n\n\n\n\n\n\nConfiguration\n\n\n# AWS SES\n\n\n# To use AWS SES to send email\n\n\n#:\n\n\n#: - To use the default AWS credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)\n\n\n#: set MAIL_URI = \nses://\n\n\n#: * To use a different credential:\n\n\n#: set MAIL_URI = \nses://{access_key}:{secret_key}@{region}\n\n\n#:\n\n\n#: *** uncomment if you are using SMTP instead\n\n\nMAIL_URI =\n \nses://\n\n\n\n# SMTP\n\n\n#: If you are using SMTP, it will use Flask-Mail\n\n\n#: The uri for the smtp connection. It will use Flask-Mail\n\n\n#: format: smtp://USERNAME:PASSWORD@HOST:PORT\n\n\n#: with sll -\n smtp+ssl://USERNAME:PASSWORD@HOST:PORT\n\n\n#: with ssl and tls -\n smtp+ssl+tls://USERNAME:PASSWORD@HOST:PORT\n\n\n#:\n\n\n#: *** comment out if you are using SES instead\n\n\n# MAIL_URI = \nsmtp+ssl://{username}:{password}@{host}:{port}\n\\\n\n\n#    .format(username=\n, password=\n, host=\nsmtp.gmail.com\n, port=465)\n\n\n\n#: MAIL_SENDER - The sender of the email by default\n\n\n#: For SES, this email must be authorized\n\n\nMAIL_SENDER =\n APPLICATION_ADMIN_EMAIL\n\n\n#: MAIL_REPLY_TO\n\n\n#: The email to reply to by default\n\n\nMAIL_REPLY_TO =\n APPLICATION_ADMIN_EMAIL\n\n\n#: MAIL_TEMPLATE\n\n\n#: a directory that contains the email template or a dict\n\n\nMAIL_TEMPLATE =\n os\n.\npath\n.\njoin\n(\nAPPLICATION_DATA_DIR\n,\n \nmail-templates\n)\n\n\n\n#: MAIL_TEMPLATE_CONTEXT\n\n\n#: a dict of all context to pass to the email by default\n\n\nMAIL_TEMPLATE_CONTEXT =\n \n{\n\n    \nsite_name\n:\n APPLICATION_NAME\n,\n\n    \nsite_url\n:\n APPLICATION_URL\n\n}\n\n\n\n\n\n\nAs a convenience, you can use \nsend_email()\n to send email. \n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n,\n \nsend_email\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \n@post\n()\n\n    \ndef\n \nsend\n():\n\n        \nrecipient\n \n=\n \nemail@email.com\n\n        \nsender\n \n=\n \nrequest\n.\nform\n.\nget\n(\nsender\n)\n\n        \nsubject\n \n=\n \nWelcome\n\n\n        \nmail\n.\nsend\n(\nto\n=\nrecipient\n,\n \nsender\n=\nsender\n,\n \nsubject\n=\nsubet\n)\n\n\n\n\n\n\nExtension: \nses-mailer\n\n\nExtension: \nflask-mail\n\n\n\n\nrecaptcha\n\n\nReCaptcha\n implements the Google recaptcha in your application. \n\n\nfrom\n \nmocha\n \nimport\n \nrecaptcha\n\n\n\n\n\n\nConfiguration\n\n\n#: Flask-Recaptcha\n#: Register your application at https://www.google.com/recaptcha/admin\n\n#: RECAPTCHA_ENABLED\nRECAPTCHA_ENABLED = True\n\n#: RECAPTCHA_SITE_KEY\nRECAPTCHA_SITE_KEY = \n\n\n#: RECAPTCHA_SECRET_KEY\nRECAPTCHA_SECRET_KEY = \n\n\n\n\n\n\nJinja Code\n\n\nTo include the recaptcha in your template add the code below\n\n\n{{\n \nrecaptcha\n \n}}\n\n\n\n\n\n\nVerify Code\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \npass\n\n\n    \n@post\n\n    \ndef\n \nsend_data\n(\nself\n)\n:\n\n        \nif\n \nrecaptcha\n.\nverify\n()\n:\n\n            \n#\n \nSUCCESS\n\n        \nelse\n:\n\n            \n#\n \nFAILED\n\n\n\n\n\n\nAbout\n\n\nExtension: \nflask-recaptcha\n\n\nTo register your application go \nhttps://www.google.com/recaptcha/admin\n\n\n\n\ncsrf\n\n\ncsrf\n prevents cross-site request forgery (CSRF) on your application\n\n\nfrom\n \nmocha\n \nimport\n \ncsrf\n\n\n\n\n\n\nAutomatically all POST, UPDATE methods will require a CSRF token, unless explicitly exempt.\n\n\nTo exempt and endpoint, jus add the decorator \ncsrf.exempt\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \npass\n\n\n    \n@post\n()\n\n    \n@csrf\n.\nexempt\n\n    \ndef\n \nexempted_post\n(\nself\n)\n:\n\n        \npass\n\n\n    \n@post\n()\n\n    \ndef\n \nsave_data\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\nIn the example above, when posting to \n/exempted-post/\n it will not require the CSRF token,\nhowever \n/save-data/\n requires it. \n\n\nAbout\n\n\nExtension: \nflask-seasurf\n\n\nSeaSurf is a Flask extension for preventing cross-site request forgery (CSRF).\n\n\nCSRF vulnerabilities have been found in large and popular sites such as YouTube. \nThese attacks are problematic because the mechanism they use is relatively easy to exploit. \nThis extension attempts to aid you in securing your application from such attacks.\n\n\n\n\nsession\n\n\nfrom\n \nmocha\n \nimport\n \nsession\n\n\n\n\n\n\n--\n\n\nstorage\n\n\nAllows you to to access, upload, download, save and delete files on cloud\nstorage providers such as: AWS S3, Google Storage, Microsoft Azure,\nRackspace Cloudfiles, and even Local file system\n\n\nfrom\n \nmocha\n \nimport\n \nstorage\n\n\n\n\n\n\nConfiguration\n\n\nEdit the keys below in your config class file:\n\n\n#: STORAGE_PROVIDER:\n# The provider to use. By default it\ns \nLOCAL\n.\n# You can use:\n# LOCAL, S3, GOOGLE_STORAGE, AZURE_BLOBS, CLOUDFILES\nSTORAGE_PROVIDER = \nLOCAL\n\n\n#: STORAGE_KEY\n# The storage key. Leave it blank if PROVIDER is LOCAL\nSTORAGE_KEY = AWS_ACCESS_KEY_ID\n\n#: STORAGE_SECRET\n#: The storage secret key. Leave it blank if PROVIDER is LOCAL\nSTORAGE_SECRET = AWS_SECRET_ACCESS_KEY\n\n#: STORAGE_REGION_NAME\n#: The region for the storage. Leave it blank if PROVIDER is LOCAL\nSTORAGE_REGION_NAME = AWS_REGION_NAME\n\n#: STORAGE_CONTAINER\n#: The Bucket name (for S3, Google storage, Azure, cloudfile)\n#: or the directory name (LOCAL) to access\nSTORAGE_CONTAINER = os.path.join(APPLICATION_DATA_DIR, \nuploads\n)\n\n#: STORAGE_SERVER\n#: Bool, to serve local file\nSTORAGE_SERVER = True\n\n#: STORAGE_SERVER_URL\n#: The url suffix for local storage\nSTORAGE_SERVER_URL = \nfiles\n\n\n\n\n\n\nstorage.get\n\n\nAllows you to get a file from the storage\n\n\nmy_file = storage.get(\nmyfile.jpg\n)\n\nmy_file.name  # return The file name\n\nmy_file.size  # returns file size\n\n\n\n\n\nstorage.upload", 
-            "title": "Extensions"
-        }, 
-        {
-            "location": "/ext/#extensions", 
-            "text": "Extensions are some flask extensions that are already loaded in your application \nfor you to use. They can be configured through their native configuration or \nthrough Mocha config.", 
-            "title": "Extensions"
-        }, 
-        {
-            "location": "/ext/#upload", 
-            "text": "", 
-            "title": "upload"
-        }, 
-        {
-            "location": "/ext/#cache", 
-            "text": "cache  exposes a caching mechanism for your application's views.  from   mocha   import   cache   Configuration  #: Flask-Cache is used to caching\n\n#: CACHE_TYPE\n#: The type of cache to use\n#: null, simple, redis, filesystem,\nCACHE_TYPE =  simple \n\n#: CACHE_REDIS_URL\n#: If CHACHE_TYPE is  redis , set the redis uri\n#: redis://username:password@host:port/db\nCACHE_REDIS_URL =  \n\n#: CACHE_DIR\n#: Directory to store cache if CACHE_TYPE is filesystem, it will\nCACHE_DIR =    Example  class   Index ( Mocha ) : \n\n     @cache . cached ( 60 * 60 ) \n     def   index ( self ) : \n         pass   Extension:  flask-cache", 
-            "title": "cache"
-        }, 
-        {
-            "location": "/ext/#mail", 
-            "text": "mail  exposes an interface to send email via SMTP or AWS SES.  from   mocha   import   mail   Configuration  # AWS SES  # To use AWS SES to send email  #:  #: - To use the default AWS credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)  #: set MAIL_URI =  ses://  #: * To use a different credential:  #: set MAIL_URI =  ses://{access_key}:{secret_key}@{region}  #:  #: *** uncomment if you are using SMTP instead  MAIL_URI =   ses://  # SMTP  #: If you are using SMTP, it will use Flask-Mail  #: The uri for the smtp connection. It will use Flask-Mail  #: format: smtp://USERNAME:PASSWORD@HOST:PORT  #: with sll -  smtp+ssl://USERNAME:PASSWORD@HOST:PORT  #: with ssl and tls -  smtp+ssl+tls://USERNAME:PASSWORD@HOST:PORT  #:  #: *** comment out if you are using SES instead  # MAIL_URI =  smtp+ssl://{username}:{password}@{host}:{port} \\  #    .format(username= , password= , host= smtp.gmail.com , port=465)  #: MAIL_SENDER - The sender of the email by default  #: For SES, this email must be authorized  MAIL_SENDER =  APPLICATION_ADMIN_EMAIL #: MAIL_REPLY_TO  #: The email to reply to by default  MAIL_REPLY_TO =  APPLICATION_ADMIN_EMAIL #: MAIL_TEMPLATE  #: a directory that contains the email template or a dict  MAIL_TEMPLATE =  os . path . join ( APPLICATION_DATA_DIR ,   mail-templates )  #: MAIL_TEMPLATE_CONTEXT  #: a dict of all context to pass to the email by default  MAIL_TEMPLATE_CONTEXT =   { \n     site_name :  APPLICATION_NAME , \n     site_url :  APPLICATION_URL }   As a convenience, you can use  send_email()  to send email.   from   mocha   import   Mocha ,   send_email  class   Index ( Mocha ): \n\n     @post () \n     def   send (): \n         recipient   =   email@email.com \n         sender   =   request . form . get ( sender ) \n         subject   =   Welcome \n\n         mail . send ( to = recipient ,   sender = sender ,   subject = subet )   Extension:  ses-mailer  Extension:  flask-mail", 
-            "title": "mail"
-        }, 
-        {
-            "location": "/ext/#recaptcha", 
-            "text": "ReCaptcha  implements the Google recaptcha in your application.   from   mocha   import   recaptcha   Configuration  #: Flask-Recaptcha\n#: Register your application at https://www.google.com/recaptcha/admin\n\n#: RECAPTCHA_ENABLED\nRECAPTCHA_ENABLED = True\n\n#: RECAPTCHA_SITE_KEY\nRECAPTCHA_SITE_KEY =  \n\n#: RECAPTCHA_SECRET_KEY\nRECAPTCHA_SECRET_KEY =    Jinja Code  To include the recaptcha in your template add the code below  {{   recaptcha   }}   Verify Code  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         pass \n\n     @post \n     def   send_data ( self ) : \n         if   recaptcha . verify () : \n             #   SUCCESS \n         else : \n             #   FAILED   About  Extension:  flask-recaptcha  To register your application go  https://www.google.com/recaptcha/admin", 
-            "title": "recaptcha"
-        }, 
-        {
-            "location": "/ext/#csrf", 
-            "text": "csrf  prevents cross-site request forgery (CSRF) on your application  from   mocha   import   csrf   Automatically all POST, UPDATE methods will require a CSRF token, unless explicitly exempt.  To exempt and endpoint, jus add the decorator  csrf.exempt  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         pass \n\n     @post () \n     @csrf . exempt \n     def   exempted_post ( self ) : \n         pass \n\n     @post () \n     def   save_data ( self ) : \n         pass   In the example above, when posting to  /exempted-post/  it will not require the CSRF token,\nhowever  /save-data/  requires it.   About  Extension:  flask-seasurf  SeaSurf is a Flask extension for preventing cross-site request forgery (CSRF).  CSRF vulnerabilities have been found in large and popular sites such as YouTube. \nThese attacks are problematic because the mechanism they use is relatively easy to exploit. \nThis extension attempts to aid you in securing your application from such attacks.", 
-            "title": "csrf"
-        }, 
-        {
-            "location": "/ext/#session", 
-            "text": "from   mocha   import   session   --", 
-            "title": "session"
-        }, 
-        {
-            "location": "/ext/#storage", 
-            "text": "Allows you to to access, upload, download, save and delete files on cloud\nstorage providers such as: AWS S3, Google Storage, Microsoft Azure,\nRackspace Cloudfiles, and even Local file system  from   mocha   import   storage", 
-            "title": "storage"
-        }, 
-        {
-            "location": "/ext/#configuration", 
-            "text": "Edit the keys below in your config class file:  #: STORAGE_PROVIDER:\n# The provider to use. By default it s  LOCAL .\n# You can use:\n# LOCAL, S3, GOOGLE_STORAGE, AZURE_BLOBS, CLOUDFILES\nSTORAGE_PROVIDER =  LOCAL \n\n#: STORAGE_KEY\n# The storage key. Leave it blank if PROVIDER is LOCAL\nSTORAGE_KEY = AWS_ACCESS_KEY_ID\n\n#: STORAGE_SECRET\n#: The storage secret key. Leave it blank if PROVIDER is LOCAL\nSTORAGE_SECRET = AWS_SECRET_ACCESS_KEY\n\n#: STORAGE_REGION_NAME\n#: The region for the storage. Leave it blank if PROVIDER is LOCAL\nSTORAGE_REGION_NAME = AWS_REGION_NAME\n\n#: STORAGE_CONTAINER\n#: The Bucket name (for S3, Google storage, Azure, cloudfile)\n#: or the directory name (LOCAL) to access\nSTORAGE_CONTAINER = os.path.join(APPLICATION_DATA_DIR,  uploads )\n\n#: STORAGE_SERVER\n#: Bool, to serve local file\nSTORAGE_SERVER = True\n\n#: STORAGE_SERVER_URL\n#: The url suffix for local storage\nSTORAGE_SERVER_URL =  files", 
-            "title": "Configuration"
-        }, 
-        {
-            "location": "/ext/#storageget", 
-            "text": "Allows you to get a file from the storage  my_file = storage.get( myfile.jpg )\n\nmy_file.name  # return The file name\n\nmy_file.size  # returns file size", 
-            "title": "storage.get"
-        }, 
-        {
-            "location": "/ext/#storageupload", 
-            "text": "", 
-            "title": "storage.upload"
-        }, 
-        {
-            "location": "/arrow/", 
-            "text": "Arrow\n is a Python library that offers a sensible, human-friendly approach to creating,\nmanipulating, formatting and converting dates, times, and timestamps.\nIt implements and updates the datetime type, plugging gaps in functionality,\nand provides an intelligent module API that supports many common creation scenarios.\nSimply put, it helps you work with dates and times with fewer imports and a lot less code.", 
-            "title": "Arrow"
         }, 
         {
             "location": "/utils/", 
@@ -994,6 +1049,166 @@
             "location": "/signals/#preconnect", 
             "text": "@signals.do_something.pre.connect\ndef receive_create_user_pre(**kw):\n    # do something", 
             "title": "@pre.connect"
+        }, 
+        {
+            "location": "/ext/arrow/", 
+            "text": "Arrow\n is a Python library that offers a sensible, human-friendly approach to creating,\nmanipulating, formatting and converting dates, times, and timestamps.\nIt implements and updates the datetime type, plugging gaps in functionality,\nand provides an intelligent module API that supports many common creation scenarios.\nSimply put, it helps you work with dates and times with fewer imports and a lot less code.", 
+            "title": "Arrow"
+        }, 
+        {
+            "location": "/ext/bcrypt/", 
+            "text": "bcrypt\n from the \npasslib\n library is used to hash and verify password.\n\n\nImport\n\n\nfrom\n \nmocha\n \nimport\n \nbcrypt\n\n\n\n\n\n\nHash password\n\n\nHash a password for storage\n\n\nmy_string_pass = \nmypass123\n\nmy_hash = bcrypt.hash(my_string_pass)\n\n\n\n\n\nVerify password\n\n\nVerify a password by using the string provided to hash, and the hash that was created previously. It returns a bool.\n\n\nbcrypt.verify(my_string_pass, my_hash)\n\n\n\n\n\nConfig\n\n\nbcrypt\n can be used with no configuration as it will fall back to its default. But if you want you can have the following\nconfig\n\n\nBCRYPT_SALT = \n\n\nBCRYPT_ROUNDS = 12\n\nBCRYPT_INDENT =", 
+            "title": "Bcrypt"
+        }, 
+        {
+            "location": "/ext/bcrypt/#import", 
+            "text": "from   mocha   import   bcrypt", 
+            "title": "Import"
+        }, 
+        {
+            "location": "/ext/bcrypt/#hash-password", 
+            "text": "Hash a password for storage  my_string_pass =  mypass123 \nmy_hash = bcrypt.hash(my_string_pass)", 
+            "title": "Hash password"
+        }, 
+        {
+            "location": "/ext/bcrypt/#verify-password", 
+            "text": "Verify a password by using the string provided to hash, and the hash that was created previously. It returns a bool.  bcrypt.verify(my_string_pass, my_hash)", 
+            "title": "Verify password"
+        }, 
+        {
+            "location": "/ext/bcrypt/#config", 
+            "text": "bcrypt  can be used with no configuration as it will fall back to its default. But if you want you can have the following\nconfig  BCRYPT_SALT =  \n\nBCRYPT_ROUNDS = 12\n\nBCRYPT_INDENT =", 
+            "title": "Config"
+        }, 
+        {
+            "location": "/ext/cache/", 
+            "text": "flask_cache\n is used to cache data. It allows to use different backend, ie: Redis, Memcache, etc.\n\n\nImport\n\n\nfrom\n \nmocha\n \nimport\n \ncache\n\n\n\n\n\n\nDecorator\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n,\n \ncache\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \n@cache.cached\n(\n3600\n)\n\n    \ndef\n \nindex\n(\nself\n):\n\n        \nreturn\n \n{\n\n\n        \n}\n\n\n\n\n\n\nConfig\n\n\n#: CACHE_TYPE\n#: The type of cache to use\n#: null, simple, redis, filesystem,\nCACHE_TYPE = \nsimple\n\n\n#: CACHE_REDIS_URL\n#: If CHACHE_TYPE is \nredis\n, set the redis uri\n#: redis://username:password@host:port/db\nCACHE_REDIS_URL = \n\n\n#: CACHE_DIR\n#: Directory to store cache if CACHE_TYPE is filesystem, it will\nCACHE_DIR = \n\n\n\n\n\n\nExtension: \nflask-cache", 
+            "title": "Cache"
+        }, 
+        {
+            "location": "/ext/cache/#import", 
+            "text": "from   mocha   import   cache", 
+            "title": "Import"
+        }, 
+        {
+            "location": "/ext/cache/#decorator", 
+            "text": "from   mocha   import   Mocha ,   cache  class   Index ( Mocha ): \n\n     @cache.cached ( 3600 ) \n     def   index ( self ): \n         return   { \n\n         }", 
+            "title": "Decorator"
+        }, 
+        {
+            "location": "/ext/cache/#config", 
+            "text": "#: CACHE_TYPE\n#: The type of cache to use\n#: null, simple, redis, filesystem,\nCACHE_TYPE =  simple \n\n#: CACHE_REDIS_URL\n#: If CHACHE_TYPE is  redis , set the redis uri\n#: redis://username:password@host:port/db\nCACHE_REDIS_URL =  \n\n#: CACHE_DIR\n#: Directory to store cache if CACHE_TYPE is filesystem, it will\nCACHE_DIR =    Extension:  flask-cache", 
+            "title": "Config"
+        }, 
+        {
+            "location": "/ext/storage/", 
+            "text": "storage\n\n\nAllows you to to access, upload, download, save and delete files on cloud\nstorage providers such as: AWS S3, Google Storage, Microsoft Azure,\nRackspace Cloudfiles, and even Local file system\n\n\nImport\n\n\nfrom\n \nmocha\n \nimport\n \nstorage\n\n\n\n\n\n\nUpload File\n\n\nDelete File\n\n\nConfig\n\n\nEdit the keys below in your config class file:\n\n\n#: STORAGE_PROVIDER:\n# The provider to use. By default it\ns \nLOCAL\n.\n# You can use:\n# LOCAL, S3, GOOGLE_STORAGE, AZURE_BLOBS, CLOUDFILES\nSTORAGE_PROVIDER = \nLOCAL\n\n\n#: STORAGE_KEY\n# The storage key. Leave it blank if PROVIDER is LOCAL\nSTORAGE_KEY = AWS_ACCESS_KEY_ID\n\n#: STORAGE_SECRET\n#: The storage secret key. Leave it blank if PROVIDER is LOCAL\nSTORAGE_SECRET = AWS_SECRET_ACCESS_KEY\n\n#: STORAGE_REGION_NAME\n#: The region for the storage. Leave it blank if PROVIDER is LOCAL\nSTORAGE_REGION_NAME = AWS_REGION_NAME\n\n#: STORAGE_CONTAINER\n#: The Bucket name (for S3, Google storage, Azure, cloudfile)\n#: or the directory name (LOCAL) to access\nSTORAGE_CONTAINER = os.path.join(APPLICATION_DATA_DIR, \nuploads\n)\n\n#: STORAGE_SERVER\n#: Bool, to serve local file\nSTORAGE_SERVER = True\n\n#: STORAGE_SERVER_URL\n#: The url suffix for local storage\nSTORAGE_SERVER_URL = \nfiles\n\n\n\n\n\n\nstorage.get\n\n\nAllows you to get a file from the storage\n\n\nmy_file = storage.get(\nmyfile.jpg\n)\n\nmy_file.name  # return The file name\n\nmy_file.size  # returns file size\n\n\n\n\n\nstorage.upload", 
+            "title": "Storage"
+        }, 
+        {
+            "location": "/ext/storage/#storage", 
+            "text": "Allows you to to access, upload, download, save and delete files on cloud\nstorage providers such as: AWS S3, Google Storage, Microsoft Azure,\nRackspace Cloudfiles, and even Local file system", 
+            "title": "storage"
+        }, 
+        {
+            "location": "/ext/storage/#import", 
+            "text": "from   mocha   import   storage", 
+            "title": "Import"
+        }, 
+        {
+            "location": "/ext/storage/#upload-file", 
+            "text": "", 
+            "title": "Upload File"
+        }, 
+        {
+            "location": "/ext/storage/#delete-file", 
+            "text": "", 
+            "title": "Delete File"
+        }, 
+        {
+            "location": "/ext/storage/#config", 
+            "text": "Edit the keys below in your config class file:  #: STORAGE_PROVIDER:\n# The provider to use. By default it s  LOCAL .\n# You can use:\n# LOCAL, S3, GOOGLE_STORAGE, AZURE_BLOBS, CLOUDFILES\nSTORAGE_PROVIDER =  LOCAL \n\n#: STORAGE_KEY\n# The storage key. Leave it blank if PROVIDER is LOCAL\nSTORAGE_KEY = AWS_ACCESS_KEY_ID\n\n#: STORAGE_SECRET\n#: The storage secret key. Leave it blank if PROVIDER is LOCAL\nSTORAGE_SECRET = AWS_SECRET_ACCESS_KEY\n\n#: STORAGE_REGION_NAME\n#: The region for the storage. Leave it blank if PROVIDER is LOCAL\nSTORAGE_REGION_NAME = AWS_REGION_NAME\n\n#: STORAGE_CONTAINER\n#: The Bucket name (for S3, Google storage, Azure, cloudfile)\n#: or the directory name (LOCAL) to access\nSTORAGE_CONTAINER = os.path.join(APPLICATION_DATA_DIR,  uploads )\n\n#: STORAGE_SERVER\n#: Bool, to serve local file\nSTORAGE_SERVER = True\n\n#: STORAGE_SERVER_URL\n#: The url suffix for local storage\nSTORAGE_SERVER_URL =  files", 
+            "title": "Config"
+        }, 
+        {
+            "location": "/ext/storage/#storageget", 
+            "text": "Allows you to get a file from the storage  my_file = storage.get( myfile.jpg )\n\nmy_file.name  # return The file name\n\nmy_file.size  # returns file size", 
+            "title": "storage.get"
+        }, 
+        {
+            "location": "/ext/storage/#storageupload", 
+            "text": "", 
+            "title": "storage.upload"
+        }, 
+        {
+            "location": "/ext/csrf/", 
+            "text": "csrf\n prevents cross-site request forgery (CSRF) on your application\n\n\nImport\n\n\nfrom\n \nmocha\n \nimport\n \ncsrf\n\n\n\n\n\n\nAutomatically all POST, UPDATE methods will require a CSRF token, unless explicitly exempt.\n\n\nTo exempt and endpoint, jus add the decorator \ncsrf.exempt\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nindex\n(\nself\n)\n:\n\n        \npass\n\n\n    \n@csrf\n.\nexempt\n\n    \ndef\n \nexempted_post\n(\nself\n)\n:\n\n        \npass\n\n\n    \n@post\n()\n\n    \ndef\n \nsave_data\n(\nself\n)\n:\n\n        \npass\n\n\n\n\n\n\nIn the example above, when posting to \n/exempted-post/\n it will not require the CSRF token,\nhowever \n/save-data/\n requires it.\n\n\nConfig\n\n\n    CSRF_COOKIE_NAME  # _csrf_token\n    CSRF_HEADER_NAME  # X-CSRFToken\n    CSRF_DISABLE\n    CSRF_COOKIE_TIMEOUT\n    CSRF_COOKIE_SECURE\n    CSRF_COOKIE_HTTPONLY\n    CSRF_COOKIE_DOMAIN\n    CSRF_CHECK_REFERER\n    SEASURF_INCLUDE_OR_EXEMPT_VIEWS\n\n\n\n\n\nAbout\n\n\nExtension: \nflask-seasurf\n\n\nSeaSurf is a Flask extension for preventing cross-site request forgery (CSRF).\n\n\nCSRF vulnerabilities have been found in large and popular sites such as YouTube.\nThese attacks are problematic because the mechanism they use is relatively easy to exploit.\nThis extension attempts to aid you in securing your application from such attacks.", 
+            "title": "CSRF"
+        }, 
+        {
+            "location": "/ext/csrf/#import", 
+            "text": "from   mocha   import   csrf   Automatically all POST, UPDATE methods will require a CSRF token, unless explicitly exempt.  To exempt and endpoint, jus add the decorator  csrf.exempt  class   Index ( Mocha ) : \n\n     def   index ( self ) : \n         pass \n\n     @csrf . exempt \n     def   exempted_post ( self ) : \n         pass \n\n     @post () \n     def   save_data ( self ) : \n         pass   In the example above, when posting to  /exempted-post/  it will not require the CSRF token,\nhowever  /save-data/  requires it.", 
+            "title": "Import"
+        }, 
+        {
+            "location": "/ext/csrf/#config", 
+            "text": "CSRF_COOKIE_NAME  # _csrf_token\n    CSRF_HEADER_NAME  # X-CSRFToken\n    CSRF_DISABLE\n    CSRF_COOKIE_TIMEOUT\n    CSRF_COOKIE_SECURE\n    CSRF_COOKIE_HTTPONLY\n    CSRF_COOKIE_DOMAIN\n    CSRF_CHECK_REFERER\n    SEASURF_INCLUDE_OR_EXEMPT_VIEWS  About  Extension:  flask-seasurf  SeaSurf is a Flask extension for preventing cross-site request forgery (CSRF).  CSRF vulnerabilities have been found in large and popular sites such as YouTube.\nThese attacks are problematic because the mechanism they use is relatively easy to exploit.\nThis extension attempts to aid you in securing your application from such attacks.", 
+            "title": "Config"
+        }, 
+        {
+            "location": "/ext/mail/", 
+            "text": "Mail exposes an interface to send email via SMTP or AWS SES.\n\n\nImport\n\n\nfrom\n \nmocha\n \nimport\n \nsend_mail\n\n\n\n\n\n\nSend Mail\n\n\nSend mail helps you quickly send emails.\n\n\ntemplate = \n\nto = \nme@email.com\n\n\nsend_email(template=template, to=to)\n\n\n\n\n\nMail signals observer\n\n\nfrom\n \nmocha\n \nimport\n \nsignals\n\n\n\n@signals.send_email.observe\n\n\ndef\n \nmy_email_observer\n():\n\n    \npass\n\n\n\n\n\n\nMail interface\n\n\nfrom\n \nmocha.ext\n \nimport\n \nmail\n\n\n\n\n\n\nConfig\n\n\n# AWS SES\n\n\n# To use AWS SES to send email\n\n\n#:\n\n\n#: - To use the default AWS credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)\n\n\n#: set MAIL_URI = \nses://\n\n\n#: * To use a different credential:\n\n\n#: set MAIL_URI = \nses://{access_key}:{secret_key}@{region}\n\n\n#:\n\n\n#: *** uncomment if you are using SMTP instead\n\n\nMAIL_URI =\n \nses://\n\n\n\n# SMTP\n\n\n#: If you are using SMTP, it will use Flask-Mail\n\n\n#: The uri for the smtp connection. It will use Flask-Mail\n\n\n#: format: smtp://USERNAME:PASSWORD@HOST:PORT\n\n\n#: with sll -\n smtp+ssl://USERNAME:PASSWORD@HOST:PORT\n\n\n#: with ssl and tls -\n smtp+ssl+tls://USERNAME:PASSWORD@HOST:PORT\n\n\n#:\n\n\n#: *** comment out if you are using SES instead\n\n\n# MAIL_URI = \nsmtp+ssl://{username}:{password}@{host}:{port}\n\\\n\n\n#    .format(username=\n, password=\n, host=\nsmtp.gmail.com\n, port=465)\n\n\n\n#: MAIL_SENDER - The sender of the email by default\n\n\n#: For SES, this email must be authorized\n\n\nMAIL_SENDER =\n APPLICATION_ADMIN_EMAIL\n\n\n#: MAIL_REPLY_TO\n\n\n#: The email to reply to by default\n\n\nMAIL_REPLY_TO =\n APPLICATION_ADMIN_EMAIL\n\n\n#: MAIL_TEMPLATE\n\n\n#: a directory that contains the email template or a dict\n\n\nMAIL_TEMPLATE =\n os\n.\npath\n.\njoin\n(\nAPPLICATION_DATA_DIR\n,\n \nmail-templates\n)\n\n\n\n#: MAIL_TEMPLATE_CONTEXT\n\n\n#: a dict of all context to pass to the email by default\n\n\nMAIL_TEMPLATE_CONTEXT =\n \n{\n\n    \nsite_name\n:\n APPLICATION_NAME\n,\n\n    \nsite_url\n:\n APPLICATION_URL\n\n}\n\n\n\n\n\n\nAs a convenience, you can use \nsend_email()\n to send email.\n\n\nfrom\n \nmocha\n \nimport\n \nMocha\n,\n \nsend_email\n\n\n\nclass\n \nIndex\n(\nMocha\n):\n\n\n    \n@post\n()\n\n    \ndef\n \nsend\n():\n\n        \nrecipient\n \n=\n \nemail@email.com\n\n        \nsender\n \n=\n \nrequest\n.\nform\n.\nget\n(\nsender\n)\n\n        \nsubject\n \n=\n \nWelcome\n\n\n        \nmail\n.\nsend\n(\nto\n=\nrecipient\n,\n \nsender\n=\nsender\n,\n \nsubject\n=\nsubet\n)\n\n\n\n\n\n\nExtension: \nses-mailer\n\n\nExtension: \nflask-mail", 
+            "title": "Mail"
+        }, 
+        {
+            "location": "/ext/mail/#import", 
+            "text": "from   mocha   import   send_mail", 
+            "title": "Import"
+        }, 
+        {
+            "location": "/ext/mail/#send-mail", 
+            "text": "Send mail helps you quickly send emails.  template =  \nto =  me@email.com \n\nsend_email(template=template, to=to)", 
+            "title": "Send Mail"
+        }, 
+        {
+            "location": "/ext/mail/#mail-signals-observer", 
+            "text": "from   mocha   import   signals  @signals.send_email.observe  def   my_email_observer (): \n     pass", 
+            "title": "Mail signals observer"
+        }, 
+        {
+            "location": "/ext/mail/#mail-interface", 
+            "text": "from   mocha.ext   import   mail", 
+            "title": "Mail interface"
+        }, 
+        {
+            "location": "/ext/mail/#config", 
+            "text": "# AWS SES  # To use AWS SES to send email  #:  #: - To use the default AWS credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)  #: set MAIL_URI =  ses://  #: * To use a different credential:  #: set MAIL_URI =  ses://{access_key}:{secret_key}@{region}  #:  #: *** uncomment if you are using SMTP instead  MAIL_URI =   ses://  # SMTP  #: If you are using SMTP, it will use Flask-Mail  #: The uri for the smtp connection. It will use Flask-Mail  #: format: smtp://USERNAME:PASSWORD@HOST:PORT  #: with sll -  smtp+ssl://USERNAME:PASSWORD@HOST:PORT  #: with ssl and tls -  smtp+ssl+tls://USERNAME:PASSWORD@HOST:PORT  #:  #: *** comment out if you are using SES instead  # MAIL_URI =  smtp+ssl://{username}:{password}@{host}:{port} \\  #    .format(username= , password= , host= smtp.gmail.com , port=465)  #: MAIL_SENDER - The sender of the email by default  #: For SES, this email must be authorized  MAIL_SENDER =  APPLICATION_ADMIN_EMAIL #: MAIL_REPLY_TO  #: The email to reply to by default  MAIL_REPLY_TO =  APPLICATION_ADMIN_EMAIL #: MAIL_TEMPLATE  #: a directory that contains the email template or a dict  MAIL_TEMPLATE =  os . path . join ( APPLICATION_DATA_DIR ,   mail-templates )  #: MAIL_TEMPLATE_CONTEXT  #: a dict of all context to pass to the email by default  MAIL_TEMPLATE_CONTEXT =   { \n     site_name :  APPLICATION_NAME , \n     site_url :  APPLICATION_URL }   As a convenience, you can use  send_email()  to send email.  from   mocha   import   Mocha ,   send_email  class   Index ( Mocha ): \n\n     @post () \n     def   send (): \n         recipient   =   email@email.com \n         sender   =   request . form . get ( sender ) \n         subject   =   Welcome \n\n         mail . send ( to = recipient ,   sender = sender ,   subject = subet )   Extension:  ses-mailer  Extension:  flask-mail", 
+            "title": "Config"
+        }, 
+        {
+            "location": "/ext/recaptcha/", 
+            "text": "Recaptcha implements the Google recaptcha in your application.\n\n\nImport\n\n\nfrom\n \nmocha\n \nimport\n \nrecaptcha\n\n\n\n\n\n\nImplement in Jinja\n\n\nTo include the recaptcha in your template add the code below\n\n\n{{\n \nrecaptcha\n \n}}\n\n\n\n\n\n\nVerify code\n\n\nclass\n \nIndex\n(\nMocha\n)\n:\n\n\n    \ndef\n \nsend_data\n(\nself\n)\n:\n\n        \nif\n \nrecaptcha\n.\nverify\n()\n:\n\n            \n#\n \neverythings\n \nis\n \nok\n\n        \nelse\n:\n\n            \n#\n \nFAILED\n\n\n\n\n\n\nConfig\n\n\n#: Flask-Recaptcha\n#: Register your application at https://www.google.com/recaptcha/admin\n\n#: RECAPTCHA_ENABLED\nRECAPTCHA_ENABLED = True\n\n#: RECAPTCHA_SITE_KEY\nRECAPTCHA_SITE_KEY = \n\n\n#: RECAPTCHA_SECRET_KEY\nRECAPTCHA_SECRET_KEY = \n\n\n\n\n\n\nExtension: \nflask-recaptcha\n\n\nTo register your application go \nhttps://www.google.com/recaptcha/admin", 
+            "title": "Recaptcha"
+        }, 
+        {
+            "location": "/ext/recaptcha/#import", 
+            "text": "from   mocha   import   recaptcha", 
+            "title": "Import"
+        }, 
+        {
+            "location": "/ext/recaptcha/#implement-in-jinja", 
+            "text": "To include the recaptcha in your template add the code below  {{   recaptcha   }}", 
+            "title": "Implement in Jinja"
+        }, 
+        {
+            "location": "/ext/recaptcha/#verify-code", 
+            "text": "class   Index ( Mocha ) : \n\n     def   send_data ( self ) : \n         if   recaptcha . verify () : \n             #   everythings   is   ok \n         else : \n             #   FAILED", 
+            "title": "Verify code"
+        }, 
+        {
+            "location": "/ext/recaptcha/#config", 
+            "text": "#: Flask-Recaptcha\n#: Register your application at https://www.google.com/recaptcha/admin\n\n#: RECAPTCHA_ENABLED\nRECAPTCHA_ENABLED = True\n\n#: RECAPTCHA_SITE_KEY\nRECAPTCHA_SITE_KEY =  \n\n#: RECAPTCHA_SECRET_KEY\nRECAPTCHA_SECRET_KEY =    Extension:  flask-recaptcha  To register your application go  https://www.google.com/recaptcha/admin", 
+            "title": "Config"
         }, 
         {
             "location": "/logging/", 

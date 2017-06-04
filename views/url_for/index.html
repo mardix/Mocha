@@ -7,7 +7,7 @@
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
       
-        <link rel="canonical" href="https://mardix.github.com/mocha/contrib/contact-page/">
+        <link rel="canonical" href="https://mardix.github.com/mocha/views/url_for/">
       
       
       
@@ -17,7 +17,7 @@
     
     
       
-        <title>Contact Page - Mocha</title>
+        <title>Url_For - Mocha</title>
       
     
     
@@ -77,8 +77,12 @@
           
             
               
+                <span class="md-header-nav__parent">
+                  Views
+                </span>
+              
             
-            Contact Page
+            Url_For
           
         </span>
       </div>
@@ -231,10 +235,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
     
     <label class="md-nav__link" for="nav-5">
       Views
@@ -252,7 +258,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../views/" title="Views" class="md-nav__link">
+    <a href="../" title="Views" class="md-nav__link">
       Views
     </a>
   </li>
@@ -264,7 +270,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../views/route/" title="Route" class="md-nav__link">
+    <a href="../route/" title="Route" class="md-nav__link">
       Route
     </a>
   </li>
@@ -276,7 +282,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../views/request/" title="Request" class="md-nav__link">
+    <a href="../request/" title="Request" class="md-nav__link">
       Request
     </a>
   </li>
@@ -288,7 +294,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../views/redirect/" title="Redirect" class="md-nav__link">
+    <a href="../redirect/" title="Redirect" class="md-nav__link">
       Redirect
     </a>
   </li>
@@ -300,7 +306,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../views/render/" title="Render" class="md-nav__link">
+    <a href="../render/" title="Render" class="md-nav__link">
       Render
     </a>
   </li>
@@ -310,11 +316,50 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../../views/url_for/" title="Url_For" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Url_For
+      </label>
+    
+    <a href="./" title="Url_For" class="md-nav__link md-nav__link--active">
       Url_For
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#import" title="Import" class="md-nav__link">
+    Import
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" title="Usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -324,7 +369,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../views/abort/" title="Abort" class="md-nav__link">
+    <a href="../abort/" title="Abort" class="md-nav__link">
       Abort
     </a>
   </li>
@@ -336,7 +381,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../views/session-flash/" title="Session & Flash" class="md-nav__link">
+    <a href="../session-flash/" title="Session & Flash" class="md-nav__link">
       Session & Flash
     </a>
   </li>
@@ -348,7 +393,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../views/decorators/" title="Decorators" class="md-nav__link">
+    <a href="../decorators/" title="Decorators" class="md-nav__link">
       Decorators
     </a>
   </li>
@@ -360,7 +405,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../views/helpers/" title="Helpers" class="md-nav__link">
+    <a href="../helpers/" title="Helpers" class="md-nav__link">
       Helpers
     </a>
   </li>
@@ -617,7 +662,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../" title="Contrib" class="md-nav__link">
+    <a href="../../contrib/" title="Contrib" class="md-nav__link">
       Contrib
     </a>
   </li>
@@ -629,7 +674,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../auth/" title="Auth" class="md-nav__link">
+    <a href="../../contrib/auth/" title="Auth" class="md-nav__link">
       Auth
     </a>
   </li>
@@ -641,7 +686,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../admin/" title="Admin" class="md-nav__link">
+    <a href="../../contrib/admin/" title="Admin" class="md-nav__link">
       Admin
     </a>
   </li>
@@ -651,56 +696,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
-        Contact Page
-      </label>
-    
-    <a href="./" title="Contact Page" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../../contrib/contact-page/" title="Contact Page" class="md-nav__link">
       Contact Page
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#contact-page" title="Contact Page" class="md-nav__link">
-    Contact Page
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mochacontribviewscontact_page" title="mocha.contrib.views.contact_page" class="md-nav__link">
-    mocha.contrib.views.contact_page
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
     
@@ -710,7 +710,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../error-page/" title="Error Page" class="md-nav__link">
+    <a href="../../contrib/error-page/" title="Error Page" class="md-nav__link">
       Error Page
     </a>
   </li>
@@ -722,7 +722,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../maintenance-page/" title="Error Page" class="md-nav__link">
+    <a href="../../contrib/maintenance-page/" title="Error Page" class="md-nav__link">
       Error Page
     </a>
   </li>
@@ -783,22 +783,16 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#contact-page" title="Contact Page" class="md-nav__link">
-    Contact Page
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mochacontribviewscontact_page" title="mocha.contrib.views.contact_page" class="md-nav__link">
-    mocha.contrib.views.contact_page
+  <a href="#import" title="Import" class="md-nav__link">
+    Import
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#usage" title="Usage" class="md-nav__link">
+    Usage
+  </a>
   
 </li>
       
@@ -817,42 +811,32 @@
               
                 
                 
-                  <h1>Contact Page</h1>
+                  <h1>Url_For</h1>
                 
-                <h2 id="contact-page">Contact Page</h2>
-<h3 id="mochacontribviewscontact_page">mocha.contrib.views.contact_page</h3>
-<p>Adds a contact page interface.</p>
-<p><strong>Installation</strong></p>
-<div class="codehilite"><pre><span></span>CONTACT = (&quot;mocha.contrib.views.contact_page&quot;, {
-    &quot;route&quot;: &quot;/contact/&quot;,
-    &quot;nav&quot;: {
-        &quot;title&quot;: &quot;Contact&quot;,
-        &quot;order&quot;: 100
-    }
-    &quot;recipients&quot;: &quot;recipients@email.com&quot;,
-    &quot;success_message&quot;: &quot;The message to show when the email is sent successfully&quot;,
-    &quot;title&quot;: &quot;Contact Us&quot;,
-    &quot;return_to&quot;: &quot;/&quot;
-})
-
-INSTALLED_APPS: [
-    CONTACT
-]
+                <p><code>url_for</code> use a view endpoint to create a full url</p>
+<p>Mocha adds a little flavor in it, to reference other views by their reference.</p>
+<h2 id="import">Import</h2>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">mocha</span> <span class="kn">import</span> <span class="n">url_for</span>
 </pre></div>
 
 
-<p><strong>Options</strong></p>
-<div class="codehilite"><pre><span></span>- `recipients`: The email address to send the message to
+<h2 id="usage">Usage</h2>
+<div class="codehilite"><pre><span></span><span class="kr">class</span> <span class="nx">Index</span><span class="p">(</span><span class="nx">Mocha</span><span class="p">)</span><span class="o">:</span>
+    <span class="nx">def</span> <span class="nx">index</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">doc_1_url</span> <span class="o">=</span> <span class="nx">url_for</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">doc</span><span class="p">,</span> <span class="nx">id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="nx">full_url_account_info</span> <span class="o">=</span> <span class="nx">url_for</span><span class="p">(</span><span class="nx">views</span><span class="p">.</span><span class="nx">account</span><span class="p">.</span><span class="nx">Index</span><span class="p">.</span><span class="nx">info</span><span class="p">,</span> <span class="nx">_external</span><span class="o">=</span><span class="nx">True</span><span class="p">)</span>
 
-- `return_to`: The view endpoint or url to return to
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;urls&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;doc_1&quot;</span><span class="o">:</span> <span class="nx">doc_1_url</span><span class="p">,</span>
+                <span class="s2">&quot;full_url&quot;</span><span class="o">:</span> <span class="nx">full_url_account_info</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
 
-- `title`: The page title
 
-- `success_message`: The message to show when the email is sent successfully
+    <span class="nx">def</span> <span class="nx">doc</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">pass</span>
 </pre></div>
-
-
-<hr />
                 
                   
                 
@@ -871,7 +855,7 @@ INSTALLED_APPS: [
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../admin/" title="Admin" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../render/" title="Render" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -880,19 +864,19 @@ INSTALLED_APPS: [
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Admin
+                Render
               </span>
             </div>
           </a>
         
         
-          <a href="../error-page/" title="Error Page" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../abort/" title="Abort" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Error Page
+                Abort
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

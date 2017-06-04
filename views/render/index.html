@@ -7,7 +7,7 @@
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
       
-        <link rel="canonical" href="https://mardix.github.com/mocha/contrib/contact-page/">
+        <link rel="canonical" href="https://mardix.github.com/mocha/views/render/">
       
       
       
@@ -17,7 +17,7 @@
     
     
       
-        <title>Contact Page - Mocha</title>
+        <title>Render - Mocha</title>
       
     
     
@@ -77,8 +77,12 @@
           
             
               
+                <span class="md-header-nav__parent">
+                  Views
+                </span>
+              
             
-            Contact Page
+            Render
           
         </span>
       </div>
@@ -231,10 +235,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
     
     <label class="md-nav__link" for="nav-5">
       Views
@@ -252,7 +258,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../views/" title="Views" class="md-nav__link">
+    <a href="../" title="Views" class="md-nav__link">
       Views
     </a>
   </li>
@@ -264,7 +270,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../views/route/" title="Route" class="md-nav__link">
+    <a href="../route/" title="Route" class="md-nav__link">
       Route
     </a>
   </li>
@@ -276,7 +282,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../views/request/" title="Request" class="md-nav__link">
+    <a href="../request/" title="Request" class="md-nav__link">
       Request
     </a>
   </li>
@@ -288,7 +294,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../views/redirect/" title="Redirect" class="md-nav__link">
+    <a href="../redirect/" title="Redirect" class="md-nav__link">
       Redirect
     </a>
   </li>
@@ -298,11 +304,118 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../../views/render/" title="Render" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Render
+      </label>
+    
+    <a href="./" title="Render" class="md-nav__link md-nav__link--active">
       Render
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#import" title="Import" class="md-nav__link">
+    Import
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#response" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#json" title="json" class="md-nav__link">
+    json
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jsonp" title="jsonp" class="md-nav__link">
+    jsonp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xml" title="xml" class="md-nav__link">
+    xml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#html" title="html" class="md-nav__link">
+    html
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template" title="Template" class="md-nav__link">
+    Template
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-based" title="Class based" class="md-nav__link">
+    Class based
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-based" title="Method based" class="md-nav__link">
+    Method based
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#navigation" title="Navigation" class="md-nav__link">
+    Navigation
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -312,7 +425,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../views/url_for/" title="Url_For" class="md-nav__link">
+    <a href="../url_for/" title="Url_For" class="md-nav__link">
       Url_For
     </a>
   </li>
@@ -324,7 +437,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../views/abort/" title="Abort" class="md-nav__link">
+    <a href="../abort/" title="Abort" class="md-nav__link">
       Abort
     </a>
   </li>
@@ -336,7 +449,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../views/session-flash/" title="Session & Flash" class="md-nav__link">
+    <a href="../session-flash/" title="Session & Flash" class="md-nav__link">
       Session & Flash
     </a>
   </li>
@@ -348,7 +461,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../views/decorators/" title="Decorators" class="md-nav__link">
+    <a href="../decorators/" title="Decorators" class="md-nav__link">
       Decorators
     </a>
   </li>
@@ -360,7 +473,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../views/helpers/" title="Helpers" class="md-nav__link">
+    <a href="../helpers/" title="Helpers" class="md-nav__link">
       Helpers
     </a>
   </li>
@@ -617,7 +730,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../" title="Contrib" class="md-nav__link">
+    <a href="../../contrib/" title="Contrib" class="md-nav__link">
       Contrib
     </a>
   </li>
@@ -629,7 +742,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../auth/" title="Auth" class="md-nav__link">
+    <a href="../../contrib/auth/" title="Auth" class="md-nav__link">
       Auth
     </a>
   </li>
@@ -641,7 +754,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../admin/" title="Admin" class="md-nav__link">
+    <a href="../../contrib/admin/" title="Admin" class="md-nav__link">
       Admin
     </a>
   </li>
@@ -651,56 +764,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
-        Contact Page
-      </label>
-    
-    <a href="./" title="Contact Page" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../../contrib/contact-page/" title="Contact Page" class="md-nav__link">
       Contact Page
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#contact-page" title="Contact Page" class="md-nav__link">
-    Contact Page
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mochacontribviewscontact_page" title="mocha.contrib.views.contact_page" class="md-nav__link">
-    mocha.contrib.views.contact_page
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
     
@@ -710,7 +778,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../error-page/" title="Error Page" class="md-nav__link">
+    <a href="../../contrib/error-page/" title="Error Page" class="md-nav__link">
       Error Page
     </a>
   </li>
@@ -722,7 +790,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../maintenance-page/" title="Error Page" class="md-nav__link">
+    <a href="../../contrib/maintenance-page/" title="Error Page" class="md-nav__link">
       Error Page
     </a>
   </li>
@@ -783,22 +851,84 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#contact-page" title="Contact Page" class="md-nav__link">
-    Contact Page
+  <a href="#import" title="Import" class="md-nav__link">
+    Import
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#response" title="Response" class="md-nav__link">
+    Response
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mochacontribviewscontact_page" title="mocha.contrib.views.contact_page" class="md-nav__link">
-    mocha.contrib.views.contact_page
+  <a href="#json" title="json" class="md-nav__link">
+    json
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jsonp" title="jsonp" class="md-nav__link">
+    jsonp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xml" title="xml" class="md-nav__link">
+    xml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#html" title="html" class="md-nav__link">
+    html
   </a>
   
 </li>
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template" title="Template" class="md-nav__link">
+    Template
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-based" title="Class based" class="md-nav__link">
+    Class based
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-based" title="Method based" class="md-nav__link">
+    Method based
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#navigation" title="Navigation" class="md-nav__link">
+    Navigation
+  </a>
   
 </li>
       
@@ -817,42 +947,102 @@
               
                 
                 
-                  <h1>Contact Page</h1>
+                  <h1>Render</h1>
                 
-                <h2 id="contact-page">Contact Page</h2>
-<h3 id="mochacontribviewscontact_page">mocha.contrib.views.contact_page</h3>
-<p>Adds a contact page interface.</p>
-<p><strong>Installation</strong></p>
-<div class="codehilite"><pre><span></span>CONTACT = (&quot;mocha.contrib.views.contact_page&quot;, {
-    &quot;route&quot;: &quot;/contact/&quot;,
-    &quot;nav&quot;: {
-        &quot;title&quot;: &quot;Contact&quot;,
-        &quot;order&quot;: 100
-    }
-    &quot;recipients&quot;: &quot;recipients@email.com&quot;,
-    &quot;success_message&quot;: &quot;The message to show when the email is sent successfully&quot;,
-    &quot;title&quot;: &quot;Contact Us&quot;,
-    &quot;return_to&quot;: &quot;/&quot;
-})
-
-INSTALLED_APPS: [
-    CONTACT
-]
-</pre></div>
-
-
-<p><strong>Options</strong></p>
-<div class="codehilite"><pre><span></span>- `recipients`: The email address to send the message to
-
-- `return_to`: The view endpoint or url to return to
-
-- `title`: The page title
-
-- `success_message`: The message to show when the email is sent successfully
+                <p>This module contains decorators that will alter the rendering of the view. It can change the response, or add
+new elements on the page, ie: <code>json</code> will turn the endpoint into a json response, while <code>template</code> will change the
+default template page to display, and <code>nav</code> will create a menu title.</p>
+<hr />
+<h3 id="import">Import</h3>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">mocha</span> <span class="kn">import</span> <span class="n">render</span>
 </pre></div>
 
 
 <hr />
+<h2 id="response">Response</h2>
+<p>By default, the responses will render normal HTML. But if you want to return
+JSON, or XML data, the methods below will conveniently help you do that.</p>
+<p>N.B.: The methods must return DICT for them to benefit from multiple response format</p>
+<h3 id="json">json</h3>
+<p>It return a dict into JSON. Good for API endpoint.</p>
+<div class="codehilite"><pre><span></span><span class="kr">class</span> <span class="nx">Index</span><span class="p">(</span><span class="nx">Mocha</span><span class="p">)</span><span class="o">:</span>
+
+    <span class="kd">@render</span><span class="p">.</span><span class="nx">json</span>
+    <span class="nx">def</span> <span class="nx">my_data</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Mocha&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;version&quot;</span><span class="o">:</span> <span class="s2">&quot;xxx&quot;</span>
+        <span class="p">}</span>
+</pre></div>
+
+
+<h3 id="jsonp">jsonp</h3>
+<p>It return a dict into JSON for JSONP.</p>
+<div class="codehilite"><pre><span></span><span class="kr">class</span> <span class="nx">Index</span><span class="p">(</span><span class="nx">Mocha</span><span class="p">)</span><span class="o">:</span>
+
+    <span class="kd">@render</span><span class="p">.</span><span class="nx">jsonp</span>
+    <span class="nx">def</span> <span class="nx">my_data</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Mocha&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;version&quot;</span><span class="o">:</span> <span class="s2">&quot;xxx&quot;</span>
+        <span class="p">}</span>
+</pre></div>
+
+
+<h3 id="xml">xml</h3>
+<p>It return a dict into XML.</p>
+<div class="codehilite"><pre><span></span><span class="kr">class</span> <span class="nx">Index</span><span class="p">(</span><span class="nx">Mocha</span><span class="p">)</span><span class="o">:</span>
+
+    <span class="kd">@render</span><span class="p">.</span><span class="nx">xml</span>
+    <span class="nx">def</span> <span class="nx">my_data</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Mocha&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;version&quot;</span><span class="o">:</span> <span class="s2">&quot;xxx&quot;</span>
+        <span class="p">}</span>
+</pre></div>
+
+
+<h3 id="html">html</h3>
+<p>There is no decorator for HTML, as it will fall back to it if a view is not decorated
+with <code>json</code> or <code>xml</code></p>
+<h2 id="template">Template</h2>
+<p>This decorator allows you to change the view template or layout</p>
+<p>It can be applied on both class based or method based</p>
+<p>Params:</p>
+<p><strong>template(page, markup="jade")</strong></p>
+<ul>
+<li>page: the path of the new layout or template</li>
+<li>markup: the markup to use for all pages: <code>jade</code> or <code>html</code></li>
+</ul>
+<h3 id="class-based">Class based</h3>
+<p>This will change the default layout to another one.</p>
+<div class="codehilite"><pre><span></span><span class="kd">@render</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="s1">&#39;/layouts/my-new-layouts.jade&#39;</span><span class="p">)</span>
+<span class="kr">class</span> <span class="nx">Index</span><span class="p">(</span><span class="nx">Mocha</span><span class="p">)</span><span class="o">:</span>
+
+    <span class="nx">def</span> <span class="nx">index</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">return</span>
+
+    <span class="nx">def</span> <span class="nx">hello</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">return</span>
+</pre></div>
+
+
+<h3 id="method-based">Method based</h3>
+<p>By default the template for method is based on its name, to use a different
+template, specify the full path</p>
+<div class="codehilite"><pre><span></span><span class="kr">class</span> <span class="nx">Index</span><span class="p">(</span><span class="nx">Mocha</span><span class="p">)</span><span class="o">:</span>
+
+
+    <span class="nx">def</span> <span class="nx">index</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">return</span>
+
+    <span class="kd">@render</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="s1">&#39;/my-path/new-world.html&#39;</span><span class="p">,</span> <span class="nx">markup</span><span class="o">=</span><span class="s1">&#39;html&#39;</span><span class="p">)</span>
+    <span class="nx">def</span> <span class="nx">hello</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">return</span>
+</pre></div>
+
+
+<h2 id="navigation">Navigation</h2>
                 
                   
                 
@@ -871,7 +1061,7 @@ INSTALLED_APPS: [
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../admin/" title="Admin" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../redirect/" title="Redirect" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -880,19 +1070,19 @@ INSTALLED_APPS: [
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Admin
+                Redirect
               </span>
             </div>
           </a>
         
         
-          <a href="../error-page/" title="Error Page" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../url_for/" title="Url_For" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Error Page
+                Url_For
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
