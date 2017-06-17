@@ -4,8 +4,9 @@ Extensions
 """
 
 import re
+import six
 import logging
-from flask import request, current_app
+from flask import request, current_app, send_file
 import flask_cloudy
 import flask_recaptcha
 import flask_seasurf
@@ -32,6 +33,8 @@ __all__ = ["cache",
            "storage",
            "upload_file",
            "delete_file",
+           "download_file",
+           "get_file",
            "recaptcha",
            "csrf",
            "bcrypt",
@@ -385,10 +388,52 @@ def upload_file(_props_key, file, **kw):
     return signals.upload_file(lambda: storage.upload(file, **kwargs))
 
 
+def get_file(object_name):
+    """
+    Alias to get file from storage 
+    :param object_name: 
+    :return: Storage object
+    """
+    return storage.get(object_name)
+
+
 def delete_file(fileobj):
+    """
+    Alias to delete a file from storage
+    :param fileobj: 
+    :return: 
+    """
     if not isinstance(fileobj, (flask_cloudy.Object, mocha_db.StorageObject)):
         raise TypeError("Invalid file type. Must be of flask_cloudy.Object")
     return signals.delete_file(lambda: fileobj.delete())
+
+
+def download_file(filename, object_name=None, content=None, as_attachment=True, timeout=60):
+    """
+    Alias to download a file object as attachment, or convert some text as . 
+    :param filename: the filename with extension.
+        If the file to download is an StorageOject, filename doesn't need to have an extension. 
+            It will automatically put it
+        If the file to download is a `content` text, extension is required.
+    :param object_name: the file storage object name
+    :param content: string/bytes of text
+    :param as_attachment: to download as attachment
+    :param timeout: the timeout to download file from the cloud
+    :return: 
+    """
+    if object_name:
+        file = get_file(object_name)
+        if not isinstance(file, (flask_cloudy.Object, mocha_db.StorageObject)):
+            raise TypeError("Can't download file. It must be of StorageObject type")
+        return file.download_url(timeout=timeout, name=filename)
+    elif content:
+        buff = six.BytesIO()
+        buff.write(content)
+        buff.seek(0)
+        return send_file(buff,
+                         attachment_filename=filename,
+                         as_attachment=as_attachment)
+    raise TypeError("`file` object or `content` text must be provided")
 
 
 # Recaptcha
