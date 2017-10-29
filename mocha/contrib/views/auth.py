@@ -44,8 +44,8 @@ from mocha.contrib.auth import (ACTIONS,
                                 session_set_require_password_change,
                                 visible_to_managers,
                                 authenticate,
-                                authenticate_social_login,
-                                login_user,
+                                with_federation,
+                                create_session,
                                 UserModel,
                                 create_user,
                                 exceptions,
@@ -171,7 +171,7 @@ class Login(Mocha):
                 if not user:
                     raise mocha_exc.AppError("Email or Password is invalid")
 
-                login_user(user)
+                create_session(user)
 
                 # if user.require_password_change is True:
                 #     flash_info("Password change is required")
@@ -261,8 +261,8 @@ class Login(Mocha):
 
                 # WITH OAUTH, we can straight up login user
                 if with_oauth and oauth_provider and oauth_user_id:
-                    user.add_social_login(oauth_provider, oauth_user_id)
-                    login_user(user)
+                    user.add_federation(oauth_provider, oauth_user_id)
+                    create_session(user)
                     return redirect(request.form.get(
                         "next") or views.auth.Account.account_settings)
 
@@ -303,8 +303,8 @@ class Login(Mocha):
         oauth_session = get_oauth_session()
         if oauth_session:
             if "provider" in oauth_session and "user_id" in oauth_session:
-                user.add_social_login(provider=oauth_session.get("provider"),
-                                      social_id=oauth_session.get("user_id"))
+                user.add_federated_login(provider=oauth_session.get("provider"),
+                                      federated_id=oauth_session.get("user_id"))
         delete_oauth_session()
 
     @render.nav("Lost Password")
@@ -496,9 +496,9 @@ class Login(Mocha):
         if action == "authorized" and oauth_user_id:
             if is_authenticated():
                 try:
-                    # Add social login to current_user
-                    current_user.add_social_login(provider=provider,
-                                                  social_id=oauth_user_id)
+                    # Add federated login to current_user
+                    current_user.add_federated_login(provider=provider,
+                                                  federated_id=oauth_user_id)
                     flash_success(
                         "You can now login with your %s account" % provider.upper())
                 except Exception as e:
@@ -508,9 +508,9 @@ class Login(Mocha):
             # User not logged in
             else:
                 # Existing user
-                user = authenticate_social_login(provider, oauth_user_id)
+                user = with_federation(provider, oauth_user_id)
                 if user:
-                    login_user(user)
+                    create_session(user)
                     return redirect(request.args.get("next") or __options__.get(
                         "login_view"))
 

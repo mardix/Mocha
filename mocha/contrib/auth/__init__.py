@@ -185,7 +185,7 @@ def _user(user):
     return UserModel(user) if user else None
 
 
-def create_user(username, password, email=None, first_name="", last_name="",
+def create_user(username, password=None, email=None, first_name="", last_name="",
                 role="MEMBER", login_method=None):
     """
     Create a new user
@@ -213,31 +213,29 @@ def create_user(username, password, email=None, first_name="", last_name="",
     return signals.create_user(cb)
 
 
-def get_user_by_id(id):
+def get_user(id=None, username=None, email=None, federated_id=None, provider=None, jwt=None):
     """
-    To get a user by id
-    :param id: int
-    :return: AuthUser
-    """
-    return _user(models.AuthUser.get(id))
-
-
-def get_user_by_username(username):
-    """
-    Return AuthUser by username
+    Retrieve the user based on the data provided
+     
+    :param id: 
     :param username: 
+    :param email: 
+    :param federated_id: 
+    :param provider:
+    :param jwt: 
     :return: AuthUser
     """
-    return _user(models.AuthUser.get_by_username(username))
-
-
-def get_user_by_email(email):
-    """
-    Return AuthUser by email
-    :param email:
-    :return: AuthUser
-    """
-    return _user(models.AuthUser.get_by_email(email))
+    if id:
+        return _user(models.AuthUser.get(id))
+    elif username:
+        return _user(models.AuthUser.get_by_username(username))
+    elif email:
+        return _user(models.AuthUser.get_by_email(email))
+    elif federated_id and provider:
+        user = models.AuthUserFederation.get_user(provider, federated_id)
+        return _user(user) if user else None
+    elif jwt:
+        pass
 
 
 def get_user_by_jwt(token=None):
@@ -283,7 +281,7 @@ def get_user_by_action_token(action, token):
     return get_user_by_id(int(data))
 
 
-def authenticate(username, password):
+def with_username(username, password):
     """
     To authenticate a user with user and password
     *** authenticate doesn't create a session. To create a session, 
@@ -296,28 +294,26 @@ def authenticate(username, password):
     return _user(user) if user and user.password_matched(password) else None
 
 
-def authenticate_social_login(provider, social_id):
+def with_federation(provider, federated_id):
     """
-    To authenticate with social login
+    To authenticate with Federated Login
     :param provider:
-    :param social_id:
+    :param federated_id:
     :return: UserModel
     """
-    user = models.AuthUserSocialLogin.get_user(provider, social_id)
-    return _user(user) if user else None
+    return get_user(federated_id=federated_id, provider=provider)
 
 
-def login_user(user):
+def create_session(user):
     """
-    Login and create a session
-    :param user:
+    Create the login session 
+    :param user: UserModel
     :return:
     """
 
     def cb():
         if user:
-            if __options__.get(
-                    "require_email_verification") and not user.email_verified:
+            if __options__.get("require_email_verification") and not user.email_verified:
                 raise exceptions.VerifyEmailError()
             if flask_login.login_user(user):
                 user.update(last_login_at=utc_now())
@@ -642,19 +638,18 @@ class UserModel(flask_login.UserMixin):
                              base_url=base_url,
                              action_token=action_token,
                              signed_data=signed_data)
-
         return url
 
-    def add_social_login(self, provider, social_id):
+    def add_federation(self, provider, federated_id):
         """
-        Add social login to the current user
+        Add federated login to the current user
         :param provider:
-        :param social_id:
+        :param federated_id:
         :return:
         """
-        models.AuthUserSocialLogin.new(user=self,
-                                       provider=provider,
-                                       social_id=social_id)
+        models.AuthUserFederation.new(user=self,
+                                      provider=provider,
+                                      federated_id=federated_id)
 
 
 # ------------------------------------------------------------------------------
@@ -691,7 +686,6 @@ def session_get_require_password_change():
 
 
 class CLI(mocha.cli.Manager):
-
     def __init__(self, command, click):
         @command("auth:create-super-admin")
         @click.argument("email")
@@ -782,3 +776,31 @@ class CLI(mocha.cli.Manager):
 # ---
 
 from .decorators import *
+
+
+# -----
+# DEPRACTED
+
+def get_user_by_id(id):
+    # Deprecated
+    return get_user(id=id)
+
+
+def get_user_by_username(username):
+    # Deprecated
+    return get_user(username=username)
+
+
+def get_user_by_email(email):
+    # Deprecated
+    return get_user(email=email)
+
+
+def authenticate(username, password):
+    # deprecated
+    return with_username(username, password)
+
+
+def login_user(user):
+    # Deprecated
+    return create_session(user)

@@ -45,6 +45,7 @@ setup(
     py_modules=['mocha'],
     entry_points=dict(console_scripts=[
         'mocha=mocha.cli:cmd',
+        'mocha-brew=mocha.cli:brew',
     ]),
     include_package_data=True,
     packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),

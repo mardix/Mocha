@@ -136,11 +136,11 @@ Now Mocha has been installed, let's create our first application
         |
         |__ propel.yml
         |
-        |__requirements.txt
+        |__ requirements.txt
         |
-        |__ mocha_init.py
+        |__ brew.py
         |
-        |__ app/
+        |__ application/
             |
             |__ __init__.py
             |
@@ -185,6 +185,9 @@ Now Mocha has been installed, let's create our first application
                 |__ /babel/
                 |
                 |__ /mail-templates/
+            |
+            |__ /lib/
+
 
 
 #### Install front end components

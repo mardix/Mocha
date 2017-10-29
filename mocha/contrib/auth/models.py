@@ -302,38 +302,38 @@ class AuthUser(db.Model):
             else False
 
 
-class AuthUserSocialLogin(db.Model):
+class AuthUserFederation(db.Model):
     """
-    Only store the provider name and social_id, to match user
+    Only store the provider name and federated id, to match user
     """
     user_id = db.Column(db.Integer, db.ForeignKey(AuthUser.id))
     provider = db.Column(db.String(50), index=True)
-    social_id = db.Column(db.String(255), index=True)
-    user = db.relationship(AuthUser, backref='social_logins')
+    federated_id = db.Column(db.String(255), index=True)
+    user = db.relationship(AuthUser, backref='federated_logins')
     active = db.Column(db.Boolean, default=True)
 
     @classmethod
-    def get_user(cls, provider, social_id):
+    def get_user(cls, provider, federated_id):
         login = cls.query() \
             .filter(cls.provider == provider) \
-            .filter(cls.social_id == social_id) \
+            .filter(cls.federated_id == federated_id) \
             .first()
         return login.user if login else None
 
     @classmethod
-    def new(cls, user, provider, social_id):
+    def new(cls, user, provider, federated_id):
         """
         Create a new login
         :param user: AuthUser
         :param provider: str - ie: facebook, twitter, ...
-        :param social_id: str - an id associated to provider
+        :param federated_id: str - an id associated to provider
         :return:
         """
-        if cls.get_user(provider, social_id):
-            raise exceptions.AuthError("Social Login exists already")
+        if cls.get_user(provider, federated_id):
+            raise exceptions.AuthError("Federation already")
 
         return cls.create(user_id=user.id,
                           provider=provider,
-                          social_id=social_id)
+                          federated_id=federated_id)
 
 
