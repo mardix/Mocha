@@ -98,7 +98,7 @@ class AuthUser(db.Model):
     @classmethod
     def new(cls,
             username,
-            password,
+            password=None,
             email=None,
             first_name="",
             last_name="",
@@ -121,6 +121,9 @@ class AuthUser(db.Model):
             "last_name": last_name,
             "email": email
         }
+
+        if not password:
+            password = utils.generate_random_string()
 
         username = username.strip().lower()
         if "@" in username and not email:

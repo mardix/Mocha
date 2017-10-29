@@ -705,7 +705,7 @@ class Account(Mocha):
                 if not password.strip() or password.strip() != password2.strip():
                     raise exceptions.AuthError("Passwords don't match")
                 else:
-                    new_login = models.AuthUserLogin.new(login_type="email",
+                    new_login = models.AuthUserLogin.new(login_method="email",
                                                          user_id=current_user.id,
                                                          email=email,
                                                          password=password.strip())
