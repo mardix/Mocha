@@ -238,7 +238,7 @@ def get_user(id=None, username=None, email=None, federated_id=None, provider=Non
         pass
 
 
-def get_user_by_jwt(token=None):
+def get_user_by_auth_token(token=None):
     """
     Return the AuthUser associated to the token, otherwise it will return None.
     If token is not provided, it will pull it from the headers: Authorization
@@ -248,21 +248,14 @@ def get_user_by_jwt(token=None):
     :param token:
     :return: AuthUser
     """
-
     if not token:
-        if not 'Authorization' in request.headers:
-            raise exceptions.AuthError("Missing Authorization Bearer in headers")
-        data = request.headers['Authorization'].encode('ascii', 'ignore')
-        token = str.replace(str(data), 'Bearer ', '').strip()
-
+        token = request.get_auth_token()
     secret_key = get_jwt_secret()
-
     s = utils.unsign_jwt(token=token,
                          secret_key=secret_key,
                          salt=get_jwt_salt())
     if "id" not in s:
         raise exceptions.AuthError("Invalid Authorization Bearer Token")
-
     return get_user_by_id(int(s["id"]))
 
 
@@ -804,3 +797,8 @@ def authenticate(username, password):
 def login_user(user):
     # Deprecated
     return create_session(user)
+
+
+def get_user_by_jwt(token):
+    # Deprecated
+    return get_user_by_auth_token(token)

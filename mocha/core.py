@@ -543,12 +543,10 @@ class _RequestProxy(object):
         """ decorator to accept ALL methods """
         return cls._accept_method(["GET", "POST", "DELETE", "PUT", "OPTIONS", "UPDATE"], f)
 
-
     @classmethod
     def options(cls, f):
         """ decorator to accept OPTIONS methods """
         return cls._accept_method(["OPTIONS"], f)
-
 
     @classmethod
     def route(cls, rule=None, **kwargs):
@@ -594,11 +592,20 @@ class _RequestProxy(object):
 
         return decorator
 
-
     def __getattr__(self, item):
         # Fall back to flask_request
         return getattr(f_request, item)
 
+    @classmethod
+    def get_auth_token(cls):
+        """
+        Return the authorization token
+        :return: string
+        """
+        if 'Authorization' not in f_request.headers:
+            raise ValueError("Missing Authorization Bearer in headers")
+        data = f_request.headers['Authorization'].encode('ascii', 'ignore')
+        return str.replace(str(data), 'Bearer ', '').strip()
 
 request = _RequestProxy()
 
