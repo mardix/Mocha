@@ -510,11 +510,7 @@ class _RequestProxy(object):
             "append_method": True,
             "methods": methods
         }
-        if inspect.isclass(f):
-            for name, method in get_interesting_members(Mocha, f):
-                Mocha._bind_route_rule_cache(method, rule=None, **kw)
-        else:
-            Mocha._bind_route_rule_cache(f, rule=None, **kw)
+        Mocha._bind_route_rule_cache(f, rule=None, **kw)
         return f
 
     @classmethod
